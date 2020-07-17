@@ -5,6 +5,8 @@ target/
 .idea/
 .idea
 */.gradle/**
+*/build/**
+*/gradle/**
 .repository/
 *.iml
 *.iws
