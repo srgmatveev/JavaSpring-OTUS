@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'org.sergio'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+ext {
+    springFrameworkVersion = "5.2.7.RELEASE"
+    testNgVersion = "7.1.0"
+}
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.springframework:spring-core:$springFrameworkVersion"
+    implementation "org.springframework:spring-context:$springFrameworkVersion"
+    implementation "org.springframework:spring-test:$springFrameworkVersion"
+}
+
+dependencies {
+    testImplementation "org.testng:testng:$testNgVersion"
+}
+test {
+    useTestNG()
+}

@@ -1,0 +1,12 @@
+﻿#############
+## Idea
+#############
+target/
+.idea/
+.idea
+*/.gradle/**
+.repository/
+*.iml
+*.iws
+*.jar
+
