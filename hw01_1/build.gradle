@@ -28,3 +28,25 @@ dependencies {
 test {
     useTestNG()
 }
+
+// Include dependent libraries in archive.
+ext {
+    mainClassName = "Main"
+}
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+            {
+                exclude "META-INF/*.txt"
+                exclude "META-INF/*.handlers"
+                exclude "META-INF/*.schemas"
+                exclude "META-INF/*.tooling"
+                exclude "META-INF/*.factories"
+            }
+
+
+}
