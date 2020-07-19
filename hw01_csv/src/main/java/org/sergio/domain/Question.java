@@ -8,6 +8,11 @@ public class Question {
     private List<String> answers = new ArrayList<>();
     private int rightAnswer;
 
+    public Question() {
+        question = "";
+        rightAnswer = 0;
+    }
+
     public Question(String question, List<String> answers, int rightAnswer) {
         this.question = question;
         this.answers = answers;
