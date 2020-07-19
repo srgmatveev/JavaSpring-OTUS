@@ -30,4 +30,13 @@ public class Question {
     public int getRightAnswer() {
         return rightAnswer;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answers=" + answers +
+                ", rightAnswer=" + rightAnswer +
+                '}';
+    }
 }
