@@ -2,7 +2,10 @@ package dao;
 
 import org.sergio.domain.Question;
 
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +15,44 @@ import java.util.regex.Pattern;
 public class CSVQuestionDao implements QuestionDao {
     private Path csvFile;
 
+    public CSVQuestionDao() {
+    }
+
+    public CSVQuestionDao(Path path) {
+
+        if (Files.exists(path) && Files.isRegularFile(path))
+            this.csvFile = path;
+        else throw new IllegalArgumentException("wrong CSV file path " + path);
+
+    }
+
+
     @Override
-    public List<Question> readFile() {
-        return null;
+    public List<Question> readAll() {
+        List<Question> questions = new ArrayList<>();
+        InputStream is = null;
+        try {
+            is = Files.newInputStream(csvFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return questions;
+        }
+        try (
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader reader = new BufferedReader(isr);
+        ) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                Question question = this.parseString(line);
+                if (!question.isEmpty())
+                    questions.add(question);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return questions;
     }
 
     private Question parseString(String str) {

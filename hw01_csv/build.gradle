@@ -24,6 +24,17 @@ dependencies {
 
 dependencies {
     testImplementation "org.testng:testng:$testNgVersion"
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.4.4'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-inline
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.4.4'
+    // https://mvnrepository.com/artifact/com.google.jimfs/jimfs
+    testImplementation group: 'com.google.jimfs', name: 'jimfs', version: '1.1'
+
+
+
+
 }
 test {
     useTestNG()

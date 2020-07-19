@@ -1,28 +1,71 @@
 package dao;
 
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.sergio.domain.Question;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.nio.file.attribute.FileAttribute;
 import java.util.List;
 
 import static org.testng.Assert.*;
 
 public class CSVQuestionDaoTest extends Assert {
-    private Method parsePattern;
-    private CSVQuestionDao csvQuestionDao;
     private Method parseString;
+    private Method parsePattern;
+    private Method readAll;
+    private CSVQuestionDao csvQuestionDao;
+
+
+    Path create(Path path, String fileName) {
+        Path filePath = path.resolve(fileName);
+        try {
+            return Files.createFile(filePath);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    void update(Path path, String[] newContent) {
+        try {
+            for (int i = 0; i < newContent.length; i++) {
+                Files.write(path, newContent[i].getBytes(), StandardOpenOption.APPEND);
+            }
+
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
 
     @BeforeMethod
     public void setUp() throws NoSuchMethodException {
-        csvQuestionDao = new CSVQuestionDao();
+        FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
+        String fileName = "testFile.csv";
+        Path pathToStore = fileSystem.getPath("");
+        Path path = create(pathToStore, fileName);
+        csvQuestionDao = new CSVQuestionDao(path);
+        String[] fileCSV = {
+                "\"Имя собаки Герасима\",\"Муму\",\"Жужу\",\"Белка\",\"Стрелка\", \"Лайма, Фигайма\",1\n",
+                "\"Имя создателя Linux\",\"Adolf\",\"Linus\",\"Pingus\",\"Richard\",\"Batman\",2\n",
+        };
+        update(path, fileCSV);
         parsePattern = csvQuestionDao.getClass().getDeclaredMethod("parsePattern", String.class);
         parsePattern.setAccessible(true);
         parseString = csvQuestionDao.getClass().getDeclaredMethod("parseString", String.class);
+        parseString.setAccessible(true);
+        readAll = csvQuestionDao.getClass().getDeclaredMethod("readAll");
         parseString.setAccessible(true);
 
     }
@@ -63,5 +106,12 @@ public class CSVQuestionDaoTest extends Assert {
     public void testParseString(String string, String expected) throws InvocationTargetException, IllegalAccessException {
         Question question = (Question) parseString.invoke(csvQuestionDao, string);
         assertEquals(question.toString(), expected);
+    }
+
+    @Test
+    public void testReadAll() throws InvocationTargetException, IllegalAccessException {
+
+        List<Question> questions = (List<Question>) readAll.invoke(csvQuestionDao);
+        System.out.println(questions);
     }
 }

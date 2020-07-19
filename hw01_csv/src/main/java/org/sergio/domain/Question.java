@@ -31,6 +31,14 @@ public class Question {
         return rightAnswer;
     }
 
+    public boolean isEmpty() {
+        if (question == null || question.isEmpty()) return true;
+        if (answers.size() == 0) return true;
+        if (rightAnswer == 0 || rightAnswer >= answers.size())
+            return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
