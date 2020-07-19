@@ -112,6 +112,7 @@ public class CSVQuestionDaoTest extends Assert {
     public void testReadAll() throws InvocationTargetException, IllegalAccessException {
 
         List<Question> questions = (List<Question>) readAll.invoke(csvQuestionDao);
-        System.out.println(questions);
+        String out ="[Question{question='Имя собаки Герасима', answers=[Муму, Жужу, Белка, Стрелка, Лайма, Фигайма], rightAnswer=1}, Question{question='Имя создателя Linux', answers=[Adolf, Linus, Pingus, Richard, Batman], rightAnswer=2}]";
+        assertEquals(questions.toString(), out);
     }
 }
