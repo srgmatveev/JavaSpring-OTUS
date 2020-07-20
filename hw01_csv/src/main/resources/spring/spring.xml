@@ -8,7 +8,7 @@
     <bean id="personService" class="service.PersonServiceImpl" scope="prototype"/>
     <bean id="simplePersonService" class="service.PersonServiceSimpleImpl" scope="prototype"/>
     <bean id="questionDao" class="dao.CSVQuestionDao">
-        <constructor-arg name="fileName" value="/csv/questions.csv">
+        <constructor-arg name="fileName" type="java.lang.String" value="/csv/questions.csv">
         </constructor-arg>
     </bean>
     <bean id="testQuestionService" class="service.TestQuestionServiceImpl">

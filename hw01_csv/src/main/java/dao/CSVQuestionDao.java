@@ -19,7 +19,30 @@ public class CSVQuestionDao implements QuestionDao {
 
     public CSVQuestionDao(String fileName) throws URISyntaxException {
         URL resource = this.getClass().getResource(fileName);
-        Path path = Paths.get(resource.toURI());
+        File file = null;
+        if (resource.toString().startsWith("jar:")) {
+            try {
+                InputStream input = getClass().getResourceAsStream(fileName);
+                file = File.createTempFile("tempfile", ".tmp");
+                OutputStream out = new FileOutputStream(file);
+                int read;
+                byte[] bytes = new byte[1024];
+                while ((read = input.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                file.deleteOnExit();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (file != null && !file.exists()) {
+            throw new RuntimeException("Error: File " + file + " not found!");
+        }
+        Path path;
+        if (file == null)
+            path = Paths.get(resource.toURI());
+        else
+            path = file.toPath();
         init(path);
     }
 
