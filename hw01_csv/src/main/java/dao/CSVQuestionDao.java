@@ -3,6 +3,8 @@ package dao;
 import org.sergio.domain.Question;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,17 +17,22 @@ import java.util.regex.Pattern;
 public class CSVQuestionDao implements QuestionDao {
     private Path csvFile;
 
-    public CSVQuestionDao() {
+    public CSVQuestionDao(String fileName) throws URISyntaxException {
+        URL resource = this.getClass().getResource(fileName);
+        Path path = Paths.get(resource.toURI());
+        init(path);
     }
 
-    public CSVQuestionDao(Path path) {
 
+    public CSVQuestionDao(Path path) {
+        init(path);
+    }
+
+    private void init(Path path) {
         if (Files.exists(path) && Files.isRegularFile(path))
             this.csvFile = path;
         else throw new IllegalArgumentException("wrong CSV file path " + path);
-
     }
-
 
     @Override
     public List<Question> readAll() {

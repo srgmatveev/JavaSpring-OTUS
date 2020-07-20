@@ -14,7 +14,7 @@ public class TestQuestionServiceImpl implements TestQuestionService{
 
     @Override
     public List<Question> readAll() {
-        return null;
+        return dao.readAll();
     }
 
     @Override

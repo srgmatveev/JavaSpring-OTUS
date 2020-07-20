@@ -5,6 +5,19 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="person" class="org.sergio.domain.Person" scope="prototype"/>
+    <bean id="personService" class="service.PersonServiceImpl" scope="prototype"/>
+    <bean id="simplePersonService" class="service.PersonServiceSimpleImpl" scope="prototype"/>
+    <bean id="questionDao" class="dao.CSVQuestionDao">
+        <constructor-arg name="fileName" value="/csv/questions.csv">
+        </constructor-arg>
+    </bean>
+    <bean id="testQuestionService" class="service.TestQuestionServiceImpl">
+        <constructor-arg name="dao" ref="questionDao"/>
+    </bean>
+    <bean id="askQuestion" class="service.AskQuestionServiceImpl">
+        <constructor-arg name="testQuestionService" ref="testQuestionService"/>
+    </bean>
+    <bean id="consoleResultService" class="service.ConsoleResultServiceImpl" scope="prototype"/>
     <!--<bean id="personDao" class="dao.PersonDaoSimpleImpl">
     </bean>
     <bean id="personService" class="service.PersonServiceImpl">

@@ -34,7 +34,7 @@ public class Question {
     public boolean isEmpty() {
         if (question == null || question.isEmpty()) return true;
         if (answers.size() == 0) return true;
-        if (rightAnswer == 0 || rightAnswer >= answers.size())
+        if (rightAnswer == 0 || rightAnswer > answers.size())
             return true;
         return false;
     }
