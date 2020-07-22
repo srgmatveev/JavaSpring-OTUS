@@ -1,6 +1,10 @@
 package org.sergio.dao;
 
 import org.sergio.domain.Question;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -10,13 +14,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+@Repository
 
 public class CSVQuestionDao implements QuestionDao {
     private Path csvFile;
 
-    public CSVQuestionDao(String fileName) throws URISyntaxException {
+    public CSVQuestionDao(@Value("${csv.file}")String fileName) throws URISyntaxException {
         URL resource = this.getClass().getResource(fileName);
         File file = null;
         if (resource.toString().startsWith("jar:")) {
@@ -43,12 +50,9 @@ public class CSVQuestionDao implements QuestionDao {
         else
             path = file.toPath();
         init(path);
+
     }
 
-
-    public CSVQuestionDao(Path path) {
-        init(path);
-    }
 
     private void init(Path path) {
         if (Files.exists(path) && Files.isRegularFile(path))

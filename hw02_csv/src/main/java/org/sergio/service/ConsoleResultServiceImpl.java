@@ -1,8 +1,10 @@
 package org.sergio.service;
 
 import org.sergio.domain.Question;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
+
 
 public class ConsoleResultServiceImpl implements ResultService {
     private PersonService personService;
