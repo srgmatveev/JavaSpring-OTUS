@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="person" class="org.sergio.domain.Person" scope="prototype"/>
+    <bean id="personService" class="org.sergio.service.PersonServiceImpl" scope="prototype"/>
+    <bean id="simplePersonService" class="org.sergio.service.PersonServiceSimpleImpl" scope="prototype"/>
+    <bean id="questionDao" class="org.sergio.dao.CSVQuestionDao">
+        <constructor-arg name="fileName" type="java.lang.String" value="/csv/questions.csv">
+        </constructor-arg>
+    </bean>
+    <bean id="testQuestionService" class="org.sergio.service.TestQuestionServiceImpl">
+        <constructor-arg name="dao" ref="questionDao"/>
+    </bean>
+    <bean id="askQuestion" class="org.sergio.service.AskQuestionServiceImpl">
+        <constructor-arg name="testQuestionService" ref="testQuestionService"/>
+    </bean>
+    <bean id="consoleResultService" class="org.sergio.service.ConsoleResultServiceImpl" scope="prototype"/>
+    <!--<bean id="personDao" class="dao.PersonDaoSimpleImpl">
+    </bean>
+    <bean id="personService" class="PersonServiceImpl">
+        <constructor-arg name="dao" ref="personDao"/>
+    </bean>
+    -->
+</beans>
