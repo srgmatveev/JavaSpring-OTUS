@@ -3,13 +3,15 @@ package org.sergio.dao;
 import org.sergio.domain.Person;
 import org.sergio.exceptions.PersonDaoException;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@Service("personDAO")
 public class PersonDaoImpl implements PersonDao {
-    private List<Person> people = new ArrayList<Person>();
+    private List<Person> people;
 
     private final MessageSource messageSource;
 

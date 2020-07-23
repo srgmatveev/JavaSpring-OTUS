@@ -27,8 +27,9 @@ public class AppConfig {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("/i18n/messages");
-        messageSource.setBasename("/i18n/files");
+        messageSource.setBasename("classpath:/i18n/messages");
+        messageSource.addBasenames("classpath:/i18n/files");
+        messageSource.addBasenames("classpath:/i18n/exception-messages");
         messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
         return messageSource;
     }

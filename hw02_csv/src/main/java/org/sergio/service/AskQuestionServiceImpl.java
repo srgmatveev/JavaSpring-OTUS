@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Service("askQuestionService")
 public class AskQuestionServiceImpl implements AskQuestionService {
     private TestQuestionService testQuestionService;
     private Map<Question, Integer> map;

@@ -5,15 +5,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-
+@Service("resultService")
 public class ConsoleResultServiceImpl implements ResultService {
     private PersonService personService;
-    private PersonService simplePersonService;
     private AskQuestionService askQuestionService;
 
-    public ConsoleResultServiceImpl(PersonService personService, PersonService simplePersonService, AskQuestionService askQuestionService) {
+    public ConsoleResultServiceImpl(PersonService personService, AskQuestionService askQuestionService) {
         this.personService = personService;
-        this.simplePersonService = simplePersonService;
         this.askQuestionService = askQuestionService;
     }
 
@@ -26,8 +24,8 @@ public class ConsoleResultServiceImpl implements ResultService {
     @Override
     public void writeResult() {
         ConsoleHelper.writeMessage("");
-        ConsoleHelper.writeMessage("Результат тестирования пользователя "
-                + simplePersonService.writeName() + " " + simplePersonService.writeSurname());
+        ConsoleHelper.writeMessage("Результат тестирования пользователя:"
+                + personService.writeFullName());
         printQuestions();
         printTotal();
     }
