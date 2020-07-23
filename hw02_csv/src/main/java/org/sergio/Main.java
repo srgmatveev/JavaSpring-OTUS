@@ -17,7 +17,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Locale.setDefault(new Locale("ru", "RU"));
+//        Locale.setDefault(new Locale("ru", "RU"));
         AnnotationConfigApplicationContext ctx =
                 new AnnotationConfigApplicationContext();
         ctx.register(MethodHandles.lookup().lookupClass());
@@ -26,9 +26,9 @@ public class Main {
     }
 
     private static void run(ApplicationContext context) throws IOException {
-       ResultService resultService = (ResultService) context.getBean("resultService");
-      AskQuestionService questionService = (AskQuestionService) context.getBean("askQuestionService");
-        if(resultService!=null){
+        ResultService resultService = (ResultService) context.getBean("resultService");
+        AskQuestionService questionService = (AskQuestionService) context.getBean("askQuestionService");
+        if (resultService != null) {
             resultService.writeHeader();
             questionService.askQuestions();
             resultService.writeResult();

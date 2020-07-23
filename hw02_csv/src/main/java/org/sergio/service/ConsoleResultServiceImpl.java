@@ -1,18 +1,22 @@
 package org.sergio.service;
 
 import org.sergio.domain.Question;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Map;
 
 @Service("resultService")
 public class ConsoleResultServiceImpl implements ResultService {
-    private PersonService personService;
-    private AskQuestionService askQuestionService;
+    private final PersonService personService;
+    private final AskQuestionService askQuestionService;
+    private final MessageSource ms;
 
-    public ConsoleResultServiceImpl(PersonService personService, AskQuestionService askQuestionService) {
+    public ConsoleResultServiceImpl(PersonService personService, AskQuestionService askQuestionService, MessageSource ms) {
         this.personService = personService;
         this.askQuestionService = askQuestionService;
+        this.ms = ms;
     }
 
     @Override
@@ -24,8 +28,9 @@ public class ConsoleResultServiceImpl implements ResultService {
     @Override
     public void writeResult() {
         ConsoleHelper.writeMessage("");
-        ConsoleHelper.writeMessage("Результат тестирования пользователя:"
-                + personService.writeFullName());
+      String format = ms.getMessage("result.user.pattern", null, Locale.getDefault());
+      String resUserFullName = String.format(format,personService.writeFullName());
+        ConsoleHelper.writeMessage(resUserFullName);
         printQuestions();
         printTotal();
     }
@@ -41,16 +46,17 @@ public class ConsoleResultServiceImpl implements ResultService {
             else ++wrong;
         }
 
-        ConsoleHelper.writeMessage(String.format("Всего вопросов %d. Правильно: %d. Неверно: %d", count, right, wrong));
+       Integer[] arr= { count, right, wrong};
+        ConsoleHelper.writeMessage(ms.getMessage("result.final.pattern", arr, Locale.getDefault()));
     }
 
     private void printQuestions() {
         Map<Question, Integer> map = askQuestionService.getResult();
         map.forEach((k, v) -> {
             if (k.getRightAnswer() == v) {
-                ConsoleHelper.writeMessage(k.getQuestion() + ": Верно.");
+                ConsoleHelper.writeMessage(k.getQuestion() + ms.getMessage("result.final.right", null,Locale.getDefault()));
             } else {
-                ConsoleHelper.writeMessage(k.getQuestion() + ": Неверно.");
+                ConsoleHelper.writeMessage(k.getQuestion() + ms.getMessage("result.final.wrong", null,Locale.getDefault()));
             }
         });
     }

@@ -1,19 +1,23 @@
 package org.sergio.service;
 
 import org.sergio.domain.Question;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Service("askQuestionService")
 public class AskQuestionServiceImpl implements AskQuestionService {
     private TestQuestionService testQuestionService;
     private Map<Question, Integer> map;
+    private MessageSource ms;
 
-    public AskQuestionServiceImpl(TestQuestionService testQuestionService) {
+    public AskQuestionServiceImpl(MessageSource ms, TestQuestionService testQuestionService) {
+        this.ms = ms;
         this.testQuestionService = testQuestionService;
         this.map = new HashMap<>();
     }
@@ -22,7 +26,7 @@ public class AskQuestionServiceImpl implements AskQuestionService {
     public void askQuestions() throws IOException {
         List<Question> questions = testQuestionService.readAll();
         if (questions == null) return;
-        ConsoleHelper.writeMessage("Ответьте на вопросы");
+        ConsoleHelper.writeMessage(ms.getMessage("ask.questions", null, Locale.getDefault()));
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
             workWithQuestion(question);
@@ -33,9 +37,9 @@ public class AskQuestionServiceImpl implements AskQuestionService {
 
     private void workWithQuestion(Question question) throws IOException {
         ConsoleHelper.writeMessage(question.getQuestion());
-        ConsoleHelper.writeMessage("Варианты");
+        ConsoleHelper.writeMessage(ms.getMessage("ask.variants", null, Locale.getDefault()));
         ConsoleHelper.writeMessage(question.getAnswers().toString());
-        ConsoleHelper.writeMessage("Выберите вариант (нумерация с 1)");
+        ConsoleHelper.writeMessage(ms.getMessage("ask.select.variant", null, Locale.getDefault()));
         while (true)
             try {
                 int answer = Integer.parseInt(ConsoleHelper.readMessage());
@@ -43,7 +47,7 @@ public class AskQuestionServiceImpl implements AskQuestionService {
                 map.put(question, answer);
                 break;
             } catch (NumberFormatException e) {
-                ConsoleHelper.writeMessage("Недопустимый номер ответа");
+                ConsoleHelper.writeMessage(ms.getMessage("ask.wrong.number.select", null, Locale.getDefault()));
             }
     }
 

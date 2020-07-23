@@ -3,22 +3,26 @@ package org.sergio.service;
 import org.sergio.dao.PersonDao;
 import org.sergio.domain.Person;
 import org.sergio.exceptions.PersonDaoException;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Service(value = "personService")
 public class PersonServiceImpl implements PersonService {
-    private PersonDao personDao;
+    private final PersonDao personDao;
     private Person person;
     private String name;
     private String surName;
-    private static final boolean DEBUG = true;
+    private final MessageSource ms;
+    private final boolean DEBUG;
 
-    public PersonServiceImpl(PersonDao personDao) throws IOException {
+    public PersonServiceImpl(PersonDao personDao, MessageSource ms, @Value("${app.debug}") boolean debug) throws IOException {
         this.personDao = personDao;
+        this.ms = ms;
+        DEBUG = debug;
         while (true)
             try {
                 login();
@@ -27,7 +31,7 @@ public class PersonServiceImpl implements PersonService {
                 }
                 break;
             } catch (PersonDaoException ex) {
-                ConsoleHelper.writeMessage("Повторите ввод имени и фамилии");
+                ConsoleHelper.writeMessage(ms.getMessage("user.tested.repeat.input", null, Locale.getDefault()));
             }
     }
 
@@ -36,9 +40,9 @@ public class PersonServiceImpl implements PersonService {
             this.name = "Sergey";
             this.surName = "Matveev";
         } else {
-            ConsoleHelper.writeMessage("Введите имя");
+            ConsoleHelper.writeMessage(ms.getMessage("user.tested.name", null, Locale.getDefault()));
             this.name = ConsoleHelper.readMessage();
-            ConsoleHelper.writeMessage("Введите фамилию");
+            ConsoleHelper.writeMessage(ms.getMessage("user.tested.surname", null, Locale.getDefault()));
             this.surName = ConsoleHelper.readMessage();
         }
     }
@@ -47,14 +51,14 @@ public class PersonServiceImpl implements PersonService {
     public String writeName() {
 
         if (person != null)
-            return "Имя тестируемого пользователя: " + person.getName();
+            return ms.getMessage("user.tested.name", null, Locale.getDefault()) + " " + person.getName();
         else return null;
     }
 
     @Override
     public String writeSurname() {
         if (person != null)
-            return "Фамилия тестируемого пользователя: " + person.getSurName();
+            return ms.getMessage("user.tested.surname", null, Locale.getDefault()) + " " + person.getSurName();
         else return null;
     }
 
