@@ -11,6 +11,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @ComponentScan(basePackages = "org.sergio")
@@ -26,8 +27,9 @@ public class AppConfig {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("/i18/messages");
-        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setBasename("/i18n/messages");
+        messageSource.setBasename("/i18n/files");
+        messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
         return messageSource;
     }
 }

@@ -24,14 +24,14 @@
         </property>
     </bean>
 
-    <bean id="personDao" class="org.sergio.dao.PersonDaoImpl">
-        <constructor-arg name="messageSource" ref="messageSource"/>
-    </bean>
-
-<!--
-    <bean id="questionDao" class="org.sergio.dao.CSVQuestionDao">
+<!--    <bean id="personDao" class="org.sergio.dao.PersonDaoImpl">
         <constructor-arg name="messageSource" ref="messageSource"/>
     </bean>
 -->
+
+    <bean id="questionDao" class="org.sergio.dao.CSVQuestionDao">
+        <constructor-arg name="ms" ref="messageSource"/>
+    </bean>
+
 
 </beans>
