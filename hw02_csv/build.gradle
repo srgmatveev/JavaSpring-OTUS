@@ -1,0 +1,65 @@
+
+plugins {
+    id 'java'
+}
+
+group 'org.sergio'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+ext {
+    springFrameworkVersion = "5.2.8.RELEASE"
+    logbackVersion = "1.2.3"
+    testNgVersion = "7.1.0"
+    mockito = "3.4.4"
+    jimfs = "1.1"
+}
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.springframework:spring-core:$springFrameworkVersion"
+    implementation "org.springframework:spring-context:$springFrameworkVersion"
+    implementation "org.springframework:spring-test:$springFrameworkVersion"
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+
+}
+
+dependencies {
+    testImplementation "org.testng:testng:$testNgVersion"
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockito"
+    // https://mvnrepository.com/artifact/org.mockito/mockito-inline
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: "$mockito"
+    // https://mvnrepository.com/artifact/com.google.jimfs/jimfs
+    testImplementation group: 'com.google.jimfs', name: 'jimfs', version: "$jimfs"
+
+
+
+
+
+}
+test {
+    useTestNG()
+}
+
+// Include dependent libraries in archive.
+ext {
+    mainClassName = "org.sergio.Main"
+}
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    duplicatesStrategy = 'exclude'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+
+}
