@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationSettings {
     private String version = "0.1";
 
+
     public String getVersion() {
         return version;
     }

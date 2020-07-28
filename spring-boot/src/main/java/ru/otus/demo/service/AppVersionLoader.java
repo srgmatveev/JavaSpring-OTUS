@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.demo.config.ApplicationSettings;
 
 @Service
-public class AppVersionLoader {
+public class AppVersionLoader  {
     private String appVersion;
 
     public AppVersionLoader(ApplicationSettings applicationSettings) {
