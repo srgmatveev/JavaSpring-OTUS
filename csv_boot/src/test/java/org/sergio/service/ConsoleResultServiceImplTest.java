@@ -82,6 +82,7 @@ class ConsoleResultServiceImplTest {
         assertEquals("\n" +
                 "Resultat of the user test: Sergio Matveev\n" +
                 "Where was born Napoleon? Right.\n" +
-                "All questions 1. Right: 1. Wrong: 0.\n", outContent.toString());
+                "All questions 1. Right: 1. Wrong: 0.\nуцщкл 05" +
+                "", outContent.toString());
     }
 }

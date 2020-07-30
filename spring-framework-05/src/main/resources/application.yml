@@ -1,0 +1,31 @@
+greetings:
+  first-greeting: Привет
+  re-greeting: Рад снова тебя видеть
+
+
+condition:
+  friend: Игорь
+  #friend: Алиса
+
+spring:
+  profiles:
+    active: Вася, shell
+    #active: Аня
+
+  shell:
+    interactive:
+      enabled: false
+
+logging:
+  level:
+    root: ERROR
+
+life-cycle-demo-enabled: false
+
+---
+spring:
+  profiles: shell
+
+  shell:
+    interactive:
+      enabled: true

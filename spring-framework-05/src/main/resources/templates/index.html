@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced configuration demo</title>
+    <style>
+        body {
+            font-size: 16pt;
+        }
+
+        h3 {
+            color: CornflowerBlue;
+        }
+
+        li {
+            color: DarkGray;
+        }
+
+        p {
+            color: OrangeRed;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <h3>Демонстрация @Scope</h3>
+        <ul>
+            <li>Синглтон Скоуп должен говорить сначала "Привет", а потом все время "Рад снова тебя видеть"</li>
+            <li>Прототип Скоуп Первый должен говорить сначала "Привет", а потом все время "Рад снова тебя видеть"</li>
+            <li>Прототип Скоуп Второй должен говорить сначала "Пока жду", после обновления страницы "Привет", а потом все время "Рад снова тебя видеть"</li>
+            <li>Сешн Скоуп должен вести себя как Синглтон, но только до перезапуска браузера</li>
+            <li>Реквест Скоуп должен каждый раз говорить "Привет"</li>
+        </ul>
+    </p>
+
+    <p>
+        <h3>Демонстрация @Profile и @Conditional</h3>
+        <ul>
+            <li>При "condition.friend = Игорь" и "spring.profiles.active = Вася" привет передают друзья Игорь и Вася</li>
+            <li>При "condition.friend = Алиса" и "spring.profiles.active = Аня" привет передают друзья Алиса и Аня</li>
+        </ul>
+    </p>
+
+    <p>
+        <h3>Демонстрация жизненного цикла бинов</h3>
+        <ul>
+            <li>При "life-circle-demo-enabled = true" друг Игорь должен замениться на Арнольда, а у Синглтон Скоуп должно смениться привествие</li>
+        </ul>
+    </p>
+
+    <hr/>
+
+    <p th:text = "'Синглтон Скоуп сказал: ' + ${singletonGreeting}"></p>
+    <p th:text = "'Прототип Скоуп Первый сказал: ' + ${prototype1Greeting}"></p>
+    <p th:text = "'Прототип Скоуп Второй сказал: ' + ${prototype2Greeting}"></p>
+    <p th:text = "'Сешн Скоуп сказал: ' + ${sessionGreeting}"></p>
+    <p th:text = "'Реквест Скоуп сказал: ' + ${requestGreeting}"></p>
+
+    <p th:text = "'Кстати тут еще есть твои друзья ' + ${friend1} + ' и ' + ${friend2} + '. Они тоже передают привет!'"></p>
+
+</body>
+</html>
