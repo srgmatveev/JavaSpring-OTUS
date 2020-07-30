@@ -1,0 +1,7 @@
+app:
+  debug: true
+
+spring:
+  shell:
+    interactive:
+      enabled: true
