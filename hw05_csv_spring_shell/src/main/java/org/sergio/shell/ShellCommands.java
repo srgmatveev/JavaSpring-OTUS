@@ -6,6 +6,7 @@ import org.sergio.service.PersonServiceImpl;
 import org.sergio.service.ResultService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -13,6 +14,7 @@ import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.standard.ShellOption;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @ShellComponent
 public class ShellCommands {
@@ -20,9 +22,11 @@ public class ShellCommands {
     private String userName;
     private String userSurName;
     private ApplicationContext context;
+    private MessageSource ms;
 
-    public ShellCommands(@Qualifier("shellPersonService") PersonService personService, ApplicationContext context) {
+    public ShellCommands(@Qualifier("shellPersonService") PersonService personService, MessageSource ms, ApplicationContext context) {
         this.personService = personService;
+        this.ms = ms;
         this.context = context;
     }
 
@@ -31,7 +35,7 @@ public class ShellCommands {
         this.userName = userName;
         this.userSurName = userSurName;
         personService.login(userName, userSurName);
-        return String.format("Добро пожаловать: %s %s", userName, userSurName);
+        return String.format(ms.getMessage("shell.login", null, Locale.getDefault()), userName, userSurName);
     }
 
     @ShellMethod(value = "Goodbye command", key = {"g", "goodbye"})
@@ -39,7 +43,7 @@ public class ShellCommands {
     public String goodbye() {
         String ret = null;
         if ((userName != null && userSurName != null) || (!userName.isBlank() && !userSurName.isBlank())) {
-            ret = String.format("До свидания: %s %s", userName, userSurName);
+            ret = String.format(ms.getMessage("shell.logout", null, Locale.getDefault()), userName, userSurName);
             userName = null;
             userSurName = null;
         }
@@ -59,7 +63,7 @@ public class ShellCommands {
     }
 
     private Availability isPublishEventCommandAvailable() {
-        return userName == null || userName.isBlank() || userSurName == null || userSurName.isBlank() ? Availability.unavailable("Сначала залогиньтесь") : Availability.available();
+        return userName == null || userName.isBlank() || userSurName == null || userSurName.isBlank() ? Availability.unavailable(ms.getMessage("shell.notlogin", null, Locale.getDefault())) : Availability.available();
     }
 
 }

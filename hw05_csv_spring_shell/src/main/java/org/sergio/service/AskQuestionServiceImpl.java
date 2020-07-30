@@ -24,6 +24,7 @@ public class AskQuestionServiceImpl implements AskQuestionService {
 
     @Override
     public void askQuestions() throws IOException {
+        if (map != null) map.clear();
         List<Question> questions = testQuestionService.readAll();
         if (questions == null) return;
         ConsoleHelper.writeMessage(ms.getMessage("ask.questions", null, Locale.getDefault()));
