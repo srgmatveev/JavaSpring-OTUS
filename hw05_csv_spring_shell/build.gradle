@@ -1,0 +1,31 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'org.sergio'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext{
+    shell_version = "2.0.1.RELEASE"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    // https://mvnrepository.com/artifact/org.springframework.shell/spring-shell-starter
+    implementation group: 'org.springframework.shell', name: 'spring-shell-starter', version: "${shell_version}"
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
