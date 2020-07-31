@@ -30,6 +30,12 @@ public class Main {
 
         System.out.println(dao.getAll());
 
+        person = dao.getByID(1);
+        System.out.println(person.toString());
+        dao.deleteByID(2);
+        System.out.println(dao.getAll());
+        dao.deleteByID(2);
+        System.out.println(dao.getAll());
         // Console.main(args);
     }
 }
