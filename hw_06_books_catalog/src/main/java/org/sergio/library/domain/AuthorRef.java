@@ -9,5 +9,5 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 public class AuthorRef {
     private Long authorId;
-    private Long bookId;
+    //private Long bookId;
 }

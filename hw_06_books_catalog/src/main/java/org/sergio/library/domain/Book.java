@@ -16,14 +16,14 @@ public class Book {
     private Set<AuthorRef> authors = new HashSet<>();
 
     public void addAuthor(Author author) {
-        authors.add(new AuthorRef(author.getAuthorId(), bookId));
+        authors.add(new AuthorRef(author.getAuthorId()));
     }
 
     @MappedCollection(idColumn = "BOOK_ID")
     private Set<GenreRef> genres = new HashSet<>();
 
     public void addGenre(Genre genre) {
-        genres.add(new GenreRef(genre.getGenreId(), bookId));
+        genres.add(new GenreRef(genre.getGenreId()));
     }
 
 }
