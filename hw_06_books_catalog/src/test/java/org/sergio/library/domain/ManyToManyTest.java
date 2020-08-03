@@ -8,16 +8,16 @@ import org.sergio.library.dao.BookTestRepository;
 import org.sergio.library.dao.GenreTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//@ContextConfiguration( classes = { ManyConfig.class } )
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ManyToManyTest {
+
     @Autowired
     private AuthorTestRepository authorRepository;
 

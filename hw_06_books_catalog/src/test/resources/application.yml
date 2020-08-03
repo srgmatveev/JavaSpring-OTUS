@@ -10,5 +10,9 @@ spring:
 
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
+
+  shell:
+    interactive:
+      enabled: false
