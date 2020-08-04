@@ -33,7 +33,7 @@ public class BookRepo implements BookRepository {
         if (list != null) {
             if (list.size() == 0)
                 book = br.save(entity);
-            else book = (S) list.get(0);
+            else book = entity;
         }
         return book;
     }

@@ -23,7 +23,7 @@ public class CustomPersonDao implements PersonDao {
             if (list.size() == 0)
                 myPerson = personDao.save(person);
             else
-                myPerson = (S) list.get(0);
+                myPerson = person;
         }
         return myPerson;
     }

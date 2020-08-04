@@ -3,13 +3,11 @@ package org.sergio.library.service;
 import lombok.extern.slf4j.Slf4j;
 import org.sergio.library.dao.PersonDao;
 import org.sergio.library.domain.Person;
-import org.sergio.library.exceptions.PersonDaoException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 @Service(value = "shellPersonService")

@@ -9,11 +9,12 @@ import org.sergio.library.dao.GenreTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@ContextConfiguration( classes = { ManyConfig.class } )
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ManyToManyTest {
@@ -29,6 +30,8 @@ class ManyToManyTest {
 
     @Test
     @DisplayName("many-to-many-mapping-test")
+    @Sql(scripts = {"/schema.sql"},
+            config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED))
     void embeddedMappingTest() {
 
         Genre genre1 = genreRepository.save(getGenre1());

@@ -28,13 +28,18 @@ public class GenreRepo implements GenreRepository {
     }
 
     @Override
+    public List<Book> findBooksbyId(Long id) {
+        return gr.findBooksbyId(id);
+    }
+
+    @Override
     public <S extends Genre> S save(S entity) {
         List<Genre> list = gr.findByGenreName(entity.getGenreName());
         S genre = null;
         if (list != null) {
             if (list.size() == 0)
                 genre = gr.save(entity);
-            else genre = (S) list.get(0);
+            else genre = entity;
         }
         return genre;
     }

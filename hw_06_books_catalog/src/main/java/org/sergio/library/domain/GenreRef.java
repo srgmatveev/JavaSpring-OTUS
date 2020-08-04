@@ -9,6 +9,5 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 public class GenreRef {
     private Long genreId;
-    //private Long bookId;
 
 }

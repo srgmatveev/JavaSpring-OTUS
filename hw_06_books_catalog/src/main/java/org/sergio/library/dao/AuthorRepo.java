@@ -1,7 +1,7 @@
 package org.sergio.library.dao;
 
 import org.sergio.library.domain.Author;
-import org.sergio.library.domain.Person;
+import org.sergio.library.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -47,13 +47,18 @@ public class AuthorRepo implements AuthorRepository {
     }
 
     @Override
+    public List<Book> findBooksbyId(Long id) {
+        return ar.findBooksbyId(id);
+    }
+
+    @Override
     public <S extends Author> S save(S entity) {
         List<Author> list = findByAuthorNameAndAuthorSurName(entity.getAuthorName(), entity.getAuthorSurName());
         S author = null;
         if (list != null) {
             if (list.size() == 0)
                 author = ar.save(entity);
-            else author = (S) list.get(0);
+            else author =  entity;
         }
         return author;
     }
