@@ -18,9 +18,13 @@ public class CustomPersonDao implements PersonDao {
     @Override
     public <S extends Person> S save(S person) {
         List<Person> list = findByNameAndSurName(person.getName(), person.getSurName());
-        S myPerson = person;
-        if (list != null && list.size() == 0)
-            myPerson = personDao.save(person);
+        S myPerson = null;
+        if (list != null) {
+            if (list.size() == 0)
+                myPerson = personDao.save(person);
+            else
+                myPerson = (S) list.get(0);
+        }
         return myPerson;
     }
 

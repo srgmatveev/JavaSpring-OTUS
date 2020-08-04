@@ -40,31 +40,35 @@ class ManyToManyTest {
         Author author3 = authorRepository.save(getAuthor3());
         Author author4 = authorRepository.save(getAuthor4());
 
-        Book book1 =getBook1();
+        Book book1 = getBook1();
         book1.addAuthor(author2);
         book1.addAuthor(author3);
         book1.addGenre(genre2);
         Book createdBook1 = bookRepository.save(book1);
-        assertTrue(createdBook1!=null);
+        assertTrue(createdBook1 != null);
 
-        Book book2 =getBook2();
+        Book book2 = getBook2();
         book2.addAuthor(author4);
         book2.addGenre(genre1);
         book2.addGenre(genre3);
         Book createdBook2 = bookRepository.save(book2);
-        assertTrue(createdBook2!=null);
+        assertTrue(createdBook2 != null);
 
-        Book book3 =getBook3();
+        Book book3 = getBook3();
         book3.addAuthor(author1);
         book3.addGenre(genre3);
         Book createdBook3 = bookRepository.save(book3);
-        assertTrue(createdBook3!=null);
+        assertTrue(createdBook3 != null);
 
         assertTrue(bookRepository.existsById(book1.getBookId()));
         bookRepository.delete(book1);
         assertTrue(!bookRepository.existsById(book1.getBookId()));
 
         bookRepository.findAll().forEach(b -> System.err.println(b));
+
+        bookRepository.deleteAll();
+        authorRepository.deleteAll();
+        genreRepository.deleteAll();
     }
 
     private static Book getBook1() {
