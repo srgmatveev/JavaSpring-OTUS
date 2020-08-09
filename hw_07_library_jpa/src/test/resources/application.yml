@@ -1,0 +1,15 @@
+datasource:
+  url: jdbc:h2:mem:hw07_test_db
+  driverClassName: org.h2.Driver
+  username: sa
+  password: #password
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
