@@ -20,7 +20,9 @@ public class BookComments {
     @JoinColumn(name = "person_id")
     Person person;
 
-    LocalDateTime registeredAt;
+    private LocalDateTime registeredAt;
+
+    private String message;
 
 
 }

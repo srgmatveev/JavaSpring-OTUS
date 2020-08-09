@@ -15,6 +15,6 @@ public class Genre {
     @Column(name = "genre_id")
     private Long genreId;
     private String genreName;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Book> books;
 }
