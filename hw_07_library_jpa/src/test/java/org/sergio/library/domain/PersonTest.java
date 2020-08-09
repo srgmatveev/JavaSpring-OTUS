@@ -39,23 +39,23 @@ class PersonTest {
         Person person = new Person("Sergio", "Matveev");
         assertEquals(person.getPersonId(), null);
         person = personRepository.save(person);
-        assertEquals(person.getPersonId(), 1);
+        assertEquals(person.getPersonId(), 1, "Person id should be equals to 1");
         person = personRepository.save(new Person("Vasya", "Gorny"));
-        assertEquals(person.getPersonId(), 2);
+        assertEquals(person.getPersonId(), 2, "Person id should be equals to 2");
     }
 
     @Test
     void getName() {
         Person person = new Person("Mario", "Gorny");
         person = personRepository.save(person);
-        assertEquals(person.getName(), "Mario");
+        assertEquals(person.getName(), "Mario",  "Person name should be equals to Mario");
     }
 
     @Test
     void getSurName() {
         Person person = new Person("Mario", "Gorny");
         person = personRepository.save(person);
-        assertEquals(person.getSurName(), "Gorny");
+        assertEquals(person.getSurName(), "Gorny", "Person SurName should be equals to Gorny");
     }
 
     @Test
@@ -63,7 +63,7 @@ class PersonTest {
         Person person = new Person("Mario", "Gorny");
         person.setName("Sergio");
         person = personRepository.save(person);
-        assertEquals(person.getName(), "Sergio");
+        assertEquals(person.getName(),"Sergio", "Person name should be equals to Sergio");
     }
 
     @Test
@@ -71,7 +71,7 @@ class PersonTest {
         Person person = new Person("Mario", "Gorny");
         person.setSurName("Matveev");
         person = personRepository.save(person);
-        assertEquals(person.getSurName(), "Matveev");
+        assertEquals(person.getSurName(), "Matveev", "Person SurName should be equals to Matveev");
     }
 
 }
