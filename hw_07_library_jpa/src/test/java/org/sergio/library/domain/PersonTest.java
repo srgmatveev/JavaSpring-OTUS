@@ -86,11 +86,9 @@ class PersonTest {
     void getComments() {
         Set<BookComments> comments = new HashSet<>();
         BookComments comments1 = new BookComments();
-        comments1.setId(1l);
         comments1.setMessage("hello");
         BookComments comments2 = new BookComments();
         comments2.setMessage("world");
-        comments2.setId(2l);
         comments.add(comments1);
         comments.add(comments2);
         Person person = new Person("Sergio", "Matveev");
@@ -103,11 +101,9 @@ class PersonTest {
     void setComments() {
         Set<BookComments> comments = new HashSet<>();
         BookComments comments1 = new BookComments();
-        comments1.setId(1l);
         comments1.setMessage("hello");
         BookComments comments2 = new BookComments();
         comments2.setMessage("world");
-        comments2.setId(2l);
         comments.add(comments1);
         comments.add(comments2);
         Person person = new Person("Sergio", "Matveev");

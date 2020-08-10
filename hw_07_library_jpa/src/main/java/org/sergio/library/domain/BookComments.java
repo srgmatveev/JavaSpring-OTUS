@@ -1,6 +1,8 @@
 package org.sergio.library.domain;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class BookComments {
     @Id
+    @Setter(AccessLevel.NONE)
     Long id;
 
     @ManyToOne
