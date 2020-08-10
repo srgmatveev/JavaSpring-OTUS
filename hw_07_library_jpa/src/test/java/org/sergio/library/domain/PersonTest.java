@@ -1,9 +1,13 @@
 package org.sergio.library.domain;
 
+import org.hibernate.collection.internal.PersistentSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.internal.matchers.Equals;
+import org.sergio.library.dao.BookCommentsTestRepository;
 import org.sergio.library.dao.PersonTestRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +15,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +36,8 @@ class PersonTest {
 
     private PersonTestRepository personRepository;
 
-    public PersonTest(@Qualifier("personTestRepo") PersonTestRepository personRepository) {
+    public PersonTest(@Qualifier("personTestRepo") PersonTestRepository personRepository
+    ) {
         this.personRepository = personRepository;
     }
 
@@ -48,7 +56,7 @@ class PersonTest {
     void getName() {
         Person person = new Person("Mario", "Gorny");
         person = personRepository.save(person);
-        assertEquals(person.getName(), "Mario",  "Person name should be equals to Mario");
+        assertEquals(person.getName(), "Mario", "Person name should be equals to Mario");
     }
 
     @Test
@@ -63,7 +71,7 @@ class PersonTest {
         Person person = new Person("Mario", "Gorny");
         person.setName("Sergio");
         person = personRepository.save(person);
-        assertEquals(person.getName(),"Sergio", "Person name should be equals to Sergio");
+        assertEquals(person.getName(), "Sergio", "Person name should be equals to Sergio");
     }
 
     @Test
@@ -74,4 +82,38 @@ class PersonTest {
         assertEquals(person.getSurName(), "Matveev", "Person SurName should be equals to Matveev");
     }
 
+    @Test
+    void getComments() {
+        Set<BookComments> comments = new HashSet<>();
+        BookComments comments1 = new BookComments();
+        comments1.setId(1l);
+        comments1.setMessage("hello");
+        BookComments comments2 = new BookComments();
+        comments2.setMessage("world");
+        comments2.setId(2l);
+        comments.add(comments1);
+        comments.add(comments2);
+        Person person = new Person("Sergio", "Matveev");
+        person.setComments(comments);
+        Set<BookComments> commentsSet = person.getComments();
+        assertEquals(commentsSet.size(), 2);
+    }
+
+    @Test
+    void setComments() {
+        Set<BookComments> comments = new HashSet<>();
+        BookComments comments1 = new BookComments();
+        comments1.setId(1l);
+        comments1.setMessage("hello");
+        BookComments comments2 = new BookComments();
+        comments2.setMessage("world");
+        comments2.setId(2l);
+        comments.add(comments1);
+        comments.add(comments2);
+        Person person = new Person("Sergio", "Matveev");
+        person.setComments(comments);
+        Set<BookComments> commentsSet = person.getComments();
+        assertEquals(commentsSet.size(), 2);
+
+    }
 }

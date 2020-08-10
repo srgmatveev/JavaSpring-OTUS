@@ -1,6 +1,9 @@
 package org.sergio.library.domain;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +16,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_gen")
     @SequenceGenerator(name = "author_gen", sequenceName = "author_seq", allocationSize = 1)
     @Column(name = "author_id")
+    @Setter(AccessLevel.NONE)
     private Long authorId;
     private String authorName;
     @Column(name = "AUTHOR_SURNAME")
