@@ -2,6 +2,7 @@ package org.sergio.library.domain;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -36,4 +37,14 @@ public class Book {
     @OneToMany(mappedBy = "book")
     Set<BookComments> comments;
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                //", genres=" + genres +
+                //", authors=" + authors +
+                //", comments=" + comments +
+                '}';
+    }
 }

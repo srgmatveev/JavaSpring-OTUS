@@ -2,6 +2,7 @@ create sequence author_seq start with 1 increment by 1;
 create sequence book_seq start with 1 increment by 1;
 create sequence genre_seq start with 1 increment by 1;
 create sequence person_seq start with 1 increment by 1;
+create sequence comments_seq start with 1 increment by 1;
 
 create table author (
   author_id bigint not null,

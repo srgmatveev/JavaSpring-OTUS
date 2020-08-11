@@ -1,3 +1,4 @@
+DROP SEQUENCE  comments_seq  IF EXISTS ;
 DROP SEQUENCE  author_seq  IF EXISTS ;
 DROP SEQUENCE  book_seq  IF EXISTS ;
 DROP SEQUENCE  genre_seq  IF EXISTS ;

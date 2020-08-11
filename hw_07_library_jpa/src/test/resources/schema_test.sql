@@ -2,10 +2,12 @@ DROP SEQUENCE  author_seq  IF EXISTS ;
 DROP SEQUENCE  book_seq  IF EXISTS ;
 DROP SEQUENCE  genre_seq  IF EXISTS ;
 DROP SEQUENCE  person_seq  IF EXISTS ;
+DROP SEQUENCE  comments_seq IF EXISTS ;
 create sequence author_seq start with 1 increment by 1;
 create sequence book_seq start with 1 increment by 1;
 create sequence genre_seq start with 1 increment by 1;
 create sequence person_seq start with 1 increment by 1;
+create sequence comments_seq start with 1 increment by 1;
 
 DROP TABLE BOOK_AUTHOR_REF IF EXISTS;
 DROP TABLE BOOK_GENRE_REF IF EXISTS;

@@ -20,6 +20,7 @@ public interface GenreRepository extends CrudRepository<Genre, Long> {
     public Set<Book> getBooksByGenreId(@Param("id") Long id);
 
 
+
     /*
 
     @Query("select * from ArticleEntity article inner join article.numbers number where article.numbers.volume=:volume and article.numbers.id=:id")

@@ -21,6 +21,9 @@ public class Person {
     @Column(name = "sur_name")
     private String surName;
 
+    public Person() {
+    }
+
     public Person(String name, String surName) {
         this.name = name;
         this.surName = surName;
