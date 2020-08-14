@@ -20,4 +20,12 @@ public class Genre {
     private String genreName;
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Book> books;
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "genreId=" + genreId +
+                ", genreName='" + genreName + '\'' +
+                '}';
+    }
 }

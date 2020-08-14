@@ -5,9 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.dao.AuthorRepository;
 import org.sergio.library.dao.BookCommentsRepository;
 import org.sergio.library.dao.BookCommentsTestRepository;
+import org.sergio.library.dao.GenreRepository;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.BookComments;
+import org.sergio.library.domain.Genre;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -36,14 +38,17 @@ class ShellBookServiceTest {
     private BookService bookService;
     private BookCommentsTestRepository commentsRepository;
     private AuthorRepository authorRepository;
+    private GenreRepository genreRepository;
 
     public ShellBookServiceTest(@Qualifier("shellBookService") BookService bookService,
                                 @Qualifier("commentsTestRepo") BookCommentsTestRepository commentsRepository,
-                                @Qualifier("authorRepo") AuthorRepository authorRepository
+                                @Qualifier("authorRepo") AuthorRepository authorRepository,
+                                @Qualifier("genreRepo") GenreRepository genreRepository
     ) {
         this.bookService = bookService;
         this.commentsRepository = commentsRepository;
         this.authorRepository = authorRepository;
+        this.genreRepository = genreRepository;
     }
 
     @Test
@@ -111,8 +116,6 @@ class ShellBookServiceTest {
         bookComment2.setMessage("полный");
         bookService.addComment(book, bookComment2);
         assertEquals(book.getComments().size(), 2);
-        System.out.println(commentsRepository.findAll());
-
     }
 
     @Test
@@ -135,5 +138,25 @@ class ShellBookServiceTest {
         assertEquals(book.getAuthors().toString(),
                 "[Author{authorId=1, authorName='Лев', authorSurName='Толстой'}, Author{authorId=2, authorName='Тоже с длиинной', authorSurName='бородой'}]");
 
+    }
+
+    @Test
+    void addGenre() {
+        Book book = bookService.newBook("Война и мир");
+        Genre genre = new Genre();
+        genre.setGenreName("приключения");
+        genre = genreRepository.save(genre);
+        book = bookService.addGenre(book, genre);
+        book = bookService.addGenre(book, genre);
+        Genre genre1 = new Genre();
+        genre1.setGenreName("приключения");
+        genreRepository.save(genre1);
+        book = bookService.addGenre(book, genre1);
+        assertEquals(book.getGenres().toString(), "[Genre{genreId=1, genreName='приключения'}]");
+        Genre genre2 = new Genre();
+        genre2.setGenreName("фантастика");
+        genreRepository.save(genre2);
+        book = bookService.addGenre(book, genre2);
+        assertEquals(book.getGenres().toString(), "[Genre{genreId=1, genreName='приключения'}, Genre{genreId=2, genreName='фантастика'}]");
     }
 }

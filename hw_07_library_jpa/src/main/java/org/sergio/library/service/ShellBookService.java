@@ -146,8 +146,18 @@ public class ShellBookService implements BookService {
     }
 
     @Override
-    public boolean addGenre(Book book, Long id) {
-        return false;
+    @Transactional
+    public Book addGenre(Book book, Genre genre) {
+        if (genre == null || genre.getGenreId() == null) return book;
+        if (book.getBookId() == null)
+            save(book);
+        book = bookRepository.findById(book.getBookId()).get();
+        Optional<Genre> getGenre = genreRepository.findById(genre.getGenreId());
+        if (getGenre.isPresent()) {
+            book.getGenres().add(getGenre.get());
+            bookRepository.save(book);
+        }
+        return book;
     }
 
     @Override

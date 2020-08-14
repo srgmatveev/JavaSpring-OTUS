@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.dao.AuthorRepository;
 import org.sergio.library.dao.AuthorTestRepository;
 import org.sergio.library.domain.Author;
+import org.sergio.library.domain.Genre;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
@@ -44,4 +45,7 @@ class ShellAuthorServiceTest {
         authorTest = authorRepository.findById(author.getAuthorId()).get();
         assertEquals(authorTest.getAuthorId(), 1l);
     }
+
+
+
 }

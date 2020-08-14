@@ -25,7 +25,7 @@ public interface BookService {
 
     Book addAuthor(Book book, Author author);
 
-    boolean addGenre(Book book, Long id);
+    Book addGenre(Book book, Genre genre);
 
     Book save(Book book);
 }
