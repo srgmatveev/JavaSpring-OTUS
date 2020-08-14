@@ -24,3 +24,6 @@ spring:
       path: /h2-console
 
 
+
+  profiles:
+    active: dev
