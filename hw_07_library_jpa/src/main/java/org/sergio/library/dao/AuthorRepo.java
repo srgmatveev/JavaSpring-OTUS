@@ -1,5 +1,6 @@
 package org.sergio.library.dao;
 
+import org.hibernate.Hibernate;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -53,15 +54,20 @@ public class AuthorRepo implements AuthorRepository {
     }
 
 
-
     @Override
+    @SuppressWarnings("unchecked")
     public <S extends Author> S save(S entity) {
         List<Author> list = findByAuthorNameAndAuthorSurName(entity.getAuthorName(), entity.getAuthorSurName());
         S author = null;
         if (list != null) {
             if (list.size() == 0)
                 author = ar.save(entity);
-            else author =  entity;
+            else {
+                author = (S) ar.findById(list.get(0).getAuthorId()).get();
+                if (entity.getBooks() != null)
+                    if (entity.getBooks().size() > 0)
+                        author.setBooks(entity.getBooks());
+            }
         }
         return author;
     }

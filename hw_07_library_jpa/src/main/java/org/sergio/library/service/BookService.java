@@ -19,7 +19,9 @@ public interface BookService {
 
     Book newBook(String name);
 
-    Book addComments(Book book, Set<BookComments> bookComments);
+    boolean addComments(Book book, Set<BookComments> bookComments);
+
+    boolean addComment(Book book, BookComments comment);
 
     Book save(Book book);
 }

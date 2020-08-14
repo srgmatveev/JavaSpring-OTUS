@@ -3,6 +3,7 @@ package org.sergio.library.domain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.dao.AuthorTestRepository;
+import org.sergio.library.service.AuthorService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -27,8 +28,9 @@ import static org.junit.jupiter.api.Assertions.*;
 })
 class AuthorTest {
 
-    private AuthorTestRepository authorRepository;
 
+    private AuthorTestRepository authorRepository;
+    private AuthorService authorService;
     public AuthorTest(@Qualifier("authorTestRepo") AuthorTestRepository authorRepository) {
         this.authorRepository = authorRepository;
     }

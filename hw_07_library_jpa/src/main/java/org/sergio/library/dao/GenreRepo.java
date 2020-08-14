@@ -34,13 +34,19 @@ public class GenreRepo implements GenreRepository {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <S extends Genre> S save(S entity) {
         List<Genre> list = gr.findByGenreName(entity.getGenreName());
         S genre = null;
         if (list != null) {
             if (list.size() == 0)
                 genre = gr.save(entity);
-            else genre = entity;
+            else {
+                genre = (S) gr.findById(list.get(0).getGenreId()).get();
+                if (entity.getBooks() != null)
+                    if (entity.getBooks().size() > 0)
+                        genre.setBooks(entity.getBooks());
+            }
         }
         return genre;
     }

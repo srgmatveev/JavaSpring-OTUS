@@ -2,6 +2,7 @@ package org.sergio.library.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.sergio.library.dao.BookCommentsRepository;
 import org.sergio.library.dao.BookCommentsTestRepository;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.BookComments;
@@ -31,9 +32,13 @@ import java.util.Set;
 })
 class ShellBookServiceTest {
     private BookService bookService;
+    private BookCommentsTestRepository commentsRepository;
 
-    public ShellBookServiceTest(@Qualifier("shellBookService") BookService bookService) {
+    public ShellBookServiceTest(@Qualifier("shellBookService") BookService bookService,
+                                @Qualifier("commentsTestRepo") BookCommentsTestRepository commentsRepository
+    ) {
         this.bookService = bookService;
+        this.commentsRepository = commentsRepository;
     }
 
     @Test
@@ -79,10 +84,29 @@ class ShellBookServiceTest {
         bookCommentsNew.add(bookComment4);
         bookService.addComments(book, bookCommentsNew);
         assertEquals(book.getComments().size(), 4);
-
+        // bookService.save(book);
     }
 
     @Test
     void save() {
+        Book book = bookService.newBook("Война и мир");
+        book = bookService.save(book);
+        assertEquals(book.getBookName(), "Война и мир");
+    }
+
+
+    @Test
+    void addComment() {
+        Book book = bookService.newBook("Война и мир");
+        BookComments bookComment1 = new BookComments();
+        bookComment1.setMessage("отстой");
+        bookService.addComment(book, bookComment1);
+        assertEquals(bookComment1.getBook().getBookId(), book.getBookId());
+        BookComments bookComment2 = new BookComments();
+        bookComment2.setMessage("полный");
+        bookService.addComment(book, bookComment2);
+        assertEquals(book.getComments().size(), 2);
+        System.out.println(commentsRepository.findAll());
+
     }
 }

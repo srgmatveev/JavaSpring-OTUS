@@ -111,26 +111,23 @@ public class ShellBookService implements BookService {
 
     @Override
     @Transactional
-    public Book addComments(Book book, Set<BookComments> bookComments) {
+    public boolean addComments(Book book, Set<BookComments> bookComments) {
         if (book.getBookId() == null) {
             book = bookRepository.save(book);
         }
-
-        Set<BookComments> bookComm = book.getComments();
-
-        for (BookComments comment : bookComments) {
-            comment.setBook(book);
+        boolean added = book.addBookComments(bookComments);
+        for (BookComments comment : bookComments)
             bookCommentsRepository.save(comment);
-        }
+        return added;
+    }
 
-
-        if(bookComm == null || bookComm.size()==0){
-            book.setComments(bookComments);
-        }else {
-            bookComm.addAll(bookComments);
-        }
-
-        return book;
+    @Override
+    public boolean addComment(Book book, BookComments comment) {
+        if (book.getBookId() == null)
+            save(book);
+        boolean saved = book.addBookComment(comment);
+        bookCommentsRepository.save(comment);
+        return saved;
     }
 
     @Override

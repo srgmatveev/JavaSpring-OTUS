@@ -4,11 +4,12 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Objects;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "book_comments")
@@ -29,20 +30,16 @@ public class BookComments {
     @JoinColumn(name = "person_id")
     Person person;
 
-    private LocalDateTime registeredAt;
+    private LocalDateTime registeredAt = LocalDateTime.now(ZoneId.of("UTC"));
 
     private String message;
-
-    public BookComments() {
-        this.registeredAt = LocalDateTime.now(ZoneOffset.UTC);
-    }
 
     @Override
     public String toString() {
         return "BookComments{" +
-                "id=" + id==null?"0":id +
-                ", book={" + book.getBookId() + ", " + book.getBookName() + "}" +
-                //", person=" + person +
+                "id=" + id +
+                 ", book={" + book.getBookId() + ", " + book.getBookName() +  "}" +
+                ", person=" + person +
                 ", registeredAt=" + registeredAt +
                 ", message='" + message + '\'' +
                 '}';

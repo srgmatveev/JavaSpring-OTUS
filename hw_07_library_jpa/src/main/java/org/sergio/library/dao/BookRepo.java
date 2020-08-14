@@ -27,13 +27,22 @@ public class BookRepo implements BookRepository {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <S extends Book> S save(S entity) {
         List<Book> list = br.findByBookName(entity.getBookName());
         S book = null;
         if (list != null) {
             if (list.size() == 0)
                 book = br.save(entity);
-            else book = entity;
+            else {
+                book = (S) br.findById(list.get(0).getBookId()).get();
+                if (entity.getAuthors() != null)
+                    if (entity.getAuthors().size() > 0)
+                        book.setAuthors(entity.getAuthors());
+                if (entity.getGenres() != null)
+                    if (entity.getGenres().size() > 0)
+                        book.setGenres(entity.getGenres());
+            }
         }
         return book;
     }

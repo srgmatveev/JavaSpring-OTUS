@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -24,4 +25,13 @@ public class Author {
     @ManyToMany(mappedBy = "authors",fetch = FetchType.LAZY)
     private Set<Book> books;
 
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", authorName='" + authorName + '\'' +
+                ", authorSurName='" + authorSurName + '\'' +
+               // ", books=" + books +
+                '}';
+    }
 }
