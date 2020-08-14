@@ -23,5 +23,9 @@ public interface BookService {
 
     boolean addComment(Book book, BookComments comment);
 
+    Book addAuthor(Book book, Author author);
+
+    boolean addGenre(Book book, Long id);
+
     Book save(Book book);
 }

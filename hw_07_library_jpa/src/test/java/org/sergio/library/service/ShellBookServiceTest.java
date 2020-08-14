@@ -2,8 +2,10 @@ package org.sergio.library.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.sergio.library.dao.AuthorRepository;
 import org.sergio.library.dao.BookCommentsRepository;
 import org.sergio.library.dao.BookCommentsTestRepository;
+import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.BookComments;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,12 +35,15 @@ import java.util.Set;
 class ShellBookServiceTest {
     private BookService bookService;
     private BookCommentsTestRepository commentsRepository;
+    private AuthorRepository authorRepository;
 
     public ShellBookServiceTest(@Qualifier("shellBookService") BookService bookService,
-                                @Qualifier("commentsTestRepo") BookCommentsTestRepository commentsRepository
+                                @Qualifier("commentsTestRepo") BookCommentsTestRepository commentsRepository,
+                                @Qualifier("authorRepo") AuthorRepository authorRepository
     ) {
         this.bookService = bookService;
         this.commentsRepository = commentsRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Test
@@ -107,6 +112,28 @@ class ShellBookServiceTest {
         bookService.addComment(book, bookComment2);
         assertEquals(book.getComments().size(), 2);
         System.out.println(commentsRepository.findAll());
+
+    }
+
+    @Test
+    void addAuthor() {
+        Book book = bookService.newBook("Война и мир");
+        Author author = new Author();
+        author.setAuthorName("Лев");
+        author.setAuthorSurName("Толстой");
+        author = authorRepository.save(author);
+        book = bookService.addAuthor(book, author);
+        book = bookService.addAuthor(book, author);
+        assertEquals(book.getAuthors().toString(), "[Author{authorId=1, authorName='Лев', authorSurName='Толстой'}]");
+
+        author = new Author();
+        author.setAuthorName("Тоже с длиинной");
+        author.setAuthorSurName("бородой");
+        author = authorRepository.save(author);
+        book = bookService.addAuthor(book, author);
+
+        assertEquals(book.getAuthors().toString(),
+                "[Author{authorId=1, authorName='Лев', authorSurName='Толстой'}, Author{authorId=2, authorName='Тоже с длиинной', authorSurName='бородой'}]");
 
     }
 }

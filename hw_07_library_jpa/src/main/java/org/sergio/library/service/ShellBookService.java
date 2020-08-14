@@ -132,6 +132,26 @@ public class ShellBookService implements BookService {
 
     @Override
     @Transactional
+    public Book addAuthor(Book book, Author author) {
+        if (author == null || author.getAuthorId() == null) return book;
+        if (book.getBookId() == null)
+            save(book);
+        book = bookRepository.findById(book.getBookId()).get();
+        Optional<Author> getAuthor = authorRepository.findById(author.getAuthorId());
+        if (getAuthor.isPresent()) {
+            book.getAuthors().add(getAuthor.get());
+            bookRepository.save(book);
+        }
+        return book;
+    }
+
+    @Override
+    public boolean addGenre(Book book, Long id) {
+        return false;
+    }
+
+    @Override
+    @Transactional
     public Book save(Book book) {
         return bookRepository.save(book);
     }

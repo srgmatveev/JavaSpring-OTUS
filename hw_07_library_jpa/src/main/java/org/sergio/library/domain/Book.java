@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "book")
 @Data
+@EqualsAndHashCode(exclude={"authors", "genres"})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_gen")
