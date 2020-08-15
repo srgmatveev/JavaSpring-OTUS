@@ -14,6 +14,7 @@ public class AppConfig {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/i18n/data");
+        messageSource.addBasenames("classpath:/i18n/messages");
         messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
         return messageSource;
     }
