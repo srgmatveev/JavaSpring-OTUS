@@ -64,14 +64,15 @@ public class ShellCommands {
             builder.append(entry.getKey().getGenreName());
             builder.append(":\n");
             List<Book> books = entry.getValue();
-            if(books.size()>0)
-            for (int i = 0; i < books.size(); i++) {
+            if (books.size() > 0)
+                for (int i = 0; i < books.size(); i++) {
+                    builder.append("\t");
+                    builder.append(books.get(i).getBookName());
+                    builder.append("\n");
+                }
+            else {
                 builder.append("\t");
-                builder.append(books.get(i).getBookName());
-                builder.append("\n");
-            } else{
-                builder.append("\t");
-                builder.append(ms.getMessage("shell.books.genre.notpresent", null,Locale.getDefault()));
+                builder.append(ms.getMessage("shell.books.genre.notpresent", null, Locale.getDefault()));
                 builder.append("\n");
             }
 
@@ -90,20 +91,22 @@ public class ShellCommands {
             builder.append(entry.getKey().getAuthorSurName());
             builder.append(":\n");
             List<Book> books = entry.getValue();
-            if(books.size()>0)
+            if (books.size() > 0)
                 for (int i = 0; i < books.size(); i++) {
                     builder.append("\t");
                     builder.append(books.get(i).getBookName());
                     builder.append("\n");
-                } else{
+                }
+            else {
                 builder.append("\t");
-                builder.append(ms.getMessage("shell.books.author.notpresent", null,Locale.getDefault()));
+                builder.append(ms.getMessage("shell.books.author.notpresent", null, Locale.getDefault()));
                 builder.append("\n");
             }
 
         }
         return builder.toString();
     }
+
 
     private Availability isPublishEventCommandAvailable() {
         return userName == null || userName.isBlank() || userSurName == null || userSurName.isBlank()

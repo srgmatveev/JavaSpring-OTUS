@@ -3,6 +3,7 @@ package org.sergio.library.shell;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
+import org.sergio.library.domain.Person;
 import org.sergio.library.service.LibraryService;
 import org.sergio.library.service.PersonService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,7 @@ public class ShellCommands {
     private String userName;
     private String userSurName;
     private final LibraryService ls;
+    private Person person;
 
     public ShellCommands(
             @Qualifier("shellPersonService") PersonService personService, MessageSource ms,
@@ -40,7 +42,7 @@ public class ShellCommands {
             throws Exception {
         this.userName = userName;
         this.userSurName = userSurName;
-        personService.login(userName, userSurName);
+        person = personService.login(userName, userSurName);
         return String.format(ms.getMessage("shell.login", null, Locale.getDefault()), userName, userSurName);
     }
 
@@ -52,6 +54,7 @@ public class ShellCommands {
             ret = String.format(ms.getMessage("shell.logout", null, Locale.getDefault()), userName, userSurName);
             userName = null;
             userSurName = null;
+            person = null;
         }
         return ret;
     }
@@ -106,6 +109,25 @@ public class ShellCommands {
 
         }
         return builder.toString();
+    }
+
+    @ShellMethod(value = "Add comment on the book", key = {"add"})
+    @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
+    public String addComment(@ShellOption() String bookName,
+                             @ShellOption() String comment) {
+        if (ls.addComment(bookName, comment, person))
+            return ms.getMessage("shell.comment.added", null, Locale.getDefault());
+        else return ms.getMessage("shell.comment.not.added", null, Locale.getDefault());
+    }
+
+
+    @ShellMethod(value = "Add anonymous comment on the book", key = {"a_add"})
+    @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
+    public String addAnoneComment(@ShellOption() String bookName,
+                                  @ShellOption() String comment) {
+        if (ls.addAnoneComment(bookName, comment))
+            return ms.getMessage("shell.comment.added", null, Locale.getDefault());
+        else return ms.getMessage("shell.comment.not.added", null, Locale.getDefault());
     }
 
     private Availability isPublishEventCommandAvailable() {

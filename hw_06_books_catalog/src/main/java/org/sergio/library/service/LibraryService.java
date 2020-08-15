@@ -15,4 +15,5 @@ public interface LibraryService {
     List<Book> getBooksByAuthor(String name, String surName);
 
     Map<Author, List<Book>> getBooksForAllAuthors();
+
 }

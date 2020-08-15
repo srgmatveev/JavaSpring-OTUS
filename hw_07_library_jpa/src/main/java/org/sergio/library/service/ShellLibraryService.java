@@ -1,14 +1,14 @@
 package org.sergio.library.service;
 
 import org.sergio.library.dao.AuthorRepository;
+import org.sergio.library.dao.BookCommentsRepository;
 import org.sergio.library.dao.BookRepository;
 import org.sergio.library.dao.GenreRepository;
-import org.sergio.library.domain.Author;
-import org.sergio.library.domain.Book;
-import org.sergio.library.domain.Genre;
+import org.sergio.library.domain.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +22,8 @@ public class ShellLibraryService implements LibraryService {
     public ShellLibraryService(@Qualifier("authorRepo") AuthorRepository authorRepository,
                                @Qualifier("bookRepo") BookRepository bookRepository,
                                @Qualifier("genreRepo") GenreRepository genreRepository,
-                               @Qualifier("shellBookService") ShellBookService bookService) {
+                               @Qualifier("shellBookService") ShellBookService bookService,
+                               @Qualifier("BookCommentsRepository") BookCommentsRepository commentsRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
@@ -42,5 +43,36 @@ public class ShellLibraryService implements LibraryService {
     @Override
     public Map<Author, List<Book>> getBooksForAllAuthors() {
         return bookService.getBooksForAllAuthors();
+    }
+
+    @Override
+    @Transactional
+    public boolean addComment(String bookName, String comment, Person person) {
+        List<Book> books = bookRepository.findByBookName(bookName);
+        if (books == null || books.size() == 0) return false;
+        Book book = books.get(0);
+        if (book == null) return false;
+        if (person == null || person.getPersonId() == null) return false;
+        if (comment == null || comment.isBlank()) return false;
+
+        BookComments bookComment = new BookComments();
+        bookComment.setMessage(comment);
+        bookComment.setPerson(person);
+
+        return bookService.addComment(book, bookComment);
+    }
+
+    @Override
+    @Transactional
+    public boolean addAnoneComment(String bookName, String comment) {
+        List<Book> books = bookRepository.findByBookName(bookName);
+        if (books == null || books.size() == 0) return false;
+        Book book = books.get(0);
+        if (book == null) return false;
+        if (comment == null || comment.isBlank()) return false;
+
+        BookComments bookComment = new BookComments();
+        bookComment.setMessage(comment);
+        return bookService.addComment(book, bookComment);
     }
 }

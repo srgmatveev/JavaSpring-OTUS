@@ -21,8 +21,8 @@ public class ShellPersonService implements PersonService {
     }
 
     @Override
-    public void login(String name, String surName) throws Exception {
-        Person person;
+    public Person login(String name, String surName) throws Exception {
+        Person person = null;
         if (personRepository != null) {
             List<Person> list = this.personRepository.findByNameAndSurName(name, surName);
             if (list != null && !list.isEmpty()) {
@@ -32,6 +32,6 @@ public class ShellPersonService implements PersonService {
                 personRepository.save(person);
             }
         }
-
+        return person;
     }
 }
