@@ -3,6 +3,7 @@ package org.sergio.library.dao;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,10 +29,6 @@ public class GenreRepo implements GenreRepository {
         return gr.findByGenreNameStartingWith(prefix);
     }
 
-    @Override
-    public Set<Book> getBooksByGenreId(Long id) {
-        return gr.getBooksByGenreId(id);
-    }
 
     @Override
     @SuppressWarnings("unchecked")

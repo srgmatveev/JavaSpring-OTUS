@@ -3,10 +3,12 @@ package org.sergio.library.dao;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository(value = "bookRepo")
 public class BookRepo implements BookRepository {
@@ -24,6 +26,16 @@ public class BookRepo implements BookRepository {
     @Override
     public List<Book> findByBookNameStartingWith(String prefix) {
         return br.findByBookNameStartingWith(prefix);
+    }
+
+    @Override
+    public List<Book> getBooksByGenreId(Long id) {
+        return br.getBooksByGenreId(id);
+    }
+
+    @Override
+    public List<Book> getBooksByGenreIdSort(Long id, Sort sort) {
+        return br.getBooksByGenreIdSort(id, sort);
     }
 
     @Override

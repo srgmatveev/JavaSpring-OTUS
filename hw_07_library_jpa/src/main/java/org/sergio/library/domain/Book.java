@@ -20,6 +20,7 @@ public class Book {
     @Column(name = "book_id")
     @Setter(AccessLevel.NONE)
     private Long bookId;
+
     private String bookName;
 
     @ManyToMany(fetch = FetchType.LAZY)

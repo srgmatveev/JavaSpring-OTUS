@@ -9,6 +9,7 @@ import org.sergio.library.domain.Book;
 import org.sergio.library.domain.BookComments;
 import org.sergio.library.domain.Genre;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,6 +34,7 @@ public class ShellBookService implements BookService {
 
 
     @Override
+    @Transactional
     public Map<Genre, List<Book>> getBooksForAllGenres() {
         Map<Genre, List<Book>> map =
                 new TreeMap<>(new Comparator<Genre>() {
@@ -44,16 +46,8 @@ public class ShellBookService implements BookService {
         List<Genre> genres = (List<Genre>) genreRepository.findAll();
         for (int i = 0; i < genres.size(); i++) {
             Genre genre = genres.get(i);
-            List<Book> books = new ArrayList<>();
-            books.addAll(genreRepository.getBooksByGenreId(genre.getGenreId()));
-
-            books.sort(new Comparator<Book>() {
-                @Override
-                public int compare(Book o1, Book o2) {
-                    return o1.getBookName().compareTo(o2.getBookName());
-                }
-            });
-
+              List<Book> books = bookRepository.getBooksByGenreIdSort(genre.getGenreId(),
+                    Sort.by(Sort.Direction.ASC, "bookName"));
             map.put(genre, books);
         }
 
