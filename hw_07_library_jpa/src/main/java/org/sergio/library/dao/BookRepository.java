@@ -17,11 +17,16 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findByBookNameStartingWith(String prefix);
 
-    @Query("SELECT b FROM Book b inner join b.genres genres WHERE genres.genreId = :id")
-    public List<Book> getBooksByGenreId(@Param("id") Long id);
+    @Query("SELECT b FROM Book b inner join b.genres genre WHERE genre.genreId = :id")
+    List<Book> getBooksByGenreId(@Param("id") Long id);
 
 
-    @Query("SELECT b FROM Book b inner join b.genres genres WHERE genres.genreId = :id")
-    public List<Book> getBooksByGenreIdSort(@Param("id") Long id, Sort sort);
+    @Query("SELECT b FROM Book b inner join b.genres genre WHERE genre.genreId = :id")
+    List<Book> getBooksByGenreIdSort(@Param("id") Long id, Sort sort);
 
+    @Query("SELECT b FROM Book b inner join b.authors author WHERE author.authorId = :id")
+    List<Book>  getBooksByAuthorId(@Param("id") Long id);
+
+    @Query("SELECT b FROM Book b inner join b.authors author WHERE author.authorId = :id")
+    List<Book>  getBooksByAuthorIdSort(@Param("id") Long id , Sort sort);
 }

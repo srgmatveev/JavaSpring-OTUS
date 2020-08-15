@@ -24,8 +24,6 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 
     List<Author> findByAuthorNameStartingWithAndAuthorSurNameStartingWith(String Name, String SurName);
 
-    @Query("SELECT a.books FROM Author a WHERE a.authorId = :id")
-    public Set<Book> getBooksByAuthorId(@Param("id") Long id);
 
 
 

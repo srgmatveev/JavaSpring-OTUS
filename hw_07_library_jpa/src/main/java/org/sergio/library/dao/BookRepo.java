@@ -39,6 +39,16 @@ public class BookRepo implements BookRepository {
     }
 
     @Override
+    public List<Book> getBooksByAuthorId(Long id) {
+        return br.getBooksByAuthorId(id);
+    }
+
+    @Override
+    public List<Book> getBooksByAuthorIdSort(Long id, Sort sort) {
+        return br.getBooksByAuthorIdSort(id, sort);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <S extends Book> S save(S entity) {
         List<Book> list = br.findByBookName(entity.getBookName());

@@ -1,5 +1,6 @@
 package org.sergio.library.shell;
 
+import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.service.LibraryService;
@@ -80,6 +81,32 @@ public class ShellCommands {
         return builder.toString();
     }
 
+    @ShellMethod(value = "List Books by Authors command", key = {"a", "author"})
+    @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
+    public String allAuthors() {
+        StringBuilder builder = new StringBuilder();
+        Map<Author, List<Book>> map = ls.getBooksForAllAuthors();
+        for (Map.Entry<Author, List<Book>> entry : map.entrySet()) {
+            builder.append(entry.getKey().getAuthorName());
+            builder.append(" ");
+            builder.append(entry.getKey().getAuthorSurName());
+            builder.append(":\n");
+            List<Book> books = entry.getValue();
+            if (books.size() > 0)
+                for (int i = 0; i < books.size(); i++) {
+                    builder.append("\t");
+                    builder.append(books.get(i).getBookName());
+                    builder.append("\n");
+                }
+            else {
+                builder.append("\t");
+                builder.append(ms.getMessage("shell.books.author.notpresent", null, Locale.getDefault()));
+                builder.append("\n");
+            }
+
+        }
+        return builder.toString();
+    }
 
     private Availability isPublishEventCommandAvailable() {
         return userName == null || userName.isBlank() || userSurName == null || userSurName.isBlank()

@@ -49,12 +49,6 @@ public class AuthorRepo implements AuthorRepository {
     }
 
     @Override
-    public Set<Book> getBooksByAuthorId(Long id) {
-        return ar.getBooksByAuthorId(id);
-    }
-
-
-    @Override
     @SuppressWarnings("unchecked")
     public <S extends Author> S save(S entity) {
         List<Author> list = findByAuthorNameAndAuthorSurName(entity.getAuthorName(), entity.getAuthorSurName());

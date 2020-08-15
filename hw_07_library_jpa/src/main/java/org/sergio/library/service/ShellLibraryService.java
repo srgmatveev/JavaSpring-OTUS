@@ -3,6 +3,7 @@ package org.sergio.library.service;
 import org.sergio.library.dao.AuthorRepository;
 import org.sergio.library.dao.BookRepository;
 import org.sergio.library.dao.GenreRepository;
+import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,5 +32,15 @@ public class ShellLibraryService implements LibraryService {
     @Override
     public Map<Genre, List<Book>> getBooksForAllGenres() {
         return bookService.getBooksForAllGenres();
+    }
+
+    @Override
+    public List<Book> getBooksByAuthor(String name, String surName) {
+        return bookService.getBooksByAuthor(name, surName);
+    }
+
+    @Override
+    public Map<Author, List<Book>> getBooksForAllAuthors() {
+        return bookService.getBooksForAllAuthors();
     }
 }
