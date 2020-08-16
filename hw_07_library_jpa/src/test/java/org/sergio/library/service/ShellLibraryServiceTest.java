@@ -1,9 +1,9 @@
 package org.sergio.library.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.dao.BookCommentsTestRepository;
-import org.sergio.library.dao.PersonRepository;
 import org.sergio.library.dao.PersonTestRepository;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.BookComments;
@@ -14,11 +14,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -46,6 +50,7 @@ class ShellLibraryServiceTest {
         this.personRepository = personRepository;
     }
 
+
     @Test
     void showComments() {
         Person person = new Person();
@@ -65,6 +70,7 @@ class ShellLibraryServiceTest {
         assertEquals(book.getComments().size(), 2);
 
         String result = ls.showComments("Война и мир");
-        System.out.println(result);
+        assertTrue(result.startsWith("Война и мир:"));
+        //System.out.println(result);
     }
 }

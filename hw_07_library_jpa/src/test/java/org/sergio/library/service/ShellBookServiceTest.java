@@ -64,7 +64,6 @@ class ShellBookServiceTest {
     }
 
     @Test
-    @Transactional
     void newBook() {
         Book book = bookService.newBook("Война и мир");
         book = bookService.save(book);
@@ -72,7 +71,6 @@ class ShellBookServiceTest {
     }
 
     @Test
-    @Transactional
     void addCommnets() {
         Book book = bookService.newBook("Война и мир");
         Set<BookComments> bookComments = new HashSet<>();
