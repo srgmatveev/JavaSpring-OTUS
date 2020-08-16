@@ -6,9 +6,11 @@ import org.sergio.library.dao.BookRepository;
 import org.sergio.library.dao.GenreRepository;
 import org.sergio.library.domain.*;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import java.util.Map;
 public class ShellLibraryService implements LibraryService {
     final private AuthorRepository authorRepository;
     final private BookRepository bookRepository;
+    final private BookCommentsRepository commentsRepository;
     final private GenreRepository genreRepository;
     final private ShellBookService bookService;
 
@@ -23,11 +26,13 @@ public class ShellLibraryService implements LibraryService {
                                @Qualifier("bookRepo") BookRepository bookRepository,
                                @Qualifier("genreRepo") GenreRepository genreRepository,
                                @Qualifier("shellBookService") ShellBookService bookService,
-                               @Qualifier("BookCommentsRepository") BookCommentsRepository commentsRepository) {
+                               @Qualifier("bookCommentsRepo") BookCommentsRepository commentsRepository
+    ) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
         this.bookService = bookService;
+        this.commentsRepository = commentsRepository;
     }
 
     @Override
@@ -74,5 +79,37 @@ public class ShellLibraryService implements LibraryService {
         BookComments bookComment = new BookComments();
         bookComment.setMessage(comment);
         return bookService.addComment(book, bookComment);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String showComments(String bookName) {
+        List<Book> books = bookRepository.findByBookName(bookName);
+        if (books == null || books.size() == 0) return "not.book.found";
+        Book book = books.get(0);
+        if (book == null) return "not.book.found";
+        StringBuilder result = new StringBuilder("");
+
+        result.append(book.getBookName());
+        result.append(":\n");
+        List<BookComments> list = commentsRepository.findByBook(book, Sort.by(Sort.Direction.ASC, "registeredAt"));
+        for (int i = 0; i < list.size(); i++) {
+            BookComments comment = list.get(i);
+            String str;
+            if (comment.getPerson() != null) {
+                str = String.format("\t%s at %s by %s%n", comment.getMessage(),
+                        comment.getRegisteredAt(),
+                        comment.getPerson().getName() + " " + comment.getPerson().getSurName());
+
+            } else {
+                String pers = "anonymous";
+                str = String.format("\t%s at %s by %s%n", comment.getMessage(),
+                        comment.getRegisteredAt(),
+                        pers);
+            }
+            result.append(str);
+        }
+
+        return result.toString();
     }
 }

@@ -121,6 +121,14 @@ public class ShellCommands {
     }
 
 
+    @ShellMethod(value = "Show comments on the book", key = {"show"})
+    @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
+    public String showComments(@ShellOption() String bookName) {
+       return ls.showComments(bookName);
+
+    }
+
+
     @ShellMethod(value = "Add anonymous comment on the book", key = {"a_add"})
     @ShellMethodAvailability(value = "isPublishEventCommandAvailable")
     public String addAnoneComment(@ShellOption() String bookName,

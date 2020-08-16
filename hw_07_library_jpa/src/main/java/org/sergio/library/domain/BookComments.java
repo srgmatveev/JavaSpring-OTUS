@@ -14,7 +14,7 @@ import java.time.ZoneId;
 @Entity
 @Table(name = "book_comments")
 @Data
-@EqualsAndHashCode(exclude={"book"})
+@EqualsAndHashCode(exclude={"book","person"})
 public class BookComments {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comments_gen")

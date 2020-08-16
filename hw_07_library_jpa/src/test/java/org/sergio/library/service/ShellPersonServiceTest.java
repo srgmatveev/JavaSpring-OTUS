@@ -3,6 +3,7 @@ package org.sergio.library.service;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.dao.PersonRepository;
+import org.sergio.library.dao.PersonTestRepository;
 import org.sergio.library.domain.Person;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
