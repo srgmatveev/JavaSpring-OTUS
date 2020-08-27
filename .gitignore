@@ -14,4 +14,4 @@ target/
 *.ipr
 */target/**
 */logs/**
-
+.env

@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin # Authentication database name.
+      database: test_library # Database name.
+      field-naming-strategy: # Fully qualified name of the FieldNamingStrategy to use.
+      grid-fs-database: # GridFS database name.
+      host: localhost # Mongo server host.
+      username: root
+      password: 12345
+      port: 27117 # Mongo server port.
+      repositories:
+        enabled: true # Enable Mongo repositories.
+      #uri: mongodb://localhost/test # Mongo database URI. When set, host and port are ignored.
