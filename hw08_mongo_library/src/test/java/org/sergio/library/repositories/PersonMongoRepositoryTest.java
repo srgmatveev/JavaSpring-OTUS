@@ -31,7 +31,7 @@ class PersonMongoRepositoryTest {
     @AfterEach
     void tearDown() {
 
-        //personMongoRepository.deleteAll();
+      //  personMongoRepository.deleteAll();
     }
 
     @Test
@@ -45,4 +45,35 @@ class PersonMongoRepositoryTest {
         assertEquals(personMongoRepository.count(), 2);
     }
 
+    @Test
+    @Transactional
+    void findByName() {
+        Person person = new Person("Sergio", "Matveev");
+        personMongoRepository.save(person);
+        Person person1 = personMongoRepository.findByName("sergio");
+        assertNotNull(person1.getId());
+        assertEquals(person1.getName(), "Sergio");
+
+    }
+
+    @Test
+    @Transactional
+    void findBySurName() {
+        Person person = new Person("Sergio", "Matveev");
+        personMongoRepository.save(person);
+        Person person1 = personMongoRepository.findBySurName("Matveev");
+        assertNotNull(person1.getId());
+        assertEquals(person1.getSurName(), "Matveev");
+    }
+
+    @Test
+    @Transactional
+    void findByNameAndSurName() {
+        Person person = new Person("Sergio", "Matveev");
+        personMongoRepository.save(person);
+        Person person1 = personMongoRepository.findByNameAndSurName("Sergio", "Matveev");
+        assertNotNull(person1.getId());
+        assertEquals(person1.getName(), "Sergio");
+        assertEquals(person1.getSurName(), "Matveev");
+    }
 }

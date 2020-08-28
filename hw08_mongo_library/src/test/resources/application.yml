@@ -4,6 +4,7 @@ mongo:
   host: localhost
   port: 27117
   db: test_library
+  replica_name: rs0
   auth:
     db: admin
     mechanism: SCRAM-SHA-256
@@ -11,4 +12,14 @@ mongo:
 spring:
   data:
     mongodb:
-      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=rs0
+      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=${mongo.replica_name}
+
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "off"
+
+---
+
+spring:
+  profiles: dev
