@@ -1,6 +1,6 @@
 mongo:
-  username: root
-  password: 12345
+  username: sergio
+  password: 123456
   host: localhost
   port: 27117
   db: test_library
