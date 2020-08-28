@@ -7,8 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.sergio.library.domain.Person;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +35,7 @@ class PersonMongoRepositoryTest {
     @AfterEach
     void tearDown() {
 
-      //  personMongoRepository.deleteAll();
+        //  personMongoRepository.deleteAll();
     }
 
     @Test
@@ -75,5 +79,20 @@ class PersonMongoRepositoryTest {
         assertNotNull(person1.getId());
         assertEquals(person1.getName(), "Sergio");
         assertEquals(person1.getSurName(), "Matveev");
+    }
+
+    @Test
+    @Transactional
+    void uniqSave() {
+        Person person = new Person("Sergio", "Matveev");
+        personMongoRepository.uniqSave(person);
+        Person person1 = new Person("Sergio", "Matveev");
+        List<Person> list = personMongoRepository.findAll(Example.of(person1));
+        assertEquals(list.size(), 1);
+        Person person2 = new Person("Sergio", "Matveev");
+        personMongoRepository.uniqSave(person2);
+        list = personMongoRepository.findAll(Example.of(person1));
+        assertEquals(list.size(), 1);
+
     }
 }

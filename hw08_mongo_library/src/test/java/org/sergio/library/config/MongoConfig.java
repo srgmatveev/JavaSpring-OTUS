@@ -13,16 +13,9 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
 @Configuration
 @Profile(value = "dev")
-public class MongoConfig  {
+public class MongoConfig {
     @Autowired
     MongoDatabaseFactory mongoDatabaseFactory;
-
-    @Bean
-    String aaa(){
-        MongoDatabase rrr = mongoDatabaseFactory.getMongoDatabase();
-
-        return "eee";
-    }
 
     @Bean
     MongoTransactionManager transactionManager() {
