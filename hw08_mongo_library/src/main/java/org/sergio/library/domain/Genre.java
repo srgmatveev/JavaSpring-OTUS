@@ -6,13 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @RequiredArgsConstructor
-@Document(collection = "persons")
-public class Person {
+@Document(collection = "genres")
+public class Genre {
     @Id
     @Setter(AccessLevel.NONE)
     private String id;
     @NonNull
     private String name;
-    @NonNull
-    private String surName;
 }

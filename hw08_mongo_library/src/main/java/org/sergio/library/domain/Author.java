@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @RequiredArgsConstructor
-@Document(collection = "persons")
-public class Person {
+@Document(collection = "authors")
+public class Author {
     @Id
     @Setter(AccessLevel.NONE)
     private String id;

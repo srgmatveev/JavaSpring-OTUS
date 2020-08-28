@@ -57,7 +57,8 @@ class PersonMongoRepositoryTest {
         Person person1 = personMongoRepository.findByName("sergio");
         assertNotNull(person1.getId());
         assertEquals(person1.getName(), "Sergio");
-
+        person1 = personMongoRepository.findByName("serg");
+        assertNull(person1);
     }
 
     @Test
@@ -68,6 +69,8 @@ class PersonMongoRepositoryTest {
         Person person1 = personMongoRepository.findBySurName("Matveev");
         assertNotNull(person1.getId());
         assertEquals(person1.getSurName(), "Matveev");
+        person1 = personMongoRepository.findBySurName("matve");
+        assertNull(person1);
     }
 
     @Test
@@ -79,6 +82,10 @@ class PersonMongoRepositoryTest {
         assertNotNull(person1.getId());
         assertEquals(person1.getName(), "Sergio");
         assertEquals(person1.getSurName(), "Matveev");
+        person1 = personMongoRepository.findByNameAndSurName("Sergi", "Matveev");
+        assertNull(person1);
+        person1 = personMongoRepository.findByNameAndSurName("Sergio", "Matvee");
+        assertNull(person1);
     }
 
     @Test
