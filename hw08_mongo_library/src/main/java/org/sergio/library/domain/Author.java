@@ -2,6 +2,7 @@ package org.sergio.library.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -12,7 +13,10 @@ public class Author {
     @Setter(AccessLevel.NONE)
     private String id;
     @NonNull
+    @Indexed(name="authors_name_index")
     private String name;
+
     @NonNull
+    @Indexed(name = "authors_surName_index")
     private String surName;
 }

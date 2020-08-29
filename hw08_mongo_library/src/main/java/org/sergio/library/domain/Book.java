@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,13 +18,14 @@ public class Book {
     @Setter(AccessLevel.NONE)
     private String id;
     @NonNull
+    @Indexed(name = "book_name_index")
     private String name;
-    @DBRef(lazy = true)
+
     @Field("authors_ids")
-    @Indexed
-    private List<Author> authors_ids;
-    @DBRef(lazy = true)
+    @Indexed(name = "authors_ids_index")
+    private List<String> authors_ids = new ArrayList<>();
+
     @Field("genres_ids")
-    @Indexed
-    private List<Genre> genres_ids;
+    @Indexed(name = "genres_ids_index")
+    private List<String> genres_ids = new ArrayList<>();
 }

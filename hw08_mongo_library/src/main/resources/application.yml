@@ -1,6 +1,6 @@
 mongo:
-  username: root
-  password: 12345
+  username: sergio
+  password: 123456
   host: localhost
   port: 27117
   db: test_library
@@ -13,14 +13,14 @@ spring:
   data:
     mongodb:
       uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=${mongo.replica_name}
-      auto-index-creation: false
+      auto-index-creation: true
 
   profiles:
-    active: "dev"
+    active: "prod"
   main:
     banner-mode: "off"
 
 ---
 
 spring:
-  profiles: dev
+  profiles: prod

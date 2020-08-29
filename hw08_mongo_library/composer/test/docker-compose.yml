@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   mongo1:
     image: mongo:latest
@@ -44,7 +43,6 @@ services:
     restart: always
     networks:
       - hw08_bridge
-  
 
 networks:
   hw08_bridge:
@@ -53,4 +51,3 @@ networks:
     ipam:
       config:
         - subnet: 172.23.0.0/16
-
