@@ -7,12 +7,11 @@ import org.sergio.library.repositories.AuthorMongoRepository;
 import org.sergio.library.repositories.BookMongoRepository;
 import org.sergio.library.repositories.GenreMongoRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service(value = "bookService")
 public class BookServiceImpl implements BookService {
@@ -29,18 +28,60 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public Map<Genre, List<Book>> getBooksForAllGenres() {
-        return null;
+        Map<Genre, List<Book>> map =
+                new TreeMap<>(new Comparator<Genre>() {
+                    @Override
+                    public int compare(Genre o1, Genre o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+        List<Genre> genres = (List<Genre>) genreRepository.findAll();
+        for (int i = 0; i < genres.size(); i++) {
+            Genre genre = genres.get(i);
+            List<Book> books = bookRepository.getBooksByGenreIdSort(genre.getId(),
+                    Sort.by(Sort.Direction.ASC, "name"));
+            map.put(genre, books);
+        }
+
+        return map;
     }
 
     @Override
+    @Transactional
     public List<Book> getBooksByAuthor(String name, String surName) {
-        return null;
+        List<Book> books = new ArrayList<>();
+        Author author = authorRepository.findByNameAndSurName(name, surName);
+        if (author != null) {
+            books = bookRepository.getBooksByAuthorIdSort(author.getId(),
+                    Sort.by(Sort.Direction.ASC, "name"));
+        }
+        return books;
     }
 
     @Override
+    @Transactional
     public Map<Author, List<Book>> getBooksForAllAuthors() {
-        return null;
+        Map<Author, List<Book>> map =
+                new TreeMap<>(new Comparator<Author>() {
+                    @Override
+                    public int compare(Author o1, Author o2) {
+                        int cmp = o1.getSurName().compareTo(o2.getSurName());
+                        if (cmp != 0) return cmp;
+                        else return o1.getName().compareTo(o2.getName());
+                    }
+                });
+        List<Author> authors = (List<Author>) authorRepository.findAll();
+        for (
+                int i = 0; i < authors.size(); i++) {
+            Author author = authors.get(i);
+            List<Book> books = bookRepository.getBooksByAuthorIdSort(author.getId(), Sort.by(Sort.Direction.ASC, "name"));
+            map.put(author, books);
+        }
+
+        return map;
+
     }
 
     @Override

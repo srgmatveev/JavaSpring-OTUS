@@ -21,22 +21,6 @@ public class MongoConfig {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    /*@PostConstruct
-    public void initIndexes() {
-
-        mongoTemplate.indexOps("authors") // collection name string or .class
-                .ensureIndex(
-                        new Index().on("surName", Sort.Direction.ASC)
-                );
-
-
-        mongoTemplate.indexOps("authors") // collection name string or .class
-                .ensureIndex(
-                        new Index().on("name", Sort.Direction.ASC)
-                );
-
-    }*/
-
     @Bean
     MongoTransactionManager transactionManager() {
         return new MongoTransactionManager(mongoDatabaseFactory);

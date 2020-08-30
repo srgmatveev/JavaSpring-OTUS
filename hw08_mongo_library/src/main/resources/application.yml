@@ -16,7 +16,7 @@ spring:
       auto-index-creation: true
 
   profiles:
-    active: "prod"
+    active: prod #prod,init
   main:
     banner-mode: "off"
 
@@ -24,3 +24,8 @@ spring:
 
 spring:
   profiles: prod
+
+---
+
+spring:
+  profiles: init

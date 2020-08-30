@@ -6,6 +6,9 @@ plugins {
 group = 'org.sergio'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+ext {
+    shell_version = "2.0.1.RELEASE"
+}
 repositories {
     mavenCentral()
 
@@ -13,6 +16,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.springframework.shell', name: 'spring-shell-starter', version: "${project.shell_version}"
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

@@ -78,14 +78,16 @@ class PersonMongoRepositoryTest {
     void findByNameAndSurName() {
         Person person = new Person("Sergio", "Matveev");
         personMongoRepository.save(person);
-        Person person1 = personMongoRepository.findByNameAndSurName("Sergio", "Matveev");
+
+        List<Person> persons = personMongoRepository.findByNameAndSurName("Sergio", "Matveev");
+        Person person1 = persons.get(0);
         assertNotNull(person1.getId());
         assertEquals(person1.getName(), "Sergio");
         assertEquals(person1.getSurName(), "Matveev");
-        person1 = personMongoRepository.findByNameAndSurName("Sergi", "Matveev");
-        assertNull(person1);
-        person1 = personMongoRepository.findByNameAndSurName("Sergio", "Matvee");
-        assertNull(person1);
+        persons = personMongoRepository.findByNameAndSurName("Sergi", "Matveev");
+        assertTrue(persons.isEmpty());
+        persons = personMongoRepository.findByNameAndSurName("Sergio", "Matvee");
+        assertTrue(persons.isEmpty());
     }
 
     @Test
