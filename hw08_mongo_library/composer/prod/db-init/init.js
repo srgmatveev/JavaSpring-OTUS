@@ -1,4 +1,4 @@
-db = db.getSiblingDB('library')
+db = db.getSiblingDB('admin')
 
 db.createUser({
   user: "andrea",

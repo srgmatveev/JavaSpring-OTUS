@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  mongo9:
+    image: mongo:latest
+    container_name: tst_mongodb9
+    hostname: mongodb9
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_REPLICA_SET_NAME: ${MONGO_REPLICA_SET_NAME}
+    volumes:
+      - ./mongodb9/log/:/var/log/mongodb/
+      - ./db-init/:/docker-entrypoint-initdb.d
+      - ./mongodb9/db:/data/db
+    ports:
+      - "27119:27017"
+    command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all"]
+    networks:
+      - hw09_bridge
+    restart: always
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  mongo-express9:
+    image: mongo-express
+    container_name: mongo-express9
+    hostname: mongoexpress9
+    env_file:
+      - .env
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo9
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+    ports:
+      - 8089:8081
+    restart: always
+    networks:
+      - hw09_bridge
+
+networks:
+  hw09_bridge:
+    name: hw09_bridge
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
