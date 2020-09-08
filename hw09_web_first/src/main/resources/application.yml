@@ -25,6 +25,8 @@ spring:
 spring:
   profiles: prod
 
+server:
+  port : 8081
 ---
 
 spring:
