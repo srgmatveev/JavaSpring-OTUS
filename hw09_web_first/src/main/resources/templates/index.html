@@ -4,73 +4,75 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Библиотека</title>
-    <link href="css/styles.css" rel="stylesheet">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <script src="../static/js/index.js"></script>
 </head>
 
 <body>
-<div id="wrapper">
-    <header>
-        <div id="header_logo">
-            <a href="/"><img class="library_logo" src="images/library.png" alt="Library logo"></a>
+    <div id="wrapper">
+        <header>
+            <div id="header_logo">
+                <a href="/"><img class="library_logo" src="../static/images/library.png"
+                        data-th-src="@{/images/library.png}" alt="Library logo" data-th-alt="#{index.library.logo}"></a>
+            </div>
+            <div id="header_langs">
+                <a href="/?lang=ru_RU" data-th-text="#{index.lang.rus}">Rus</a>
+                <span>/</span>
+                <a href="/?lang=en_US" data-th-text="#{index.lang.eng}">Eng</a>
+            </div>
+        </header>
+        <nav>
+            <ul class="top-menu">
+                <li><a href="/" data-th-text="#{index.home}">HOME</a></li>
+                <li class="active" data-th-text="#{index.about_us}">О НАС</li>
+                <li><a href="/services/" data-th-text="#{index.genres}">ЖАНРЫ</a></li>
+                <li><a href="/partners/" data-th-text="#{index.authors}">АВТОРЫ</a></li>
+                <li><a href="/customers/" data-th-text="#{index.books}">КНИГИ</a></li>
+                <li><a href="/projects/" data-th-text="#{index.books_covers}">ОБЛОЖКИ</a></li>
+            </ul>
+        </nav>
+        <div id="heading">
+            <a href="/">
+                <h1 data-th-text="#{index.about_us}">О НАС</h1>
+            </a>
         </div>
-        <div id="header_langs">
-            <a href="/?lang=ru_RU" data-th-text="#{index.lang.rus}">Rus</a>
-            <span>/</span>
-            <a href="/?lang=en_US" data-th-text="#{index.lang.eng}">Eng</a>
-        </div>
-    </header>
-    <nav>
-        <ul class="top-menu">
-            <li><a href="/" data-th-text="#{index.home}">HOME</a></li>
-            <li class="active" data-th-text="#{index.about_us}">О НАС</li>
-            <li><a href="/services/" data-th-text="#{index.genres}">ЖАНРЫ</a></li>
-            <li><a href="/partners/" data-th-text="#{index.authors}">АВТОРЫ</a></li>
-            <li><a href="/customers/" data-th-text="#{index.books}">КНИГИ</a></li>
-            <li><a href="/projects/" data-th-text="#{index.books_covers}">ОБЛОЖКИ</a></li>
-        </ul>
-    </nav>
-    <div id="heading">
-        <a href="/">
-            <h1 data-th-text="#{index.about_us}">О НАС</h1>
-        </a>
-    </div>
-    <div id="main" class="main-content">
-        <aside class="aside">
-            <nav>
-                <ul class="aside-menu">
-                    <li class="active">LOREM IPSUM</li>
-                    <li><a href="/donec/">DONEC TINCIDUNT LAOREET</a></li>
-                    <li><a href="/vestibulum/">VESTIBULUM ELIT</a></li>
-                    <li><a href="/etiam/">ETIAM PHARETRA</a></li>
-                    <li><a href="/phasellus/">PHASELLUS PLACERAT</a></li>
-                    <li><a href="/cras/">CRAS ET NISI VITAE ODIO</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <section class="section">
+        <div id="main" class="main-content">
+            <aside class="aside">
+                <nav>
+                    <ul class="aside-menu">
+                        <li class="active">LOREM IPSUM</li>
+                        <li><a href="/donec/">DONEC TINCIDUNT LAOREET</a></li>
+                        <li><a href="/vestibulum/">VESTIBULUM ELIT</a></li>
+                        <li><a href="/etiam/">ETIAM PHARETRA</a></li>
+                        <li><a href="/phasellus/">PHASELLUS PLACERAT</a></li>
+                        <li><a href="/cras/">CRAS ET NISI VITAE ODIO</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            <section class="section">
 
-        </section>
+            </section>
+        </div>
     </div>
-</div>
-<footer id="footer" class="footer">
-    <p>Сайт библиотеки </p>
-    <p>Наш адрес: город Нск</p>
-</footer>
-<script type="text/javascript">
+    <footer id="footer" class="footer">
+        <p data-th-text="#{index.footer.desc}">Сайт библиотеки</p>
+        <p data-th-text="#{index.footer.address}">Наш адрес: город Нск</p>
+    </footer>
+    <script type="text/javascript">
 
         function bottom_footer() {
             var footer = document.getElementById("footer");
             var footHeight = footer.offsetHeight;
-            footer.style.marginTop = -footHeight -20 + "px";
-            document.getElementById('main').style.paddingBottom = footHeight +20  + "px";
+            footer.style.marginTop = -footHeight - 20 + "px";
+            document.getElementById('main').style.paddingBottom = footHeight + 20 + "px";
         }
 
         window.onload = function () {
-                bottom_footer();
+            bottom_footer();
         }
 
-</script>
+    </script>
 </body>
 
 </html>
