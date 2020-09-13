@@ -40,17 +40,6 @@ $blue-rich: hsl(211, 65%, 48%);
   display: block;
 }
 
-/* prettying things up a bit */
-.close {
-  position: absolute;
-  top: 0.2em;
-  right: 0.2em;
-  padding: 0.3em;
-  line-height: 0.6;
-  background-color: transparent;
-  border: 0;
-  font-size: 2em;
-}
 .about-modal-header,
 .about-modal-body,
 .about-modal-footer {
@@ -64,10 +53,43 @@ $blue-rich: hsl(211, 65%, 48%);
   border-top-left-radius: 0.6rem;
   border-top-right-radius: 0.6rem;
   border-bottom: 1px solid $blue-5;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row | nowrap;
+  align-items: baseline;
+}
+
+.about-modal-header-caption {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.upper-close {
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  font-size: 2em;
+  padding: 0.3em;
+  line-height: 0.6;
+}
+
+.upper-close:focus {
+  background-color: transparent;
+  outline: none; /* убрать рамку */
+}
+
+.upper-close:active {
+  transform: translate(4px, 4px);
 }
 
 .about-modal-footer {
+  display: flex;
   border-top: 1px solid $blue-5;
+  justify-content: flex-end;
+}
+
+.about-modal-footer-buttons {
+  display: block;
 }
 
 #about-modal {

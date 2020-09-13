@@ -12,8 +12,8 @@
 
 </head>
 
-<body>
-    <div id="wrapper">
+<body class="index_body">
+    <div id="index-wrapper">
         <header>
             <div id="header_logo">
                 <a href="/"><img class="library_logo" src="../static/images/library.png"
@@ -27,16 +27,14 @@
         </header>
         <nav>
             <ul class="top-menu">
-                <li><a href="/" data-th-text="#{index.home}">HOME</a></li>
-                <li class="active" id="nav-about" data-th-text="#{index.about_us}">О НАС</li>
-                <li><a href="/services/" data-th-text="#{index.genres}">ЖАНРЫ</a></li>
+                <li><a href="/main/resources/templates/genres.html"  data-th-href="@{/genres}" data-th-text="#{index.genres}">ЖАНРЫ</a></li>
                 <li><a href="/partners/" data-th-text="#{index.authors}">АВТОРЫ</a></li>
                 <li><a href="/customers/" data-th-text="#{index.books}">КНИГИ</a></li>
                 <li><a href="/projects/" data-th-text="#{index.books_covers}">ОБЛОЖКИ</a></li>
             </ul>
         </nav>
         <div id="heading">
-                <h1 id="h1-about-us" data-th-text="#{index.about_us}">О НАС</h1>
+            <h1 id="h1-about-us" data-th-text="#{index.about_us}">О НАС</h1>
         </div>
         <div id="main" class="main-content">
             <aside class="aside">
@@ -60,17 +58,28 @@
         <p data-th-text="#{index.footer.desc}">Сайт библиотеки</p>
         <p data-th-text="#{index.footer.address}">Наш адрес: город Нск</p>
     </footer>
-    
+
     <dialog id="about-modal">
-        <h3 class="about-modal-header" data-th-text="#{index.about.caption}">A native modal dialog box</h3>
-        <div class="about-modal-body">
-          <p data-th-text="#{index.about.body.line1}">This is fantastic.</p>
-          <p data-th-text="#{index.about.body.line2}">Today.</p>
+        <div class="about-modal-header">
+            <div class="about-modal-header-caption">
+                <h3 data-th-text="#{index.about.caption}">A native modal dialog box</h3>
+            </div>
+            <div>
+                <button id="close" class="upper-close" type="button">&times;</button>
+            </div>
         </div>
-        <footer class="about-modal-footer">
-          <button id="about-modal-exit" type="button" data-th-text="#{index.about.button}">Закрыть</button>
-        </footer>
-      </dialog>
+        <div class="about-modal-body">
+            <p data-th-text="#{index.about.body.line1}">This is fantastic.</p>
+            <p data-th-text="#{index.about.body.line2}">Today.</p>
+        </div>
+        <div class="about-modal-footer">
+            <div class="about-modal-footer-buttons">
+            <button id="about-modal-exit" type="button" data-th-text="#{index.about.button}">Закрыть</button>
+            </div>    
+        </div>
+
+
+    </dialog>
 
 </body>
 
