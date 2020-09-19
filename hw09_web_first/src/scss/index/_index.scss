@@ -1,6 +1,6 @@
 $wrapper-width: 95vw;
 
-html{
+html {
   height: 100%;
 }
 
@@ -15,8 +15,8 @@ html{
   margin: auto;
   dispaly: block;
   min-height: 100%;
-	height: auto !important;
-	height: 100%; // for old IE
+  height: auto !important;
+  height: 100%; // for old IE
 }
 
 @import "_header.scss";
