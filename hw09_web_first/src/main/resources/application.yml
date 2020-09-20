@@ -27,6 +27,18 @@ spring:
 
 server:
   port : 8081
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.sergio.library: DEBUG
+    org.hibernate: INFO
+  pattern:
+    console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: ./logs/application-debug.log
+
 ---
 
 spring:
