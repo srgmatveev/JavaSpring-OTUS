@@ -20,7 +20,7 @@
             </div>
 
             <div class="genre_to_main_button">
-                <a href="/main/resources/templates/index.html" class="genres_return_button" data-th-href="@{/genres}"
+                <a href="/main/resources/templates/index.html" class="genres_return_button" data-th-href="@{/}"
                     data-th-text="#{genres.main}">НА ГЛАВНУЮ</a>
             </div>
         </div>
@@ -33,8 +33,8 @@
                 <div class="genre_delete_caption"></div>
             </div>
 
-            <div id="1223333" class="genre_row">
-                <div class="genre_row_text">
+            <div data-th-each="genre:${genres}" class="genre_row" data-th-attr="id=${genre.id}">
+                <div class="genre_row_text" data-th-text="${genre.name}">
                     Фантастика
                 </div>
                 <div class="genre_delete_edit_buttons">
@@ -46,19 +46,33 @@
                     </div>
                 </div>
             </div>
+            <!--           <div id="1223333" class="genre_row">
+                         <div class="genre_row_text">
+                             Фантастика
+                         </div>
+                         <div class="genre_delete_edit_buttons">
+                             <div class="genre_edit_row">
+                                 <a href="#" class="edit_genre_button">Редактировать</a>
+                             </div>
+                             <div class="genre_delete_row">
+                                 <a href="#" class="delete_genre_button">Удалить</a>
+                             </div>
+                         </div>
+                     </div>
 
-            <div id="1225555" class="genre_row">
-                <div class="genre_row_text">
-                    Приключения
-                </div>
-                <div class="genre_delete_edit_buttons">
-                    <div class="genre_edit_row">
-                        <a href="#" class="edit_genre_button">Редактировать</a>
-                    </div>
-                    <div class="genre_delete_row">
-                        <a href="#" class="delete_genre_button">Удалить</a>
-                    </div>
-                </div>
+                   <div id="1225555" class="genre_row">
+                         <div class="genre_row_text">
+                             Приключения
+                         </div>
+                         <div class="genre_delete_edit_buttons">
+                             <div class="genre_edit_row">
+                                 <a href="#" class="edit_genre_button">Редактировать</a>
+                             </div>
+                             <div class="genre_delete_row">
+                                 <a href="#" class="delete_genre_button">Удалить</a>
+                             </div>
+                         </div>
+         -->
             </div>
 
         </div>

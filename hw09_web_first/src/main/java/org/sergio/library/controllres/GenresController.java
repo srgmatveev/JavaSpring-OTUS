@@ -1,9 +1,12 @@
 package org.sergio.library.controllres;
 
 import lombok.extern.slf4j.Slf4j;
+import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.GenreDTO;
+import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.validators.GenreDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,14 +14,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class GenresController {
     @Autowired
     private GenreDTOValidator genreDTOValidator;
 
+    @Autowired
+    GenreRepo genreRepo;
+
     @GetMapping("/genres")
-    public String getGenres() {
+    public String getGenres(Model model) {
+        List<Genre> genres = genreRepo.findAll(Sort.by(Sort.Direction.ASC,"name"));
+        model.addAttribute("genres", genres);
         return "genres";
     }
 

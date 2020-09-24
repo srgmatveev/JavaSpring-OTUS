@@ -32,6 +32,7 @@ public class GenreDTOValidator implements Validator {
                     "name.length",
                     new Object[]{len},
                     "Genre length should be between 3 and 80");
+            return;
         }
         String tmpName = genreDTO.getName().toLowerCase();
         repo.uniqSave(new Genre(tmpName));

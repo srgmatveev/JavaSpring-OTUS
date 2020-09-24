@@ -16,12 +16,12 @@
     <div class="add_genre_wrapper">
         <form class="add_genre_form_wrapper" data-th-action="@{/genres/add}" data-th-object="${genre}" method="post">
             <div class="add_genre_form_caption">
-                <p>Новый жанр</p>
+                <p data-th-text="#{genres.add.form.caption}">Новый жанр</p>
             </div>
             <div class="add_genre_body">
 
                 <div data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
-                        <label>Name</label>
+                        <label data-th-text="#{genres.add.form.label}">Name</label>
                         <input type="text" data-th-field="*{name}" />
                         <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}"
                         data-th-class="text-red">Incorrect data</p>
@@ -31,7 +31,8 @@
                 <div class="add_genre_form_bottom">
                     <div class="add_genre_bottom_nav">
                         <button type="submit" data-th-text="#{genres.add.submit}">Submit</button>
-                        <button type="button" data-th-text="#{genres.add.submit}">Cancel</button>
+                        <button type="button" data-th-text="#{genres.add.exit}"
+                                onclick="window.location.href='/genres';">Cancel</button>
                     </div>
                 </div>
         </form>
