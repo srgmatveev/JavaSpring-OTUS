@@ -4,18 +4,19 @@ $blue-5: hsl(211, 51%, 65%);
 $blue-7: hsl(211, 90%, 93%);
 $blue-rich: hsl(211, 65%, 48%);
 
-#about-modal {
+#delete-genre {
   padding: 0;
   border: 0;
   border-radius: 0.6rem;
   box-shadow: 0 0 1em black;
 }
+
 /* native backdrop */
-#about-modal::backdrop {
+#delete-genre::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
 }
 /* polyfill backdrop */
-#about-modal + .backdrop {
+#delete-genre + .backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -23,30 +24,30 @@ $blue-rich: hsl(211, 65%, 48%);
   left: 0;
   background-color: rgba(0, 0, 0, 0.4);
 }
-#about-modal[open] {
+#delete-genre[open] {
   animation: slide-up 0.4s ease-out;
 }
 
 /* The following styles are for older browsers when using
-   the polyfill. These aren’t necessary for Chrome/Firefox. */
-#about-modal {
+     the polyfill. These aren’t necessary for Chrome/Firefox. */
+#delete-genre {
   display: none;
   position: absolute;
   margin: 0 auto; /* should center it, but not working in Safari */
   max-width: 80vw;
   background-color: white;
 }
-#about-modal[open] {
+#delete-genre[open] {
   display: block;
 }
 
-.about-modal-header,
-.about-modal-body,
-.about-modal-footer {
+.delete-genre-header,
+.delete-genre-body,
+.delete-genre-footer {
   padding: 1em;
 }
 
-.about-modal-header {
+.delete-genre-header {
   margin: 0;
   padding-bottom: 0.6em;
   background-color: $blue-7;
@@ -55,45 +56,52 @@ $blue-rich: hsl(211, 65%, 48%);
   border-bottom: 1px solid $blue-5;
   display: flex;
   justify-content: space-between;
-  flex-flow: row  nowrap;
+  flex-flow: row nowrap;
   align-items: baseline;
 }
 
-.about-modal-header-caption {
+.delete-genre-header-caption {
   display: inline-block;
-  margin-right: 1em;
+  // margin-right: 1em;
 }
 
-.upper-close {
-  display: inline-block;
-  background-color: transparent;
-  border: none;
-  font-size: 2em;
-  padding: 0.3em;
-  line-height: 0.6;
+.delete-genre-body {
+  display: inline-grid;
+  grid-template-areas: "delete-genre-labels delete-genre-inputs";
+  grid-template-columns: 2fr 10fr;
+  width: calc(100% - 2em);
+  grid-gap: 1em;
+  align-items: center;
 }
 
-.upper-close:focus {
-  background-color: transparent;
-  outline: none; /* убрать рамку */
+.delete-genre-labels {
+  grid-area: delete-genre-labels;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
 }
 
-.upper-close:active {
-  transform: translate(4px, 4px);
+.delete-genre-inputs {
+  grid-area: delete-genre-inputs;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
 }
 
-.about-modal-footer {
+
+.delete-genre-footer {
   display: flex;
   border-top: 1px solid $blue-5;
   justify-content: flex-end;
 }
 
-.about-modal-footer-buttons {
-  display: block;
+#delete-genre-delete + #delete-genre-cancel {
+  margin-left: 1em;
 }
 
-delete-genre-delete + 
-#about-modal {
+#delete-genre {
   button {
     padding: 0.4em 1em 0.2em;
     font-family: Glober, Helvetica, sans-serif;
