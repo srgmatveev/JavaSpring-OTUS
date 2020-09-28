@@ -7,12 +7,11 @@ import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.validators.GenreDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class GenresController {
 
     @GetMapping("/genres")
     public String getGenres(Model model) {
-        List<Genre> genres = genreRepo.findAll(Sort.by(Sort.Direction.ASC,"name"));
+        List<Genre> genres = genreRepo.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("genres", genres);
         return "genres";
     }
@@ -39,12 +38,19 @@ public class GenresController {
     }
 
     @PostMapping("/genres/add")
-    public String addGenrePost(@ModelAttribute("genre") GenreDTO genreDTO, Model model,  BindingResult result){
-        log.debug("Registering genreDTO : "+ genreDTO);
+    public String addGenrePost(@ModelAttribute("genre") GenreDTO genreDTO, Model model, BindingResult result) {
+        log.debug("Registering genreDTO : " + genreDTO);
         genreDTOValidator.validate(genreDTO, result);
 
         log.info(result.toString());
         //model.addAttribute("genre", new GenreDTO());
         return "add_genre";
     }
+
+    @DeleteMapping(value = "/genres/del/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("id") String id) {
+        genreRepo.deleteById(id);
+    }
+
 }
