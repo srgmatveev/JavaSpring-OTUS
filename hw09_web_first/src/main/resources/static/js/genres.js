@@ -17,7 +17,7 @@ function add_genres_delete_listener() {
 
     del.addEventListener('click', () => {
         modal.close('Accepted');
-
+        delete_genre();
     });
 
 }
@@ -38,10 +38,10 @@ function click_delete_genre_button(currentElement) {
     set_width(inputs);
 }
 
-function set_width(elem){
+function set_width(elem) {
     if (typeof elem === 'undefined') return;
     let children = elem.childNodes;
-    let wdt = elem.offsetWidth +"px";
+    let wdt = elem.offsetWidth + "px";
     for (let i = 0; i < children.length; i++) {
         if (typeof children[i].classList !== 'undefined' && children[i].tagName.toLowerCase() === 'input') {
             children[i].style.width = wdt;
@@ -59,6 +59,31 @@ function get_children(elem, className) {
                 return children[i];
         }
     }
+}
+
+
+function delete_genre() {
+    const _id = document.getElementById('delete_genre_id').value
+    let url = '/genres/del/' + _id
+    let request = new XMLHttpRequest()
+    console.log(url)
+    request.open('DELETE', url, true)
+    request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+            hide_genre_on_delete(_id);
+            console.log(`Success delete for ${_id}`);
+        }
+        else {
+            console.log(`Error delete for ${_id}`);
+        }
+    }
+
+    request.send()
+}
+
+function hide_genre_on_delete(id){
+    const doc = document.getElementById(id);
+    doc.style.display = 'none';
 }
 
 window.onload = function () {
