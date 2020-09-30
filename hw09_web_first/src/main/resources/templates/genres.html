@@ -40,14 +40,15 @@
                 </div>
                 <div class="genre_delete_edit_buttons">
                     <div class="genre_edit_row">
-                        <a href="#" class="edit_genre_button">Редактировать</a>
+                        <a href="/main/resources/templates/edit_genre.html" class="edit_genre_button"
+                            data-th-href="@{/genres/edit(id=${genre.id}, name=${genre.name})}">Редактировать</a>
                     </div>
                     <div class="genre_delete_row">
-                        <a href="#" class="delete_genre_button" onclick="click_delete_genre_button(this);">Удалить</a>
+                        <p class="delete_genre_button" onclick="click_delete_genre_button(this);">Удалить</p>
                     </div>
                 </div>
             </div>
-        <!--  
+            <!--  
             <div id="1223333" class="genre_row">
                 <div class="genre_row_text">
                     Фантастика

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}" class="edit_genre_html">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../static/js/genres.js" data-th-src="@{/js/genres.js}"></script>
+
+</head>
+
+<body class="edit_genre_body_main">
+    <div class="edit_genre_wrapper">
+        <form class="edit_genre_form_wrapper" data-th-action="@{/genres/edit}" data-th-object="${genre}" method="post">
+            <div class="edit_genre_form_caption">
+                <p data-th-text="#{genres.edit.form.caption}">Редактировать жанр</p>
+            </div>
+            <div class="edit_genre_body">
+
+                <div class="edit_genre_body_row">
+                    <label data-th-text="#{genres.edit.form.label.id}">Id:</label>
+                    <input type="text" readonly="true" data-th-field="*{id}" />
+                </div>
+
+                <div class="edit_genre_body_row">
+                    <label data-th-text="#{genres.edit.form.label.name}">Name</label>
+                    <input type="text" data-th-field="*{name}" />
+                </div>
+
+                <div class="edit_genre_body_row" data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
+                    <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}"
+                    data-th-class="text-red">Incorrect data</p>
+                </div>
+                
+            </div>
+
+                <div class="edit_genre_form_bottom">
+                    <div class="edit_genre_bottom_nav">
+                        <button type="submit" data-th-text="#{genres.edit.submit}">Submit</button>
+                        <button type="button" data-th-text="#{genres.edit.exit}"
+                                onclick="window.location.href='/genres';">Cancel</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</body>
+
+</html>

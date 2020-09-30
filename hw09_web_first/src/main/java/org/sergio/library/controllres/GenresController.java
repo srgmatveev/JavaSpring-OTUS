@@ -53,4 +53,25 @@ public class GenresController {
         genreRepo.deleteById(id);
     }
 
+
+    @GetMapping("/genres/edit")
+    String editGenre(@RequestParam("id") String id,
+                     @RequestParam("name") String name,
+                     Model model) {
+        GenreDTO genreDTO = new GenreDTO();
+        genreDTO.setId(id);
+        genreDTO.setName(name);
+        model.addAttribute("genre", genreDTO);
+        return "edit_genre";
+    }
+    @PostMapping("/genres/edit")
+    String editGenrePost(@ModelAttribute("genre") GenreDTO genreDTO, Model model, BindingResult result) {
+        log.debug("Registering genreDTO : " + genreDTO);
+        genreDTOValidator.validate(genreDTO, result);
+
+        log.info(result.toString());
+        //model.addAttribute("genre", new GenreDTO());
+        return "edit_genre";
+    }
+
 }

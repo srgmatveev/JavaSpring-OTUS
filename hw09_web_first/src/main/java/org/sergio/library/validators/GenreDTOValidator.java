@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -25,6 +26,7 @@ public class GenreDTOValidator implements Validator {
     }
 
     @Override
+    @Transactional
     public void validate(Object target, Errors errors) {
         GenreDTO genreDTO = (GenreDTO) target;
         String name = genreDTO.getName();
@@ -37,7 +39,16 @@ public class GenreDTOValidator implements Validator {
             return;
         }
         String tmpName = genreDTO.getName().toLowerCase();
-        repo.uniqSave(new Genre(tmpName));
-        genreDTO.setName(tmpName);
+        String id = genreDTO.getId();
+        Genre genre = repo.uniqSave(new Genre(tmpName));
+        genreDTO.setName(genre.getName());
+        if (id == null) {
+            genreDTO.setId(null);
+        } else {
+            if (genre.getId() != id) {
+                repo.deleteById(id);
+                genreDTO.setId(genre.getId());
+            }
+        }
     }
 }
