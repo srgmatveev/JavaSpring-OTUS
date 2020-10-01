@@ -71,7 +71,10 @@ public class GenresController {
 
         log.info(result.toString());
         //model.addAttribute("genre", new GenreDTO());
+
+       if(result.hasErrors())
         return "edit_genre";
+       else return "redirect:/genres";
     }
 
 }

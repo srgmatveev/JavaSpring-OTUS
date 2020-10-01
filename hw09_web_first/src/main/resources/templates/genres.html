@@ -27,7 +27,7 @@
         </div>
         <div class="genres_table">
             <div class="genre_table_caption">
-                <div class="genre_caption_text">
+                <div class="genre_caption_text" data-th-text="#{genres.table.caption}">
                     Жанр
                 </div>
                 <div class="genre_edit_caption"></div>
@@ -41,43 +41,14 @@
                 <div class="genre_delete_edit_buttons">
                     <div class="genre_edit_row">
                         <a href="/main/resources/templates/edit_genre.html" class="edit_genre_button"
-                            data-th-href="@{/genres/edit(id=${genre.id}, name=${genre.name})}">Редактировать</a>
+                            data-th-href="@{/genres/edit(id=${genre.id}, name=${genre.name})}" data-th-text="#{genres.edit}">Редактировать</a>
                     </div>
                     <div class="genre_delete_row">
-                        <p class="delete_genre_button" onclick="click_delete_genre_button(this);">Удалить</p>
-                    </div>
-                </div>
-            </div>
-            <!--  
-            <div id="1223333" class="genre_row">
-                <div class="genre_row_text">
-                    Фантастика
-                </div>
-                <div class="genre_delete_edit_buttons">
-                    <div class="genre_edit_row">
-                        <a href="#" class="edit_genre_button">Редактировать</a>
-                    </div>
-                    <div class="genre_delete_row">
-                        <a href="#" class="delete_genre_button" onclick="click_delete_genre_button(this);">Удалить</a>
+                        <p class="delete_genre_button" onclick="click_delete_genre_button(this);" data-th-text="#{genres.delete}">Удалить</p>
                     </div>
                 </div>
             </div>
 
-            <div id="1225555" class="genre_row">
-                <div class="genre_row_text">
-                    Приключения
-                </div>
-                <div class="genre_delete_edit_buttons">
-                    <div class="genre_edit_row">
-                        <a href="#" class="edit_genre_button">Редактировать</a>
-                    </div>
-                    <div class="genre_delete_row">
-                        <a href="#" class="delete_genre_button" onclick="click_delete_genre_button(this);">Удалить</a>
-                    </div>
-                </div>
-
-            </div>
-        -->
         </div>
     </div>
     <dialog id="delete-genre">

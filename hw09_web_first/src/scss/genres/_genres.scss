@@ -86,6 +86,9 @@ $cuprum-font: "Cuprum", sans-serif;
 .genre_table_caption {
   grid-area: genre_table_caption;
   background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .genre_caption_text {

@@ -42,14 +42,48 @@
 .add_genre_body {
   grid-area: add_genre_body;
   background-color: white;
+  display: block;
   label,
   input,
   p {
     margin-top: 2em;
     font-size: 2em;
-    margin-left: 0.6em;
   }
 }
+
+
+.add_genre_body_row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .6em;
+}
+
+.add_genre_body_row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+
+.add_genre_body_row > input {
+  flex: 2;
+  padding: .5em;
+}
+
+@media screen and (min-width: 768px) {
+  .add_genre_body_row > input {
+    flex: 3; 
+  }
+}
+@media screen and (min-width: 992px) {
+  .add_genre_body_row > input {
+    flex: 4; 
+  }
+}
+@media screen and (min-width: 1200px) {
+  .add_genre_body_row > input {
+    flex: 15; 
+  }
+}
+
 .add_genre_form_bottom {
   grid-area: add_genre_form_bottom;
   background-color: lightblue;

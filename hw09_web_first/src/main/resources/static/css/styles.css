@@ -392,6 +392,9 @@ delete-genre-delete +
 .genre_table_caption {
   grid-area: genre_table_caption;
   background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .genre_caption_text {
@@ -632,6 +635,7 @@ delete-genre-delete +
 .add_genre_body {
   grid-area: add_genre_body;
   background-color: white;
+  display: block;
 }
 
 .add_genre_body label,
@@ -639,7 +643,40 @@ delete-genre-delete +
 .add_genre_body p {
   margin-top: 2em;
   font-size: 2em;
-  margin-left: 0.6em;
+}
+
+.add_genre_body_row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .6em;
+}
+
+.add_genre_body_row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+
+.add_genre_body_row > input {
+  flex: 2;
+  padding: .5em;
+}
+
+@media screen and (min-width: 768px) {
+  .add_genre_body_row > input {
+    flex: 3;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .add_genre_body_row > input {
+    flex: 4;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .add_genre_body_row > input {
+    flex: 15;
+  }
 }
 
 .add_genre_form_bottom {

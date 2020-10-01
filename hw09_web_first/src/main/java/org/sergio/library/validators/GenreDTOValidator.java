@@ -3,20 +3,23 @@ package org.sergio.library.validators;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.GenreRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Locale;
+
 @Component
 public class GenreDTOValidator implements Validator {
     private final GenreRepo repo;
-
-    public GenreDTOValidator(@Qualifier("genreRepo") GenreRepo repo) {
+    private final MessageSource ms;
+    public GenreDTOValidator(@Qualifier("genreRepo") GenreRepo repo, MessageSource ms) {
         this.repo = repo;
+        this.ms = ms;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class GenreDTOValidator implements Validator {
             errors.rejectValue("name",
                     "name.length",
                     new Object[]{len},
-                    "Genre length should be between 3 and 80");
+                    ms.getMessage("genre.validation.length.error", null, LocaleContextHolder.getLocale()));
             return;
         }
         String tmpName = genreDTO.getName().toLowerCase();
