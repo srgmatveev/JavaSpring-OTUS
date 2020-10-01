@@ -170,6 +170,15 @@ nav li {
   grid-area: content;
 }
 
+.aside-menu > li {
+  list-style-type: none;
+  margin: 1em;
+}
+
+.aside-menu > li:hover {
+  background-color: lightblue;
+}
+
 @font-face {
   font-family: "Cuprum";
   src: url(../fonts/Cuprum-Regular.ttf) format("truetype");
