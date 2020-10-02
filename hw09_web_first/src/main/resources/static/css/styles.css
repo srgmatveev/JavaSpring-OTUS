@@ -833,4 +833,600 @@ delete-genre-delete +
   font-size: 1.5em;
   margin-left: 0.6em;
 }
+
+@font-face {
+  font-family: "Cuprum";
+  src: url(../fonts/Cuprum-Regular.ttf) format("truetype");
+  /* все современные браузеры */
+}
+
+.authors_wrapper {
+  display: grid;
+  grid-template-areas: "author_nav" "author_content";
+  grid-template-columns: 1fr;
+  width: 95vw;
+  margin: auto;
+}
+
+.authors_nav {
+  grid-area: author_nav;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.new_author_button {
+  box-shadow: 0px 0px 0px 0px #3dc21b;
+  background-color: #44c767;
+  border-radius: 1em;
+  border: 1px solid #18ab29;
+  display: block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.9em 1.1em;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+  margin-bottom: 0.5em;
+}
+
+.new_author_button:hover {
+  background-color: #5cbf2a;
+}
+
+.new_author_button:active {
+  position: relative;
+  top: 1px;
+}
+
+.authors_return_button {
+  box-shadow: 0px 0px 0px 0px #3dc21b;
+  background-color: #44c767;
+  border-radius: 1em;
+  border: 1px solid #18ab29;
+  display: block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.9em 1.1em;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+  margin-bottom: 0.5em;
+}
+
+.authors_return_button:hover {
+  background-color: #5cbf2a;
+}
+
+.authors_return_button:active {
+  position: relative;
+  top: 1px;
+}
+
+.authors_table {
+  grid-area: author_content;
+  margin-top: 15px;
+  display: grid;
+  grid-template-areas: "genre_table_caption";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+}
+
+.author_table_caption {
+  grid-area: genre_table_caption;
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+}
+
+.author_caption_text {
+  font: 2em "Cuprum", sans-serif;
+  padding: 0.5em;
+}
+
+.author_row {
+  font: 1.5em "Cuprum", sans-serif;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: row wrap;
+  border: 1px solid #4e6096;
+  border-top: 0px;
+}
+
+.author_sub_row {
+  display: flex;
+  flex: 8;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.author_row_text {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0.5em;
+  align-items: baseline;
+}
+
+.author_row_text > label {
+  flex: 1;
+  font-size: 1em;
+}
+
+.author_row_text > input {
+  flex: 8;
+  font-size: 1em;
+}
+
+@media screen and (min-width: 98px) {
+  .author_row_text > label {
+    width: 100%;
+  }
+  .author_row_text > input {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .author_row_text > label {
+    flex: 1;
+  }
+  .author_row_text > input {
+    flex: 3;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .author_row_text > input {
+    flex: 3;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .author_row_text > input {
+    flex: 5;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .author_row_text > input {
+    flex: 7;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .author_row_text > input {
+    flex: 8;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .author_row_text > input {
+    flex: 10;
+  }
+}
+
+.author_delete_edit_buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em;
+  flex: 1;
+}
+
+.author_edit_row,
+.author_delete_row {
+  display: block;
+}
+
+.edit_author_button {
+  box-shadow: inset 0px 1px 0px 0px #9fb4f2;
+  background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+  background-color: #7892c2;
+  border-radius: 6px;
+  border: 1px solid #4e6096;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 6px 24px;
+  margin: 0.5em;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #283966;
+}
+
+.edit_author_button:hover {
+  background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+  background-color: #476e9e;
+}
+
+.edit_author_button:active {
+  position: relative;
+  top: 1px;
+}
+
+.delete_author_button {
+  box-shadow: inset 0px 1px 0px 0px #f5978e;
+  background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+  background-color: #f24537;
+  border-radius: 6px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 6px 24px;
+  margin: 0.5em;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+
+.delete_author_button:hover {
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+  background-color: #c62d1f;
+}
+
+.delete_author_button:active {
+  position: relative;
+  top: 1px;
+}
+
+#delete-author {
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  box-shadow: 0 0 1em black;
+}
+
+/* native backdrop */
+#delete-author::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* polyfill backdrop */
+#delete-author + .backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#delete-author[open] {
+  animation: slide-up 0.4s ease-out;
+}
+
+/* The following styles are for older browsers when using
+     the polyfill. These aren’t necessary for Chrome/Firefox. */
+#delete-author {
+  display: none;
+  position: absolute;
+  margin: 0 auto;
+  /* should center it, but not working in Safari */
+  max-width: 80vw;
+  background-color: white;
+}
+
+#delete-author[open] {
+  display: block;
+}
+
+.delete-author-header,
+.delete-author-body,
+.delete-author-footer {
+  padding: 1em;
+}
+
+.delete-author-header {
+  margin: 0;
+  padding-bottom: 0.6em;
+  background-color: #ddedfd;
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+  border-bottom: 1px solid #78a4d3;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.delete-author-header-caption {
+  display: inline-block;
+}
+
+.delete-author-body {
+  display: inline-grid;
+  grid-template-areas: "delete-author-labels delete-author-inputs";
+  grid-template-columns: 2fr 10fr;
+  width: calc(100% - 2em);
+  grid-gap: 1em;
+  align-items: center;
+}
+
+.delete-author-labels {
+  grid-area: delete-author-labels;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.delete-author-inputs {
+  grid-area: delete-author-inputs;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.delete-author-footer {
+  display: flex;
+  border-top: 1px solid #78a4d3;
+  justify-content: flex-end;
+}
+
+#delete-author-delete + #delete-author-cancel {
+  margin-left: 1em;
+}
+
+#delete-author button {
+  padding: 0.4em 1em 0.2em;
+  font-family: Glober, Helvetica, sans-serif;
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translate(0, 15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.add_author_html,
+.add_author_body_main {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.add_author_wrapper {
+  width: 95vw;
+  margin: auto;
+  min-height: 100%;
+  height: 100vh !important;
+  height: 100%;
+  background-color: white;
+}
+
+.add_author_form_wrapper {
+  display: grid;
+  grid-template: "add_author_form_cap" "add_author_body" "add_author_form_bottom";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5em auto 5em;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+.add_author_form_caption {
+  grid-area: add_author_form_cap;
+  background-color: lightblue;
+  border-top-right-radius: 0.6em;
+  border-top-left-radius: 0.6em;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+}
+
+.add_author_form_caption p {
+  margin-left: 0.6em;
+  font-size: 1.5em;
+}
+
+.add_author_body {
+  grid-area: add_author_body;
+  background-color: white;
+  display: block;
+}
+
+.add_author_body label,
+.add_author_body input,
+.add_author_body p {
+  margin-top: 2em;
+  font-size: 2em;
+}
+
+.add_author_body_row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .6em;
+}
+
+.add_author_body_row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+
+.add_author_body_row > input {
+  flex: 2;
+  padding: .5em;
+}
+
+@media screen and (min-width: 768px) {
+  .add_author_body_row > input {
+    flex: 3;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .add_author_body_row > input {
+    flex: 4;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .add_author_body_row > input {
+    flex: 15;
+  }
+}
+
+.add_author_form_bottom {
+  grid-area: add_author_form_bottom;
+  background-color: lightblue;
+  border-bottom-right-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 0 0 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.add_author_bottom_nav {
+  display: inline-block;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add_author_bottom_nav button {
+  font-size: 1.5em;
+  margin-left: 0.6em;
+}
+
+.edit_author_html,
+.edit_author_body_main {
+  display: block;
+  pediting: 0;
+  margin: 0;
+}
+
+.edit_author_wrapper {
+  width: 95vw;
+  margin: auto;
+  min-height: 100%;
+  height: 100vh !important;
+  height: 100%;
+  background-color: white;
+}
+
+.edit_author_form_wrapper {
+  display: grid;
+  grid-template: "edit_author_form_cap" "edit_author_body" "edit_author_form_bottom";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5em auto 5em;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+.edit_author_form_caption {
+  grid-area: edit_author_form_cap;
+  background-color: lightblue;
+  border-top-right-radius: 0.6em;
+  border-top-left-radius: 0.6em;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+}
+
+.edit_author_form_caption p {
+  margin-left: 0.6em;
+  font-size: 1.5em;
+}
+
+.edit_author_body {
+  grid-area: edit_author_body;
+  background-color: white;
+  display: block;
+}
+
+.edit_author_body label,
+.edit_author_body input,
+.edit_author_body p {
+  margin-top: 2em;
+  font-size: 2em;
+}
+
+.edit_author_body_row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .6em;
+}
+
+.edit_author_body_row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+
+.edit_author_body_row > input {
+  flex: 2;
+  padding: .5em;
+}
+
+@media screen and (min-width: 768px) {
+  .edit_author_body_row > input {
+    flex: 3;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .edit_author_body_row > input {
+    flex: 4;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .edit_author_body_row > input {
+    flex: 15;
+  }
+}
+
+.edit_author_form_bottom {
+  grid-area: edit_author_form_bottom;
+  background-color: lightblue;
+  border-bottom-right-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 0 0 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.edit_author_bottom_nav {
+  display: inline-block;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit_author_bottom_nav button {
+  font-size: 1.5em;
+  margin-left: 0.6em;
+}
 /*# sourceMappingURL=styles.css.map */

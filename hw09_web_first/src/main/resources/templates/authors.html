@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../static/js/authors.js" data-th-src="@{/js/authors.js}"></script>
+
+</head>
+
+<body>
+    <div class="authors_wrapper">
+        <div class="authors_nav">
+            <div class="author_add_button">
+                <a href="/main/resources/templates/add_author.html" data-th-href="@{/authors/add}"
+                    class="new_author_button" data-th-text="#{authors.new_author}">НОВЫЙ АВТОР</a>
+            </div>
+
+            <div class="author_to_main_button">
+                <a href="/main/resources/templates/index.html" class="authors_return_button" data-th-href="@{/}"
+                    data-th-text="#{authors.main}">НА ГЛАВНУЮ</a>
+            </div>
+        </div>
+        <div class="authors_table">
+           <div class="author_table_caption">
+                <div class="author_caption_text" data-th-text="#{authors.table.caption}">
+                    Автор
+                </div>
+              
+            </div>
+
+            <div data-th-each="author:${authors}" id="author_id_author" class="author_row"
+                data-th-attr="id=${author.id}">
+                <div class="author_sub_row">
+                    <div class="author_row_text">
+                        <label>Фамилия</label>
+                        <input value="Тургенев" readonly="true" />
+                    </div>
+                    <div class="author_row_text">
+                        <label>Имя</label>
+                        <input value="Иван Сергеевич" readonly="true" />
+                    </div>
+                </div>
+                <div class="author_delete_edit_buttons">
+                    <div class="author_edit_row">
+                        <a href="/main/resources/templates/edit_author.html" class="edit_author_button"
+                            data-th-href="@{/authors/edit(id=${author.id}, name=${author.name})}"
+                            data-th-text="#{authors.edit}">Редактировать</a>
+                    </div>
+                    <div class="author_delete_row">
+                        <p class="delete_author_button" onclick="click_delete_author_button(this);"
+                            data-th-text="#{authors.delete}">Удалить</p>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    <dialog id="delete-author">
+        <div class="delete-author-header">
+            <div class="delete-author-header-caption">
+                <h3 data-th-text="#{authors.delete.caption}">A native modal dialog box</h3>
+            </div>
+            <div>
+                <button id="delete-author-close" class="upper-close" type="button">&times;</button>
+            </div>
+        </div>
+        <div class="delete-author-body">
+            <div class="delete-author-labels">
+                <label for="delete_author_id">id:</label>
+                <label for="delete_author_name">Name:</label>
+            </div>
+            <div class="delete-author-inputs">
+                <input type="text" id="delete_author_id" name="id" value="Norway" readonly>
+                <input type="text" id="delete_author_name" name="name" value="Norway" readonly>
+            </div>
+        </div>
+        <div class="delete-author-footer">
+            <div class="delete-author-footer-buttons">
+                <button id="delete-author-delete" type="button"
+                    data-th-text="#{authors.delete.delete.button}">Удалить</button>
+                <button id="delete-author-cancel" type="button"
+                    data-th-text="#{authors.delete.cancel.button}">Отмена</button>
+            </div>
+        </div>
+
+    </dialog>
+
+</body>
+
+</html>
