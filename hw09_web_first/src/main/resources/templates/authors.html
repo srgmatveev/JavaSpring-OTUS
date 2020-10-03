@@ -26,11 +26,11 @@
             </div>
         </div>
         <div class="authors_table">
-           <div class="author_table_caption">
+            <div class="author_table_caption">
                 <div class="author_caption_text" data-th-text="#{authors.table.caption}">
                     Автор
                 </div>
-              
+
             </div>
 
             <div data-th-each="author:${authors}" id="author_id_author" class="author_row"
@@ -38,11 +38,11 @@
                 <div class="author_sub_row">
                     <div class="author_row_text">
                         <label>Фамилия</label>
-                        <input value="Тургенев" readonly="true" />
+                        <input value="Тургенев" readonly="true" data-th-attr="value=${author.surName}" />
                     </div>
                     <div class="author_row_text">
                         <label>Имя</label>
-                        <input value="Иван Сергеевич" readonly="true" />
+                        <input value="Иван Сергеевич" readonly="true" data-th-attr="value=${author.name}" />
                     </div>
                 </div>
                 <div class="author_delete_edit_buttons">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
     </div>
     <dialog id="delete-author">
@@ -70,13 +70,17 @@
             </div>
         </div>
         <div class="delete-author-body">
-            <div class="delete-author-labels">
-                <label for="delete_author_id">id:</label>
-                <label for="delete_author_name">Name:</label>
-            </div>
-            <div class="delete-author-inputs">
+            <div class="delete-author-row">
+                <label for="delete_author_id" data-th-text="#{author.del.id}">id:</label>
                 <input type="text" id="delete_author_id" name="id" value="Norway" readonly>
+            </div>
+            <div class="delete-author-row">
+                <label for="delete_author_name" data-th-text="#{author.del.name}">Name:</label>
                 <input type="text" id="delete_author_name" name="name" value="Norway" readonly>
+            </div>
+            <div class="delete-author-row">
+                <label for="delete_author_sur_name" data-th-text="#{author.del.surname}">SurName:</label>
+                <input type="text" id="delete_author_sur_name" name="surname" value="Norway" readonly>
             </div>
         </div>
         <div class="delete-author-footer">

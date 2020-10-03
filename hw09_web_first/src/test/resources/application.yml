@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: "mock-dev"
+    active: "mock-dev, dev"
   main:
     banner-mode: "off"
 ---

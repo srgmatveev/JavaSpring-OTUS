@@ -11,6 +11,7 @@ public interface GenreRepo extends MongoRepository<Genre, String> {
     Genre findByName(final String Name);
 
     default Genre uniqSave(Genre genre) {
+        if(genre==null) return null;
         Genre genre1 = findByName(genre.getName());
         if (genre1 == null) {
             genre1 = this.save(genre);

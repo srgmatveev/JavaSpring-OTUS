@@ -26,16 +26,18 @@ function click_delete_author_button(currentElement) {
     const modal = document.getElementById('delete-author');
     let parent = currentElement.parentNode.parentNode.parentNode;
     const _id = parent.id;
-    const name = parent.querySelector('.author_row_text').innerText;
+    const surName = parent.querySelectorAll('.author_row_text > input')[0].value;
+    const name = parent.querySelectorAll('.author_row_text > input')[1].value;
     modal.querySelector('#delete_author_id').value = _id;
     modal.querySelector('#delete_author_name').value = name;
+    modal.querySelector('#delete_author_sur_name').value = surName;
     modal.showModal();
     if (!modal) {
         return;
     }
     let body_author_del = get_children(modal, 'delete-author-body');
     let inputs = get_children(body_author_del, 'delete-author-inputs');
-    set_width(inputs);
+    //set_width(inputs);
 }
 
 function set_width(elem) {

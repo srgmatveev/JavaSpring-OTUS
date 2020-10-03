@@ -16,15 +16,23 @@
     <div class="add_author_wrapper">
         <form class="add_author_form_wrapper" data-th-action="@{/authors/add}" data-th-object="${author}" method="post">
             <div class="add_author_form_caption">
-                <p data-th-text="#{authors.add.form.caption}">Новый жанр</p>
+                <p data-th-text="#{authors.add.form.caption}">Новый автор</p>
             </div>
             <div class="add_author_body">
                 <div class="add_author_body_row">
-                    <label data-th-text="#{authors.add.form.label}">Name</label>
+                    <label data-th-text="#{authors.add.form.label.name}">Name</label>
                     <input type="text" data-th-field="*{name}" />
                 </div>
                 <div class="add_author_body_row" data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
                     <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}"
+                    data-th-class="text-red">Incorrect data</p>
+                </div>
+                <div class="add_author_body_row">
+                    <label data-th-text="#{authors.add.form.label.surname}">SurName</label>
+                    <input type="text" data-th-field="*{surName}" />
+                </div>
+                <div class="add_author_body_row" data-th-classappend="${#fields.hasErrors('surName')}? 'has-error'">
+                    <p data-th-if="${#fields.hasErrors('surName')}" data-th-errors="*{surName}"
                     data-th-class="text-red">Incorrect data</p>
                 </div>
             </div>
