@@ -14,7 +14,8 @@
 
 <body class="edit_author_body_main">
     <div class="edit_author_wrapper">
-        <form class="edit_author_form_wrapper" data-th-action="@{/authors/edit}" data-th-object="${author}" method="post">
+        <form class="edit_author_form_wrapper" data-th-action="@{/authors/edit}" data-th-object="${author}"
+            method="post">
             <div class="edit_author_form_caption">
                 <p data-th-text="#{authors.edit.form.caption}">Редактировать автора</p>
             </div>
@@ -35,6 +36,16 @@
                     data-th-class="text-red">Incorrect data</p>
                 </div>
                 
+                <div class="edit_author_body_row">
+                    <label data-th-text="#{authors.edit.form.label.surname}">SurName</label>
+                    <input type="text" data-th-field="*{surName}" />
+                </div>
+
+                <div class="edit_author_body_row" data-th-classappend="${#fields.hasErrors('surName')}? 'has-error'">
+                    <p data-th-if="${#fields.hasErrors('surName')}" data-th-errors="*{surName}"
+                    data-th-class="text-red">Incorrect data</p>
+                </div>
+
             </div>
 
                 <div class="edit_author_form_bottom">

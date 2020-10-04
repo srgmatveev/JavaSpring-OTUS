@@ -1,7 +1,9 @@
 package org.sergio.library.controllres;
 
+import lombok.extern.slf4j.Slf4j;
 import org.sergio.library.domain.Author;
 import org.sergio.library.dto.AuthorDTO;
+import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.validators.AuthorDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class AuthorsController {
     @Autowired
     AuthorDTOValidator validator;
@@ -51,5 +54,30 @@ public class AuthorsController {
     @ResponseStatus(HttpStatus.OK)
     void delAuthor(@PathVariable("id") String id) {
         repo.deleteById(id);
+    }
+
+    @GetMapping("/authors/edit")
+    String editAuthor(@RequestParam("id") String id,
+                      @RequestParam("name") String name,
+                      @RequestParam("surname") String surName,
+                      Model model) {
+        AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setId(id);
+        authorDTO.setName(name);
+        authorDTO.setSurName(surName);
+        model.addAttribute("author", authorDTO);
+        return "edit_author";
+    }
+    @PostMapping("/authors/edit")
+    String editGenrePost(@ModelAttribute("author") AuthorDTO authorDTO, Model model, BindingResult result) {
+        log.debug("Registering authorDTO : " + authorDTO);
+        validator.validate(authorDTO, result);
+
+        log.info(result.toString());
+        //model.addAttribute("genre", new GenreDTO());
+
+        if(result.hasErrors())
+            return "edit_author";
+        else return "redirect:/authors";
     }
 }
