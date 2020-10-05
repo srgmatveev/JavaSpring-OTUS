@@ -3,11 +3,14 @@ package org.sergio.library.repository;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import org.sergio.library.exceptions.UniqueFileUploadException;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 
 public interface GridFSRepo {
     String fileUpload(Path path);
+
+    String fileUpload(MultipartFile file);
 
     GridFSFile findOne(String id);
 
@@ -20,4 +23,6 @@ public interface GridFSRepo {
     GridFsResource[] getResources(String pattern);
 
     String uniqFileUpload(Path path) throws UniqueFileUploadException;
+
+    String uniqFileUpload(MultipartFile file) throws UniqueFileUploadException;
 }

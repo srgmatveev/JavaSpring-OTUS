@@ -10,29 +10,42 @@
     <script src="../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
 </head>
 
-<body>
-</body>
-<div class="covers_wrapper">
-    <div class="covers_nav">
-        <div class="cover_add_button">
-            <a href="/main/resources/templates/add_cover.html" data-th-href="@{/covers/add}" class="new_cover_button"
-                data-th-text="#{cover.new_cover}">НОВАЯ ОБЛОЖКА</a>
-        </div>
+<body class = "book_covers_body">
+    <div class="covers_wrapper">
+        <div class="covers_nav">
+            <div class="cover_add_button">
+                <a href="/main/resources/templates/add_cover.html" data-th-href="@{/covers/add}"
+                    class="new_cover_button" data-th-text="#{cover.new_cover}">НОВАЯ ОБЛОЖКА</a>
+            </div>
 
-        <div class="cover_to_main_button">
-            <a href="/main/resources/templates/index.html" class="cover_return_button" data-th-href="@{/}"
-                data-th-text="#{cover.main}">НА ГЛАВНУЮ</a>
+            <div class="cover_to_main_button">
+                <a href="/main/resources/templates/index.html" class="cover_return_button" data-th-href="@{/}"
+                    data-th-text="#{cover.main}">НА ГЛАВНУЮ</a>
+            </div>
+        </div>
+        <div class="cover_content">
+            <div class="cover_caption">
+                <span>Обложки</span>
+            </div>
+        </div>
+        <div class="cover_row">
+            <div class="cover_row_info">
+                <div class="cover_row_info_block">
+                    <div class="cover_row_info_text">
+                        <label>Name</label>
+                    </div>
+                    <div class="cover_row_img">
+                        <img alt="Изображение" />
+                    </div>
+                </div>
+            </div>
+            <div class="cover_row_buttons">
+                <div class=cover_delete_button>
+                    <button>Удалить</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="cover_content">
-        <div class="cover_caption">
-            <span>Обложки</span>
-        </div>
-    </div>
-    <div class="cover_row">
-        <div class="cover_row_info"></div>
-        <div class="cover_row_buttons"></div>
-    </div>
-</div>
+</body>
 
 </html>

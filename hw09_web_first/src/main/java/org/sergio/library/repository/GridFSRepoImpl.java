@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -60,6 +61,18 @@ public class GridFSRepoImpl implements GridFSRepo {
     }
 
     @Override
+    public String fileUpload(MultipartFile file) {
+        String id = null;
+        try {
+            id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType()).toString();
+        } catch (IOException e) {
+            log.error(e.toString());
+            return null;
+        }
+        return id;
+    }
+
+    @Override
     public GridFSFile findOne(String id) {
         return gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
     }
@@ -96,5 +109,16 @@ public class GridFSRepoImpl implements GridFSRepo {
             return fileUpload(path);
 
         throw new UniqueFileUploadException(path.toString());
+    }
+
+    @Override
+    @Transactional
+    public String uniqFileUpload(MultipartFile file) throws UniqueFileUploadException {
+        List<GridFSFile> fileList = new ArrayList<GridFSFile>();
+        gridFsTemplate.find(new Query(Criteria.where("filename").is(file.getOriginalFilename()))).into(fileList);
+        if (fileList.size() == 0)
+            return fileUpload(file);
+
+        throw new UniqueFileUploadException(file.getOriginalFilename());
     }
 }
