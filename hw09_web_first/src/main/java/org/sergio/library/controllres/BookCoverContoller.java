@@ -38,7 +38,7 @@ public class BookCoverContoller {
         try {
             gridFSRepo.uniqFileUpload(file);
         } catch (UniqueFileUploadException e) {
-            log.debug(e.getMessage());
+            log.debug(e.toString());
         }
         return "add_cover";
     }

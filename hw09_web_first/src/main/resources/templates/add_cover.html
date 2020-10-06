@@ -10,14 +10,17 @@
 </head>
 
 <body class="cover-body">
-    <form id="cover-upload-container" method="POST" action="add_cover.html">
-        <img id="cover-upload-image" src="../static/images/upload.svg">
-        <div>
-             <input id="cover-file-input" type="file" name="file" multiple accept="image/*" >
-             <label for="cover-file-input">Выберите файл</label>
-             <span>или перетащите его сюда</span>
-        </div>
-   </form>
+    <div id="cover-upload-container">
+        <form id = "cover-upload-container-form" method="POST" action="add_cover.html">
+            <img id="cover-upload-image" src="../static/images/upload.svg" data-th-src="@{/images/upload.svg}">
+            <div>
+                <input id="cover-file-input" type="file" name="file" multiple accept="image/*">
+                <label for="cover-file-input">Выберите файл</label>
+                <span>или перетащите его сюда</span>
+            </div>
+        </form>
+        <div id="gallery"></div>
+    </div>
 </body>
 
 </html>

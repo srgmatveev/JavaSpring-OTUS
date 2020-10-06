@@ -112,7 +112,6 @@ public class GridFSRepoImpl implements GridFSRepo {
     }
 
     @Override
-    @Transactional
     public String uniqFileUpload(MultipartFile file) throws UniqueFileUploadException {
         List<GridFSFile> fileList = new ArrayList<GridFSFile>();
         gridFsTemplate.find(new Query(Criteria.where("filename").is(file.getOriginalFilename()))).into(fileList);
