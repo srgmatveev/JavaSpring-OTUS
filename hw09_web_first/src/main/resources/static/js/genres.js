@@ -88,4 +88,9 @@ function hide_genre_on_delete(id){
 
 window.onload = function () {
     add_genres_delete_listener();
+    let perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload();
+    }
 }

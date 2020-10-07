@@ -90,4 +90,9 @@ function hide_author_on_delete(id){
 
 window.onload = function () {
     add_authors_delete_listener();
+    let perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload();
+    }
 }
