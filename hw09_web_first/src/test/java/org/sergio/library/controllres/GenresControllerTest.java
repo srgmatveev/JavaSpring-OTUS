@@ -92,13 +92,13 @@ class GenresControllerTest {
         Mockito.when(genreRepo.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(genres);
         ResultActions resultActions = mockMvc.perform(get("/genres"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("genres"))
+                .andExpect(view().name("genre/genres"))
                 .andExpect(model().attribute("genres", is(genres)))
                 .andExpect(content().string(containsString("fantasy")));
 
         MvcResult mvcResult = resultActions.andReturn();
         ModelAndView mv = mvcResult.getModelAndView();
-        assertEquals(mv.toString(), "ModelAndView [view=\"genres\"; model={genres=[Genre(id=null, name=fantasy)]}]");
+        assertEquals(mv.toString(), "ModelAndView [view=\"genre/genres\"; model={genres=[Genre(id=null, name=fantasy)]}]");
     }
 
     @Test
@@ -106,7 +106,7 @@ class GenresControllerTest {
     void addGenre() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/genres/add"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("add_genre"))
+                .andExpect(view().name("genre/add_genre"))
                 .andExpect(model().attribute("genre", instanceOf(GenreDTO.class)));
         MvcResult mvcResult = resultActions.andReturn();
         ModelAndView mv = mvcResult.getModelAndView();

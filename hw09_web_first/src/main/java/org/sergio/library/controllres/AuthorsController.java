@@ -35,19 +35,19 @@ public class AuthorsController {
         orders.add(orderName);
         List<Author> list = repo.findAll(Sort.by(orders));
         model.addAttribute("authors", list);
-        return "authors";
+        return "author/authors";
     }
 
     @GetMapping("/authors/add")
     String addAuthor(Model model) {
         model.addAttribute("author", new AuthorDTO());
-        return "add_author";
+        return "author/add_author";
     }
 
     @PostMapping("/authors/add")
     String addAuthorPost(@ModelAttribute("author") AuthorDTO authorDTO, Model model, BindingResult result) {
         validator.validate(authorDTO, result);
-        return "add_author";
+        return "author/add_author";
     }
 
     @DeleteMapping("/authors/del/{id}")
@@ -66,7 +66,7 @@ public class AuthorsController {
         authorDTO.setName(name);
         authorDTO.setSurName(surName);
         model.addAttribute("author", authorDTO);
-        return "edit_author";
+        return "author/edit_author";
     }
     @PostMapping("/authors/edit")
     String editGenrePost(@ModelAttribute("author") AuthorDTO authorDTO, Model model, BindingResult result) {
@@ -77,7 +77,7 @@ public class AuthorsController {
         //model.addAttribute("genre", new GenreDTO());
 
         if(result.hasErrors())
-            return "edit_author";
-        else return "redirect:/authors";
+            return "author/edit_author";
+        else return "redirect:/author/authors";
     }
 }

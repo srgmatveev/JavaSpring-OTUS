@@ -4,6 +4,7 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.sergio.library.dto.Cover;
 import org.sergio.library.exceptions.UniqueFileUploadException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -97,14 +99,28 @@ class GridFSRepoTest {
             fsRepo.uniqFileUpload(Paths.get(filePath));
         });
 
-        assertEquals(fsRepo.count(),1);
+        assertEquals(fsRepo.count(), 1);
 
         fsRepo.drop();
         String id = fsRepo.uniqFileUpload(Paths.get(filePath));
-        assertEquals(fsRepo.count(),1);
+        assertEquals(fsRepo.count(), 1);
         GridFSFile fsFile = fsRepo.findOne(id);
         assertEquals(fsFile.getObjectId().toString(), id);
         assertEquals(fsFile.getFilename(), "microscope.png");
     }
 
+    @Test
+    void findAll() {
+        fsRepo.drop();
+        String filePath = "src/test/resources/images/microscope.png";
+        fsRepo.fileUpload(Paths.get(filePath));
+        filePath = "src/test/resources/images/Testing.png";
+        fsRepo.fileUpload(Paths.get(filePath));
+        List<Cover> lst = fsRepo.findAll();
+        assertNotNull(lst);
+        assertEquals(lst.size(), 2);
+        assertEquals(lst.get(0).getTitle(), "microscope.png");
+        assertEquals(lst.get(1).getTitle(), "Testing.png");
+        fsRepo.drop();
+    }
 }

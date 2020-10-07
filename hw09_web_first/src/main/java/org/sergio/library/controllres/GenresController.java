@@ -28,13 +28,13 @@ public class GenresController {
     public String getGenres(Model model) {
         List<Genre> genres = genreRepo.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("genres", genres);
-        return "genres";
+        return "genre/genres";
     }
 
     @GetMapping("/genres/add")
     public String addGenre(Model model) {
         model.addAttribute("genre", new GenreDTO());
-        return "add_genre";
+        return "genre/add_genre";
     }
 
     @PostMapping("/genres/add")
@@ -44,7 +44,7 @@ public class GenresController {
 
         log.info(result.toString());
         //model.addAttribute("genre", new GenreDTO());
-        return "add_genre";
+        return "genre/add_genre";
     }
 
     @DeleteMapping(value = "/genres/del/{id}")
@@ -62,7 +62,7 @@ public class GenresController {
         genreDTO.setId(id);
         genreDTO.setName(name);
         model.addAttribute("genre", genreDTO);
-        return "edit_genre";
+        return "genre/edit_genre";
     }
     @PostMapping("/genres/edit")
     String editGenrePost(@ModelAttribute("genre") GenreDTO genreDTO, Model model, BindingResult result) {
@@ -73,8 +73,8 @@ public class GenresController {
         //model.addAttribute("genre", new GenreDTO());
 
        if(result.hasErrors())
-        return "edit_genre";
-       else return "redirect:/genres";
+        return "genre/edit_genre";
+       else return "redirect:/genre/genres";
     }
 
 }

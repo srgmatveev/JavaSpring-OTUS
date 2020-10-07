@@ -2,32 +2,37 @@ package org.sergio.library.repository;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
+import org.sergio.library.dto.Cover;
 import org.sergio.library.exceptions.UniqueFileUploadException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 
 @Repository("gridFSRepo")
 @Slf4j
 public class GridFSRepoImpl implements GridFSRepo {
     private final GridFsTemplate gridFsTemplate;
     private final MongoTemplate mongoTemplate;
+    private final GridFsOperations operations;
 
-    public GridFSRepoImpl(GridFsTemplate gridFsTemplate, MongoTemplate mongoTemplate) {
+    public GridFSRepoImpl(GridFsTemplate gridFsTemplate, MongoTemplate mongoTemplate, GridFsOperations operations) {
         this.gridFsTemplate = gridFsTemplate;
         this.mongoTemplate = mongoTemplate;
+        this.operations = operations;
     }
 
     @Override
@@ -119,5 +124,28 @@ public class GridFSRepoImpl implements GridFSRepo {
             return fileUpload(file);
 
         throw new UniqueFileUploadException(file.getOriginalFilename());
+    }
+
+    @Override
+    public List<Cover> findAll() {
+        List<Cover> coverList = new ArrayList<>();
+        gridFsTemplate.find(new Query()).forEach(
+                gridFSFile -> {
+                    try {
+                        Cover cover = new Cover();
+                        cover.setId(gridFSFile.getId().asObjectId().getValue().toString());
+                        cover.setTitle(gridFSFile.getFilename());
+                        cover.setContentType(gridFSFile.getMetadata().getString("_contentType"));
+                        byte[] bytes = operations.getResource(gridFSFile).getInputStream().readAllBytes();
+                        Binary binary = new Binary(BsonBinarySubType.BINARY, bytes);
+                        cover.setImage(Base64.getEncoder().encodeToString(binary.getData()));
+                        coverList.add(cover);
+                    } catch (IOException e) {
+                        log.error(e.toString());
+                    }
+                }
+        );
+
+        return coverList;
     }
 }
