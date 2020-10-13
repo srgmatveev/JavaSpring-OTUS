@@ -14,6 +14,7 @@ repositories {
 
 ext{
     redis_session = "2.3.1.RELEASE"
+    guava = "29.0-jre"
 }
 
 dependencies {
@@ -21,9 +22,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 
     // https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis
     implementation group: 'org.springframework.session', name: 'spring-session-data-redis', version: "${project.redis_session}"
+
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation group: 'com.google.guava', name: 'guava', version: "${project.guava}"
+
 
     // https://mvnrepository.com/artifact/javax.validation/validation-api
     //implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'

@@ -6,6 +6,7 @@ import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.validators.GenreDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,7 @@ public class GenresController {
         return "genre/add_genre";
     }
 
+    @CacheEvict("genres")
     @DeleteMapping(value = "/genres/del/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") String id) {
