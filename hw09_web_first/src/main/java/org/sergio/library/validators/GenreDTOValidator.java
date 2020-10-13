@@ -48,7 +48,7 @@ public class GenreDTOValidator implements Validator {
         if (id == null) {
             genreDTO.setId(null);
         } else {
-            if (genre.getId() != id) {
+            if (!genre.getId().equals(id)) {
                 repo.deleteById(id);
                 genreDTO.setId(genre.getId());
             }

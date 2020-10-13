@@ -60,7 +60,7 @@ public class AuthorDTOValidator implements Validator {
         authorDTO.setSurName(author.getSurName());
         if(id==null){
             authorDTO.setId(null);
-        } else if(author.getId()!=null){
+        } else if(!author.getId().equals(id)){
             autorRepo.deleteById(id);
             authorDTO.setId(author.getId());
         }

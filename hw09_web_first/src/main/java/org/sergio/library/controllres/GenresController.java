@@ -76,7 +76,7 @@ public class GenresController {
 
        if(result.hasErrors())
         return "genre/edit_genre";
-       else return "redirect:/genre/genres";
+       else return "redirect:/genres";
     }
 
 }

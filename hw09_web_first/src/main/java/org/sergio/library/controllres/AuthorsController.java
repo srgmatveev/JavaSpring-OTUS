@@ -80,6 +80,6 @@ public class AuthorsController {
 
         if(result.hasErrors())
             return "author/edit_author";
-        else return "redirect:/author/authors";
+        else return "redirect:/authors";
     }
 }

@@ -51,3 +51,6 @@ spring:
 
   session:
     store-type: redis
+
+  cache:
+    type: redis

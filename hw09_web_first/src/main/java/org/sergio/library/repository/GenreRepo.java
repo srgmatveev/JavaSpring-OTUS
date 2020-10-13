@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("genreRepo")
 public interface GenreRepo extends MongoRepository<Genre, String> {
-    @Cacheable("genres")
+    @Cacheable(value = "genres", key = "#id", unless= "#result.size() == 0")
     @Query("{ 'name' : {$regex: '^?0$', $options: 'i' }}")
     Genre findByName(final String Name);
 

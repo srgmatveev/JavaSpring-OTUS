@@ -25,7 +25,7 @@ public class AppConfig {
         return messageSource;
     }
 
-    @Bean("cacheManager")
+   /* @Bean("cacheManager")
     public CacheManager cacheManager() {
         return new ConcurrentMapCacheManager() {
             @Override
@@ -38,5 +38,5 @@ public class AppConfig {
                         false);
             }
         };
-    }
+    }*/
 }
