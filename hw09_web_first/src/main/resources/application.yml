@@ -16,7 +16,7 @@ spring:
       auto-index-creation: true
 
   profiles:
-    active: prod #prod,init
+    active: "prod, redis"
   main:
     banner-mode: "off"
 
@@ -42,4 +42,12 @@ logging:
 ---
 
 spring:
-  profiles: init
+  profiles: redis
+
+  redis:
+    host: localhost
+    password: 12345
+    port: 6379
+
+  session:
+    store-type: redis
