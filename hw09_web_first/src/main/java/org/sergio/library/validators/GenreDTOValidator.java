@@ -46,7 +46,7 @@ public class GenreDTOValidator implements Validator {
         Genre genre = repo.uniqSave(new Genre(tmpName));
         genreDTO.setName(genre.getName());
         if (id == null) {
-            genreDTO.setId(null);
+           // genreDTO.setId(null);
         } else {
             if (!genre.getId().equals(id)) {
                 repo.deleteById(id);

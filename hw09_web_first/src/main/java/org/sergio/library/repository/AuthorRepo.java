@@ -11,15 +11,12 @@ import java.util.List;
 
 @Repository("authorRepo")
 public interface AuthorRepo extends MongoRepository<Author, String> {
-    @Cacheable("authors")
     @Query("{ 'name' : {$regex: '^?0$', $options: 'i' }}")
     List<Author> findByName(final String Name);
 
-    @Cacheable("authors")
     @Query("{ 'surName' : {$regex: '^?0$', $options: 'i' }}")
     List<Author> findBySurName(final String surName);
 
-    @Cacheable("authors")
     @Query("{ 'name' : {$regex: '^?0$', $options: 'i' }, 'surName' : {$regex: '^?1$', $options: 'i' }}")
     Author findByNameAndSurName(final String Name, final String surName);
 

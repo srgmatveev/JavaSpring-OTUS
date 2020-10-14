@@ -8,6 +8,8 @@ import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.validators.AuthorDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -51,7 +53,6 @@ public class AuthorsController {
         return "author/add_author";
     }
 
-    @CacheEvict("authors")
     @DeleteMapping("/authors/del/{id}")
     @ResponseStatus(HttpStatus.OK)
     void delAuthor(@PathVariable("id") String id) {
@@ -70,6 +71,7 @@ public class AuthorsController {
         model.addAttribute("author", authorDTO);
         return "author/edit_author";
     }
+
     @PostMapping("/authors/edit")
     String editGenrePost(@ModelAttribute("author") AuthorDTO authorDTO, Model model, BindingResult result) {
         log.debug("Registering authorDTO : " + authorDTO);
