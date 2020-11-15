@@ -4,6 +4,7 @@
 target/
 .idea/
 .idea
+.gradle/
 */.gradle/**
 */build/**
 */gradle/**

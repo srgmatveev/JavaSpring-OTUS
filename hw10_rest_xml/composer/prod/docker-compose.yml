@@ -1,9 +1,9 @@
 version: "3.8"
 services:
-  mongo99:
+  mongo100:
     image: mongo:latest
-    container_name: mongodb99
-    hostname: mongodb99
+    container_name: mongodb100
+    hostname: mongodb100
     env_file:
       - .env
     environment:
@@ -12,37 +12,37 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
       MONGO_REPLICA_SET_NAME: ${MONGO_REPLICA_SET_NAME}
     volumes:
-      - ./mongodb9/log/:/var/log/mongodb/
+      - ./mongodb10/log/:/var/log/mongodb/
       - ./db-init/:/docker-entrypoint-initdb.d
-      - ./mongodb9/db:/data/db
+      - ./mongodb10/db:/data/db
     ports:
-      - "27120:27017"
+      - "27130:27017"
     command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all"]
     networks:
-      - hw09_bridge
+      - hw100_bridge
     restart: always
     healthcheck:
       test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
       interval: 10s
       start_period: 30s
 
-  mongo-express99:
+  mongo-express100:
     image: mongo-express
-    container_name: mongo-express99
-    hostname: mongoexpress99
+    container_name: mongo-express100
+    hostname: mongoexpress100
     env_file:
       - .env
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo99
+      - ME_CONFIG_MONGODB_SERVER=mongo100
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
       - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
       - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
     ports:
-      - 8090:8081
+      - 8100:8081
     restart: always
     networks:
-      - hw09_bridge
+      - hw100_bridge
 
   redis:
     image: redis:latest
@@ -52,18 +52,18 @@ services:
       - ./redis/data:/var/lib/redis
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
-      - 6379:6379
+      - 6389:6379
     environment:
       - REDIS_REPLICATION_MODE=master
     #logging:
     #  driver: none
     restart: always
     networks:
-      - hw09_bridge
+      - hw100_bridge
 networks:
-  hw09_bridge:
-    name: hw09_bridge
+  hw100_bridge:
+    name: hw100_bridge
     driver: bridge
     ipam:
       config:
-        - subnet: 172.23.0.0/16
+        - subnet: 172.25.0.0/16
