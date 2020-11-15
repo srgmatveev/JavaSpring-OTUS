@@ -1,0 +1,1 @@
+docker exec -it tst_mongodb10 bash
