@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: "mock-dev, dev"
+  main:
+    banner-mode: "off"
+---
+  spring:
+    profiles: mock-dev
+---
+
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=${mongo.replica_name}
+      auto-index-creation: false
+
+mongo:
+  username: sergio
+  password: 123456
+  host: localhost
+  port: 27129
+  db: test_personal
+  replica_name: rs0
+  auth:
+    db: admin
+    mechanism: SCRAM-SHA-256
+  ssl: false
