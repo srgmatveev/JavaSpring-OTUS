@@ -16,7 +16,7 @@ spring:
       auto-index-creation: true
 
   profiles:
-    active: prod #, redis
+    active: prod, api1_0 #, redis
   main:
     banner-mode: "off"
 
@@ -34,13 +34,14 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.web: INFO
-    org.sergio.library: DEBUG
+    org.springframework.web: DEBUG
+    org.sergio.users: DEBUG
     org.hibernate: INFO
   pattern:
     console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-  file: ./logs/application-debug.log
+  file:
+    name: ./logs/application-debug.log
 
 ---
 
@@ -64,3 +65,15 @@ spring:
       cache-null-values: false
       time-to-live: 600000
       use-key-prefix: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: api1_0
+
+rest:
+  api:
+    version1_0:
+      path: "api/v1.0"
