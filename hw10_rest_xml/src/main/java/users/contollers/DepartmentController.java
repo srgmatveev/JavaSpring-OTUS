@@ -25,17 +25,23 @@ public class DepartmentController {
     @PostMapping("/departments")
     DtoDepartment newDepartment(@RequestBody DtoDepartment dtoDepartment) {
         DtoDepartment dep = null;
-            dep = dtoDepartmentService.post(dtoDepartment);
+        dep = dtoDepartmentService.post(dtoDepartment);
         return dep;
     }
 
 
-    @PutMapping("/departments")
-    DtoDepartment updateDepartment(@RequestBody DtoDepartment dtoDepartment){
+    @PutMapping("/departments/{id}")
+    DtoDepartment updateDepartment(@PathVariable(name = "id") String id, @RequestBody DtoDepartment dtoDepartment) {
         DtoDepartment dep = null;
         dep = dtoDepartmentService.put(dtoDepartment);
         return dep;
     }
+
+    @DeleteMapping("/departments/{id}")
+    void deleteDepartment(@PathVariable String id) {
+        dtoDepartmentService.delete(id);
+    }
+
 
     @GetMapping(value = "foos", produces = MediaType.APPLICATION_JSON_VALUE)
     public String duplicateJson() {
