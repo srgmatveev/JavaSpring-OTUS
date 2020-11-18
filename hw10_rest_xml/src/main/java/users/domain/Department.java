@@ -11,6 +11,7 @@ import users.dto.DtoDepartment;
 
 @Document(collection = "Department")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Department {
     @Id

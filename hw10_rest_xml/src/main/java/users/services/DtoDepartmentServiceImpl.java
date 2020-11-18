@@ -18,4 +18,11 @@ public class DtoDepartmentServiceImpl implements DtoDepartmentService{
         department = departmentRepo.save(department);
         return new DtoDepartment(department);
     }
+
+    @Override
+    public DtoDepartment put(DtoDepartment dtoDepartment) {
+        Department department = new Department(dtoDepartment.getId(),dtoDepartment.getName());
+        department = departmentRepo.save(department);
+        return new DtoDepartment(department);
+    }
 }

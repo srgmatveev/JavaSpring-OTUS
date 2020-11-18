@@ -1,15 +1,19 @@
 spring:
   profiles:
-    active: "mock-dev, dev"
+    active: dev, api1_0
   main:
     banner-mode: "off"
 ---
   spring:
-    profiles: mock-dev
+    config:
+      activate:
+        on-profile: mock-dev
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   data:
     mongodb:
       uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=${mongo.replica_name}
@@ -26,3 +30,26 @@ mongo:
     db: admin
     mechanism: SCRAM-SHA-256
   ssl: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.sergio.users: DEBUG
+    org.hibernate: INFO
+  pattern:
+    console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ./logs/application-test-debug.log
+
+---
+spring:
+  config:
+    activate:
+      on-profile: api1_0
+
+rest:
+  api:
+    version1_0:
+      path: "api/v1.0"

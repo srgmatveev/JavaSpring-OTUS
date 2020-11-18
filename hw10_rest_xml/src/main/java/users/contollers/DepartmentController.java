@@ -23,12 +23,19 @@ public class DepartmentController {
 
 
     @PostMapping("/departments")
-    DtoDepartment newDepartment(@RequestBody DtoDepartment newEmployee) {
+    DtoDepartment newDepartment(@RequestBody DtoDepartment dtoDepartment) {
         DtoDepartment dep = null;
-            dep = dtoDepartmentService.post(newEmployee);
+            dep = dtoDepartmentService.post(dtoDepartment);
         return dep;
     }
 
+
+    @PutMapping("/departments")
+    DtoDepartment updateDepartment(@RequestBody DtoDepartment dtoDepartment){
+        DtoDepartment dep = null;
+        dep = dtoDepartmentService.put(dtoDepartment);
+        return dep;
+    }
 
     @GetMapping(value = "foos", produces = MediaType.APPLICATION_JSON_VALUE)
     public String duplicateJson() {
