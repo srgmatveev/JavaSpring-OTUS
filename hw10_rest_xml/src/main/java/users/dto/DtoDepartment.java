@@ -7,10 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import users.domain.Department;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 /**
@@ -19,7 +16,7 @@ import java.io.Serializable;
  * @author sergio
  */
 @SuppressWarnings("restriction")
-@XmlRootElement
+@XmlRootElement(name = "Department")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 @NoArgsConstructor
@@ -29,7 +26,7 @@ public class DtoDepartment implements Serializable {
     /**
      * id of the department
      */
-    @XmlElement(name = "id")
+    @XmlAttribute(name = "id")
     private String id;
 
     /**

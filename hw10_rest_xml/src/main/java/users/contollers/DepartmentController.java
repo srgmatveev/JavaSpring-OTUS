@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import users.domain.Department;
 import users.dto.DtoDepartment;
+import users.dto.DtoDepartmentList;
+import users.exceptions.DepartmentNotFoundException;
 import users.services.DtoDepartmentService;
 
 import javax.xml.bind.JAXBException;
 import java.io.Serializable;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "${rest.api.version1_0.path}")
@@ -48,5 +51,15 @@ public class DepartmentController {
         return "hello";
     }
 
+    @GetMapping(value="/departments", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    DtoDepartmentList all() {
+        return dtoDepartmentService.finaAll();
+    }
 
+    @GetMapping(value="/departments/{id}",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    DtoDepartment getDepartment(@PathVariable String id) throws DepartmentNotFoundException {
+        return  dtoDepartmentService.findById(id).orElseThrow(()->new DepartmentNotFoundException(id));
+    }
 }
