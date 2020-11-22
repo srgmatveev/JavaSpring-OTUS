@@ -1,0 +1,79 @@
+mongo:
+  username: sergio
+  password: 123456
+  host: localhost
+  port: 27132
+  db: personal
+  replica_name: rs0
+  auth:
+    db: admin
+    mechanism: SCRAM-SHA-256
+  ssl: false
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}?ssl=${mongo.ssl}&authSource=${mongo.auth.db}&authMechanism=${mongo.auth.mechanism}&replicaSet=${mongo.replica_name}
+      auto-index-creation: true
+
+  profiles:
+    active: prod, api1_0 #, redis
+  main:
+    banner-mode: "off"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  #profiles: prod
+
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.sergio.department: DEBUG
+    org.hibernate: INFO
+  pattern:
+    console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ./logs/application-debug.log
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: redis
+  #profiles: redis
+
+  redis:
+    host: localhost
+    password: 12345
+    port: 6390
+
+  session:
+    store-type: redis
+
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 600000
+      use-key-prefix: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: api1_0
+
+rest:
+  api:
+    version1_0:
+      path: "api/v1.0"
