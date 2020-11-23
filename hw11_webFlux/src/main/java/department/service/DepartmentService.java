@@ -4,16 +4,16 @@ import department.domain.Department;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface DepartmentService {
-    Mono<Department> createDepartment(Department Department);
+public interface DepartmentService<T> {
+    Mono<T> createDepartment(T department);
 
-    Mono<Department> updateDepartment(Department Department, String id);
+    Mono<T> updateDepartment(T Department, String id);
 
-    Flux<Department> findAll();
+    Flux<T> findAll();
 
-    Mono<Department> findOne(String id);
+    Mono<T> findOne(String id);
 
-    Flux<Department> findByTitle(String title);
+    Mono<T> findByName(String name);
 
     Mono<Boolean> delete(String id);
 }

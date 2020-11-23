@@ -1,4 +1,4 @@
-package dao;
+package department.dao;
 
 import department.Main;
 import department.dao.DepartmentRepo;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest (classes = Main.class)
+@SpringBootTest
 class DepartmentRepoTest {
     @Autowired
     private DepartmentRepo departmentRepo;

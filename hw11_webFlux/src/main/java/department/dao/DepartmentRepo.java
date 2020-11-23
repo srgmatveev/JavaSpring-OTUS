@@ -9,5 +9,7 @@ import reactor.core.publisher.Mono;
 public interface DepartmentRepo extends ReactiveMongoRepository<Department, String> {
     Mono<Department> findByName(String name);
 
+    Mono<Department> findByNameAndDeleteIsFalse(String name);
+
     Mono<Department> findByIdAndDeleteIsFalse(String id);
 }
