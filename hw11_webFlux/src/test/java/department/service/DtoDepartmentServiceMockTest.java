@@ -45,4 +45,28 @@ public class DtoDepartmentServiceMockTest {
                 .verify();
     }
 
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void updateDepartment_switchIfEmpty_mock_findByIdAndDeleteIsFalse() {
+        Department department = new Department();
+        department.setName("Sergio");
+        department.setId("bbb");
+
+        Mockito.when(repo.insert(department)).thenReturn(Mono.just(department));
+        //Mockito.when(repo.save(department)).thenReturn(Mono.empty());
+        Mockito.when(repo.findByIdAndDeleteIsFalse("bbb")).thenReturn(Mono.empty());
+        DtoDepartment dtoDepartment = new DtoDepartment();
+        dtoDepartment.setName("Sergio");
+        DtoDepartment dtoDepartment1 = (DtoDepartment) service.createDepartment(dtoDepartment).block();
+
+        Mono<DtoDepartment> resultMono = service.updateDepartment(dtoDepartment1, "bbb");
+        StepVerifier
+                .create(resultMono)
+                .expectErrorMessage("No Department found with Id: bbb")
+                .verify();
+    }
+
+
+
 }

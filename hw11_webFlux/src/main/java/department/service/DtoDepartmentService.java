@@ -9,6 +9,8 @@ import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 @Service("DtoDepartmentService")
 public class DtoDepartmentService implements DepartmentService<DtoDepartment> {
     @Autowired
@@ -28,14 +30,12 @@ public class DtoDepartmentService implements DepartmentService<DtoDepartment> {
         return findDepOne(id).doOnSuccess(dep -> {
             String name = dtoDepartment.getName();
             dep.setName(name);
-            save(dep).subscribe();
-        }).flatMap(d -> Mono.just(new DtoDepartment(d)));
+            this.save(dep).subscribe();
+        }).flatMap(d->Mono.just(new DtoDepartment(d)));
     }
 
     private Mono<Department> save(Department department) {
-        return repo.save(department).
-                switchIfEmpty(Mono.error(new Exception("No Department update with Name: " + department.getName())));
-
+        return repo.save(department);
     }
 
     private Mono<Department> findDepOne(String id) {
