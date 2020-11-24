@@ -5,6 +5,7 @@ import department.domain.Department;
 import department.dto.DtoDepartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -23,27 +24,49 @@ public class DtoDepartmentService implements DepartmentService<DtoDepartment> {
     }
 
     @Override
-    public Mono<DtoDepartment> updateDepartment(DtoDepartment Department, String id) {
-        return null;
+    public Mono<DtoDepartment> updateDepartment(DtoDepartment dtoDepartment, String id) {
+        return findDepOne(id).doOnSuccess(dep -> {
+            String name = dtoDepartment.getName();
+            dep.setName(name);
+            save(dep).subscribe();
+        }).flatMap(d -> Mono.just(new DtoDepartment(d)));
+    }
+
+    private Mono<Department> save(Department department) {
+        return repo.save(department).
+                switchIfEmpty(Mono.error(new Exception("No Department update with Name: " + department.getName())));
+
+    }
+
+    private Mono<Department> findDepOne(String id) {
+        return repo.findByIdAndDeleteIsFalse(id).
+                switchIfEmpty(Mono.error(new Exception("No Department found with Id: " + id)));
     }
 
     @Override
     public Flux<DtoDepartment> findAll() {
-        return null;
+        return repo.findAll().flatMap(dep1 -> Mono.just(new DtoDepartment(dep1)));
     }
 
     @Override
     public Mono<DtoDepartment> findOne(String id) {
-        return null;
+        return repo.findByIdAndDeleteIsFalse(id).
+                switchIfEmpty(Mono.error(new Exception("No Department found with Id: " + id)))
+                .flatMap(dep1 -> Mono.just(new DtoDepartment(dep1)));
     }
 
     @Override
     public Mono<DtoDepartment> findByName(String name) {
-        return null;
+        return repo.findByNameAndDeleteIsFalse(name).
+                switchIfEmpty(Mono.error(new Exception("No Department found with name Containing : " + name)))
+                .flatMap(dep1 -> Mono.just(new DtoDepartment(dep1)));
     }
 
     @Override
     public Mono<Boolean> delete(String id) {
-        return null;
+        return findDepOne(id).doOnSuccess(dep -> {
+            dep.setDelete(true);
+            repo.save(dep).subscribe();
+        }).flatMap(dep -> Mono.just(Boolean.TRUE));
     }
 }
