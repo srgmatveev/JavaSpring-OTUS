@@ -35,7 +35,7 @@ logging:
   level:
     root: INFO
     org.springframework.web: DEBUG
-    org.sergio.department: DEBUG
+    department: DEBUG
     org.hibernate: INFO
   pattern:
     console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
