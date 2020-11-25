@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 
-@SpringBootTest(classes = Main.class) //(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = Main.class)
 class DtoDepartmentServiceTest {
     @Autowired
     @Qualifier("DtoDepartmentService")
