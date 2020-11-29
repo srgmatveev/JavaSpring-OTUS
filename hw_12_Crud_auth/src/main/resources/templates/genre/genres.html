@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../../static/js/genres.js" data-th-src="@{/js/genres.js}"></script>
+
+</head>
+
+<body>
+    <div class="genres_wrapper">
+        <div class="genres_nav">
+            <div class="genre_add_button">
+                <a href="/main/resources/templates/genre/add_genre.html" data-th-href="@{/genres/add}"
+                    class="new_genre_button" data-th-text="#{genres.new_genre}">НОВЫЙ ЖАНР</a>
+            </div>
+
+            <div class="genre_to_main_button">
+                <a href="/main/resources/templates/index.html" class="genres_return_button" data-th-href="@{/}"
+                    data-th-text="#{genres.main}">НА ГЛАВНУЮ</a>
+            </div>
+        </div>
+        <div class="genres_table">
+            <div class="genre_table_caption">
+                <div class="genre_caption_text" data-th-text="#{genres.table.caption}">
+                    Жанр
+                </div>
+                <div class="genre_edit_caption"></div>
+                <div class="genre_delete_caption"></div>
+            </div>
+
+            <div data-th-each="genre:${genres}" id="genre_id_genre" class="genre_row" data-th-attr="id=${genre.id}">
+                <div class="genre_row_text" data-th-text="${genre.name}">
+                    Фантастика
+                </div>
+                <div class="genre_delete_edit_buttons">
+                    <div class="genre_edit_row">
+                        <a href="/main/resources/templates/genre/edit_genre.html" class="edit_genre_button"
+                            data-th-href="@{/genres/edit(id=${genre.id}, name=${genre.name})}" data-th-text="#{genres.edit}">Редактировать</a>
+                    </div>
+                    <div class="genre_delete_row">
+                        <p class="delete_genre_button" onclick="click_delete_genre_button(this);" data-th-text="#{genres.delete}">Удалить</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <dialog id="delete-genre">
+        <div class="delete-genre-header">
+            <div class="delete-genre-header-caption">
+                <h3 data-th-text="#{genres.delete.caption}">A native modal dialog box</h3>
+            </div>
+            <div>
+                <button id="delete-genre-close" class="upper-close" type="button">&times;</button>
+            </div>
+        </div>
+        <div class="delete-genre-body">
+            <div class="delete-genre-labels">
+                <label for="delete_genre_id">id:</label>
+                <label for="delete_genre_name">Name:</label>
+            </div>
+            <div class="delete-genre-inputs">
+                <input type="text" id="delete_genre_id" name="id" value="Norway" readonly>
+                <input type="text" id="delete_genre_name" name="name" value="Norway" readonly>
+            </div>
+        </div>
+        <div class="delete-genre-footer">
+            <div class="delete-genre-footer-buttons">
+                <button id="delete-genre-delete" type="button"
+                    data-th-text="#{genres.delete.delete.button}">Удалить</button>
+                <button id="delete-genre-cancel" type="button"
+                    data-th-text="#{genres.delete.cancel.button}">Отмена</button>
+            </div>
+        </div>
+
+    </dialog>
+
+</body>
+
+</html>

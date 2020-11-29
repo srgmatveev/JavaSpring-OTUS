@@ -1,0 +1,69 @@
+version: "3.8"
+services:
+  mongo12:
+    image: mongo:latest
+    container_name: mongodb12
+    hostname: mongodb12
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_REPLICA_SET_NAME: ${MONGO_REPLICA_SET_NAME}
+    volumes:
+      - ./mongodb12/log/:/var/log/mongodb/
+      - ./db-init/:/docker-entrypoint-initdb.d
+      - ./mongodb12/db:/data/db
+    ports:
+      - "27142:27017"
+    command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all"]
+    networks:
+      - hw12_bridge
+    restart: always
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  mongo-express12:
+    image: mongo-express
+    container_name: mongo-express12
+    hostname: mongoexpress12
+    env_file:
+      - .env
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo12
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+    ports:
+      - 8102:8081
+    restart: always
+    networks:
+      - hw12_bridge
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./redis/data:/var/lib/redis
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6391:6379
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    #logging:
+    #  driver: none
+    restart: always
+    networks:
+      - hw12_bridge
+networks:
+  hw12_bridge:
+    name: hw12_bridge
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

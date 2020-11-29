@@ -1,0 +1,61 @@
+@mixin _2000_library_logo {
+  @media only screen and (min-width: 2000px) {
+    /* for sumo sized (mac) screens */
+    @content;
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@mixin _1440_library_logo {
+  @media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+    @content;
+    width: 100px;
+    height: 100px;
+  }
+}
+@mixin _960_library_logo {
+  @media only screen and (min-width: 960px) {
+    /* styles for browsers larger than 960px; */
+    @content;
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@mixin _769_959_library_logo {
+  @media only screen and (min-width: 769px) and (max-width: 959px) {
+    /* styles for browsers larger than 960px; */
+    @content;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@mixin _768_library_logo {
+  @media only screen and (device-width: 768px) {
+    /* default iPad screens */
+    @content;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@mixin _481_767_library_logo {
+  @media only screen and (min-device-width: 481px) and(max-device-width: 767px) {
+    /* default iPad screens */
+    @content;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@mixin _480_library_logo {
+  @media only screen and (max-device-width: 480px) {
+    /* styles for mobile browsers smaller than 480px; (iPhone) */
+    @content;
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -1,0 +1,27 @@
+$wrapper-width: 95vw;
+
+html {
+  height: 100%;
+}
+
+.index_body {
+  border-top: 5px solid #7e7e7e;
+  background-image: url(../images/bg.png);
+  height: 100%;
+}
+
+#index-wrapper {
+  width: $wrapper-width;
+  margin: auto;
+  dispaly: block;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%; // for old IE
+}
+
+@import "_header.scss";
+@import "_nav.scss";
+@import "_heading.scss";
+@import "_main_content.scss";
+@import "_footer.scss";
+@import "_modal_about.scss";

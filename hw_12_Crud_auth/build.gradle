@@ -1,0 +1,55 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+group = 'org.sergio'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+
+}
+
+ext {
+    redis_session = "2.3.1.RELEASE"
+    guava = "29.0-jre"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis
+    implementation group: 'org.springframework.session', name: 'spring-session-data-redis', version: "${project.redis_session}"
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
+    implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
+
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation group: 'com.google.guava', name: 'guava', version: "${project.guava}"
+
+
+// https://mvnrepository.com/artifact/javax.validation/validation-api
+//implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    //implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // implementation  group: 'org.springframework.data', name: 'spring-data-releasetrain', version: 'Lovelace-SR19', ext: 'pom'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+test {
+    useJUnitPlatform()
+}

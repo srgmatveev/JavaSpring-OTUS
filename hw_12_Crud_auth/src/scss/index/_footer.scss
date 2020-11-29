@@ -1,0 +1,16 @@
+@import "../cuprum_font/_cuprum.scss";
+$footer-width: 95vw;
+$footer-font: 24px "Cuprum", sans-serif;
+.footer {
+    background: #7e7e7e;
+	color: #dbdbdb;
+    font: $footer-font;
+    display: block;
+    margin: auto;
+    padding: 10px;
+    width: $footer-width;
+    position: relative;
+ p {
+     margin-left: 10px;
+ }
+}
