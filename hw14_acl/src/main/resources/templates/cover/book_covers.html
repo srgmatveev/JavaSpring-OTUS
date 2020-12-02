@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../../static/js/cover.js" data-th-src="@{/js/cover.js}"></script>
+</head>
+
+<body class="book_covers_body">
+    <div class="covers_wrapper">
+        <div class="covers_nav">
+            <div class="cover_add_button">
+                <a href="/main/resources/templates/cover/add_cover.html" data-th-href="@{/covers/add}"
+                    class="new_cover_button" data-th-text="#{cover.new_cover}">НОВАЯ ОБЛОЖКА</a>
+            </div>
+
+            <div class="cover_to_main_button">
+                <a href="/main/resources/templates/index.html" class="cover_return_button" data-th-href="@{/}"
+                    data-th-text="#{cover.main}">НА ГЛАВНУЮ</a>
+            </div>
+        </div>
+        <div class="cover_content">
+            <div class="cover_caption">
+                <span data-th-text="#{cover.covers}">Обложки</span>
+            </div>
+        </div>
+        <div class="cover_row" data-th-each="cover:${covers}" id="cover_id" data-th-attr="id=${cover.id}">
+            <div class="cover_row_info_block">
+                <div class="cover_row_info_text">
+                    <label data-th-text="${cover.title}">Name</label>
+                </div>
+                <div class="cover_row_img">
+                    <img alt="Изображение"
+                        src="../../static/images/Георгиевские_Кавалеры_11_гренадерского_Фанагорийского_полка.jpg"
+                        data-th-src="|data:${cover.contentType};base64,${cover.image}|">
+                </div>
+            </div>
+            <div class="cover_row_buttons">
+                <div class=cover_delete_button>
+                    <button onclick="delete_image(this, 'Удалить?')"
+                    data-th-onclick="|delete_image(this, '#{cover_book.delete.question}', 
+                    '#{cover_book.delete.ready_text}', '#{cover_book.delete.error_text}',
+                    '#{cover_book.delete.catch_text}');|">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

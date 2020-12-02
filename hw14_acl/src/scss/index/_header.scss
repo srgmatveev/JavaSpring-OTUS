@@ -1,0 +1,25 @@
+@import "_media_mixin.scss";
+header {
+    padding: 20px 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  #header_logo{
+    display: inline-block;
+  }
+  #header_langs{
+    display: inline-block;
+  }
+  .library_logo {
+    @include _480_library_logo{};
+    @include _481_767_library_logo{};
+    @include _768_library_logo{};
+    @include _769_959_library_logo{};
+    @include _960_library_logo{};
+    @include _1440_library_logo{};
+    @include _2000_library_logo{};
+  
+  }

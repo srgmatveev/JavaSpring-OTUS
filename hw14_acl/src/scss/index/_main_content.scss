@@ -1,0 +1,24 @@
+.main-content {
+  display: grid;
+  grid-template-areas: "aside content";
+  grid-template-columns: 3fr 10fr;
+  grid-gap: 20px;
+  //padding-bottom: 100px;
+}
+
+.aside {
+  grid-area: aside;
+}
+
+.content {
+  grid-area: content;
+}
+
+.aside-menu > li {
+  list-style-type: none; 
+  margin: 1em;
+}
+
+.aside-menu > li:hover{
+    background-color: lightblue;
+}

@@ -1,0 +1,36 @@
+//@import "../cuprum_font/_cuprum.scss";
+$nav-font: 24px "Cuprum", sans-serif;
+nav {
+  a {
+    text-decoration: none;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-position: inside;
+    font: $nav-font;
+    padding: 10px;
+  }
+}
+
+.top-menu {
+  background: #c8e9f0;
+  li {
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 0;
+  }
+
+  :hover {
+    background: #29c5e6;
+    color: #fff;
+  }
+
+
+  a {
+    color: #b2b2b2;
+  }
+}

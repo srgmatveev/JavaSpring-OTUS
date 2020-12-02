@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../static/js/index.js" data-th-src="@{/js/index.js}"></script>
+
+</head>
+
+<body class="index_body">
+<div id="index-wrapper">
+    <header>
+        <div id="header_logo">
+            <a href="/"><img class="library_logo" src="../static/images/library.png"
+                             data-th-src="@{/images/library.png}" alt="Library logo"
+                             data-th-alt="#{index.library.logo}"></a>
+        </div>
+        <div id="header_langs">
+            <a href="/?lang=ru_RU" data-th-text="#{index.lang.rus}">Rus</a>
+            <span>/</span>
+            <a href="/?lang=en_US" data-th-text="#{index.lang.eng}">Eng</a>
+        </div>
+    </header>
+    <nav>
+        <ul class="top-menu">
+            <li><a href="/main/resources/templates/genre/genres.html" data-th-href="@{/genres}"
+                   data-th-text="#{index.genres}">ЖАНРЫ</a></li>
+            <li><a href="/main/resources/templates/author/authors.html" data-th-href="@{/authors}" data-th-text="#{index.authors}">АВТОРЫ</a></li>
+            <li><a href="/customers/" data-th-text="#{index.books}">КНИГИ</a></li>
+            <li><a href="/main/resources/templates/cover/book_covers.html" data-th-text="#{index.books_covers}" data-th-href="@{/covers}">ОБЛОЖКИ</a></li>
+        </ul>
+    </nav>
+    <div id="heading">
+        <h1 id="h1-about-us" data-th-text="#{index.about_us}">О НАС</h1>
+    </div>
+    <div id="main" class="main-content">
+        <aside class="aside">
+            <nav>
+                <ul class="aside-menu">
+                    <li data-th-each="genre:${genres}" id="genre_id_genre" data-th-attr="id=${genre.id}">
+                        <span data-th-text="${genre.name}">
+                            Фантастика
+                        </span>
+                    </li>
+                    <!-- <li class="active">LOREM IPSUM</li>
+                     <li><a href="/donec/">DONEC TINCIDUNT LAOREET</a></li>
+                     <li><a href="/vestibulum/">VESTIBULUM ELIT</a></li>
+                     <li><a href="/etiam/">ETIAM PHARETRA</a></li>
+                     <li><a href="/phasellus/">PHASELLUS PLACERAT</a></li>
+                     <li><a href="/cras/">CRAS ET NISI VITAE ODIO</a></li>
+                 -->
+                </ul>
+            </nav>
+        </aside>
+        <section class="section">
+
+        </section>
+    </div>
+</div>
+<footer id="footer" class="footer">
+    <p data-th-text="#{index.footer.desc}">Сайт библиотеки</p>
+    <p data-th-text="#{index.footer.address}">Наш адрес: город Нск</p>
+</footer>
+
+<dialog id="about-modal">
+    <div class="about-modal-header">
+        <div class="about-modal-header-caption">
+            <h3 data-th-text="#{index.about.caption}">A native modal dialog box</h3>
+        </div>
+        <div>
+            <button id="close" class="upper-close" type="button">&times;</button>
+        </div>
+    </div>
+    <div class="about-modal-body">
+        <p data-th-text="#{index.about.body.line1}">This is fantastic.</p>
+        <p data-th-text="#{index.about.body.line2}">Today.</p>
+    </div>
+    <div class="about-modal-footer">
+        <div class="about-modal-footer-buttons">
+            <button id="about-modal-exit" type="button" data-th-text="#{index.about.button}">Закрыть</button>
+        </div>
+    </div>
+
+
+</dialog>
+
+</body>
+
+</html>
