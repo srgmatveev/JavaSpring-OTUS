@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" data-th-attr="lang=#{localized.lang}">
+
 <head>
     <meta charset="UTF-8">
-    <title>Authentication</title>
+    <title data-th-text="#{auth.login.header.text}">Authentication</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
 </head>
-<body>
-<form id="authenticationForm" class="authenticationForm" method="post" action="/loginPage">
-    <div class="row">
-        <label for="username">Login:</label>
-        <input id="username" name="username" type="text" value=""/>
+
+<body class="auth_body">
+    <div class="auth_wrapper">
+        <div class="auth_header">
+            <label data-th-text="#{auth.login.form.header.text}">Authentication</label>
+        </div>
+
+        <form id="authenticationForm" class="authentication_form" method="post" action="/loginPage">
+            <div class="auth_form_body">
+                <div class="auth_form_body_row">
+                    <label for="username" data-th-text="#{auth.login.form.login}">Login:</label>
+                    <input id="username" name="username" type="text" value="" />
+                </div>
+
+                <div class="auth_form_body_row">
+                    <label for="password" data-th-text="#{auth.login.form.password}">Password:</label>
+                    <input id="password" name="password" type="password" value="" />
+                </div>
+            </div>
+            <div class="auth_buttons">
+                <div class="auth_submit_button">
+                    <button type="submit" data-th-text="#{auth.login.button.name}">Login</button>
+                </div>
+            </div>
+        </form>
+
+        <div data-th-if="${error}" data-th-utext="${errorText}" style="color:red;font-style:italic;">
+        </div>
+
     </div>
-
-    <div class="row">
-        <label for="password">Password:</label>
-        <input id="password" name="password" type="password" value=""/>
-    </div>
-
-    <div class="row">
-        <button type="submit">Login</button>
-    </div>
-</form>
-
-<div th:if="${error}" th:utext="${errorText}" style="color:red;font-style:italic;">
-
-</div>
-
 </body>
+
 </html>

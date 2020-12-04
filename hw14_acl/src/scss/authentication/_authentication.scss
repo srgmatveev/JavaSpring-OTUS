@@ -1,0 +1,67 @@
+$auth-caption-font: 2em "Cuprum", sans-serif;
+$border-radius: 25px;
+.auth_body {
+    display: block;
+    margin: 0;
+}
+
+.auth_wrapper {
+    width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth_header {
+    font: $auth-caption-font;
+    padding: 0.5em;
+    background-color: aqua;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.authentication_form {
+    background-color: white;
+}
+
+.auth_form_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth_form_body_row {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    flex-flow: column;
+}
+
+.auth_form_body_row > label {
+     padding: 0 1em 0.5em 0;
+}
+
+.auth_form_body_row > input {
+    padding: 0.5em;
+}
+
+
+.auth_buttons{
+    font: $auth-caption-font;
+    background-color: cyan;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5em;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-width: 1px 0 0 0;
+    border-color: black;
+    border-style: solid;
+}
+
+.auth_submit_button{
+    display: flex;
+    justify-content: center;
+}
