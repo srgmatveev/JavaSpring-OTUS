@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
-  font-family: "Cuprum";
-  src: url(../fonts/Cuprum-Regular.ttf) format("truetype");
+  font-family: 'Cuprum';
+  src: url("../fonts/Cuprum-Regular.ttf") format("truetype");
   /* все современные браузеры */
 }
 
@@ -1631,7 +1631,7 @@ cover-body {
 }
 
 .auth_header {
-  font: 2em "Cuprum", sans-serif;
+  font: 2em "Arial", sans-serif;
   padding: 0.5em;
   background-color: aqua;
   border-top-left-radius: 25px;
@@ -1665,7 +1665,7 @@ cover-body {
 }
 
 .auth_buttons {
-  font: 2em "Cuprum", sans-serif;
+  font: 2em "Arial", sans-serif;
   background-color: cyan;
   display: flex;
   justify-content: flex-end;

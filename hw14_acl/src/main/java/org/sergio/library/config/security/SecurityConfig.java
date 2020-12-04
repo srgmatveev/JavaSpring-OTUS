@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
 
             web.ignoring()
-                    .antMatchers("/**/img/**", "/webjars/**", "/favicon.ico", "/**/css/**");
+                    .antMatchers("/favicon.ico", "/**/css/**", "/**/images/**", "/resources/**", "/error");
     }
 
     @Override
@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .deleteCookies("SESSION")
                 .logoutSuccessUrl("/logoutPage")
                 .permitAll()
         ;
