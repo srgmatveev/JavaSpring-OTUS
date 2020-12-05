@@ -3,6 +3,7 @@ package org.sergio.library.service;
 import org.sergio.library.domain.security.SecUser;
 import org.sergio.library.repository.security.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Profile("security_init")
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepo repo;

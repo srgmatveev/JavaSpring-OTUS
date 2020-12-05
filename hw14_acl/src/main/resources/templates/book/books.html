@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
+</html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Книги</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <link href="../../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
+    <script src="../../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+</head>
+
+<body>
+    <div class="books_wrapper">
+        <div class="books_nav">
+            <div class="book_add_button">
+                <a href="/main/resources/templates/book/add_book.html" data-th-href="@{/books/add}"
+                    class="new_book_button" data-th-text="#{books.new_book}">НОВАЯ КНИГА</a>
+            </div>
+
+            <div class="book_to_main_button">
+                <a href="/main/resources/templates/index.html" class="books_return_button" data-th-href="@{/}"
+                    data-th-text="#{books.main}">НА ГЛАВНУЮ</a>
+            </div>
+        </div>
+        <div class="book_table">
+            <div class="book_caption_text" data-th-text="#{books.table.caption}">
+                Книги
+            </div>
+            <div data-th-each="book:${books}" id="book_id_book" class="book_row" data-th-attr="id=${book.id}">
+                <div class="book_row_content">
+                    <div class="book_row_text" data-th-text="${book.name}">
+                        Как закалялась сталь
+                    </div>
+                    <div class="book_row_authors">
+                        <div>
+                            <label data-th-text="${book.authors.caption}">Авторы:</label>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

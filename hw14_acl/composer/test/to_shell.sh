@@ -1,0 +1,1 @@
+docker exec -it tst_mongodb14 bash

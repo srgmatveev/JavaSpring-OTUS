@@ -6,6 +6,7 @@ import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.validators.GenreDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
