@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("userRepo")
-@Profile("security_init")
 public interface UserRepo extends MongoRepository<SecUser, String> {
     @Query("{ 'Login' : {$regex: '^?0$', $options: 'i' }}")
     List<SecUser> findByLogin(final String Name);

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Profile("security_init")
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepo repo;

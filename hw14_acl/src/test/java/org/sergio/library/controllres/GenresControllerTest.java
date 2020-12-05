@@ -3,15 +3,19 @@ package org.sergio.library.controllres;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.sergio.library.Main;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.repository.GenreRepo;
+import org.sergio.library.repository.security.UserRepo;
 import org.sergio.library.validators.GenreDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
@@ -38,9 +42,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 
+
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 class GenresControllerTest {
+
+    @MockBean
+    private UserRepo userRepo;
 
     @Autowired
     private MockMvc mockMvc;

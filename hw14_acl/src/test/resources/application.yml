@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: mock-dev, dev, redis
+    active:  mock-dev, dev, redis, security_init
   main:
     banner-mode: "off"
 ---
@@ -51,3 +51,9 @@ spring:
     store-type: redis
 
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: security_init
