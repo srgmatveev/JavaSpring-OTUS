@@ -17,6 +17,7 @@ public class Book {
     @Id
     @Setter(AccessLevel.NONE)
     private String id;
+
     @NonNull
     @Indexed(name = "book_name_index")
     private String name;
@@ -28,4 +29,6 @@ public class Book {
     @Field("genres_ids")
     @Indexed(name = "genres_ids_index")
     private List<String> genres_ids = new ArrayList<>();
+
+    private String cover_id;
 }
