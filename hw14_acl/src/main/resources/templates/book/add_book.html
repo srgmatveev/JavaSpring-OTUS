@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-th-attr="lang=#{localized.lang}" class="add_author_html">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <script src="../../static/js/add-author-to-book.js" data-th-src="@{/js/add-author-to-book.js}"></script>
+</head>
+
+<body class="add_book_body_main">
+<div class="add_book_wrapper">
+    <form data-th-object="${book}">
+        <div class="add_book_caption">
+            <div>
+                <label data-th-text="#{book.add.caption}">Добавить книгу</label>
+            </div>
+            <div>
+                <button type="submit" data-th-text="#{book.add.submit}">Submit</button>
+                <button type="button" data-th-text="#{book.add.exit}"
+                        onclick="window.location.href='/books';">Выход
+                </button>
+            </div>
+        </div>
+        <div class="add_book_information_block">
+            <div>
+                <label data-th-text="#{book.add.id}">id</label>
+                <input type="text" readonly="true" data-th-field="*{id}"/>
+            </div>
+
+            <div>
+                <label data-th-text="#{book.add.name}">Name</label>
+                <input type="text" data-th-field="*{name}"/>
+            </div>
+
+            <div class="add_book_authors">
+                <button type="button"
+                        onclick="add_book_authors('Save book before add authors')"
+                        data-th-onclick="|add_book_authors(
+                        '@{/books/add_authors(book_id=*{id})}',
+                        '#{book.add.alert_author_message}')|"
+                >Добавить автора
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

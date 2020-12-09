@@ -1720,6 +1720,64 @@ cover-body {
   justify-content: flex-start;
 }
 
+.add_book_body_main {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.add_book_wrapper {
+  width: 95vw;
+  margin: auto;
+  min-height: 100%;
+  height: 100vh !important;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.add_book_caption {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  height: 3em;
+  background-color: lightblue;
+  align-items: center;
+}
+
+.add_book_information_block {
+  display: flex;
+  flex-flow: column;
+  background-color: white;
+}
+
+.body_book_add_author {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.book_add_author_wrapper {
+  width: 98vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+.book_authors_nav {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 3em;
+  background-color: lightblue;
+  border-bottom: 1px solid black;
+}
+
 .auth_body {
   display: block;
   margin: 0;
