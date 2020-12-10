@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-th-text="#{site.title}">Библиотека</title>
     <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
-
+    <script src="../../static/js/add-author-to-book-real.js" data-th-src="@{/js/add-author-to-book-real.js}"></script>
 </head>
 
 <body class="body_book_add_author">
-    <div class="book_add_author_wrapper">
+<div>
+<p hidden="true" id="book_id" data-th-text="${bookId}">12</p>
+</div>
+  <div class="book_add_author_wrapper">
         <div class="book_authors_nav">
             <div>
                 <label data-th-text="#{books.authors.add.caption}">Авторы</label>
             </div>
             <div>
-                <p class="edit_author_button" onclick="click_delete_author_button(this);"
+                <p class="edit_author_button" onclick="click_delete_author_button();"
                     data-th-text="#{books.authors.exit}">Exit</p>
             </div>
         </div>
@@ -35,7 +38,7 @@
 
             <div class="author_delete_edit_buttons">
                 <div class="author_edit_row">
-                    <p class="edit_author_button" onclick="click_delete_author_button(this);"
+                    <p class="edit_author_button" onclick="click_add_author_to_book_button(this);"
                         data-th-text="#{books.authors.add}">Add</p>
                 </div>
             </div>

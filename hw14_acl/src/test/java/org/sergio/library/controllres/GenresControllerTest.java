@@ -7,6 +7,7 @@ import org.sergio.library.Main;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.AuthorRepo;
+import org.sergio.library.repository.BookRepo;
 import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.repository.security.UserRepo;
 import org.sergio.library.validators.GenreDTOValidator;
@@ -46,6 +47,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 class GenresControllerTest {
+    @MockBean
+    private BookRepo repo;
 
     @MockBean
     private UserRepo userRepo;

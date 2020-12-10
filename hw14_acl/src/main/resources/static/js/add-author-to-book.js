@@ -10,3 +10,4 @@ function add_book_authors(url_path, alert_message) {
     }
     window.open(url_path,"_self");
 }
+
