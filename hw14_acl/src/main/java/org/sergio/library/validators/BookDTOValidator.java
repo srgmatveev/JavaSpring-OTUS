@@ -3,6 +3,7 @@ package org.sergio.library.validators;
 import org.sergio.library.domain.Book;
 import org.sergio.library.dto.BookDTO;
 import org.sergio.library.repository.BookRepo;
+import org.sergio.library.service.BookDTOService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,6 +15,9 @@ import org.springframework.validation.Validator;
 
 @Component
 public class BookDTOValidator implements Validator {
+    @Autowired
+    private BookDTOService  bookDTOService;
+
     @Autowired
     private BookRepo bookRepo;
 
@@ -43,7 +47,8 @@ public class BookDTOValidator implements Validator {
         if (hasErrors) return;
 
         Book book = new Book(bookDTO.getName());
-        BeanUtils.copyProperties(bookDTO, book);
+        bookDTOService.convertBookDTOtoBook(bookDTO, book);
+        //BeanUtils.copyProperties(bookDTO, book);
         bookRepo.save(book);
         bookDTO.setId(book.getId());
     }

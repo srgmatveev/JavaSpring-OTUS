@@ -21,15 +21,15 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Optional<Book> addAuthor(String bookId, String authorId) {
-        if (bookId == null || bookId.isEmpty())
+        if (bookId.isBlank())
             return Optional.empty();
-        if (authorId == null || authorId.isEmpty())
+        if (authorId.isBlank())
             return Optional.empty();
 
         Optional<Book> bookOptional = bookRepo.findById(bookId);
         if (bookOptional.isPresent()) {
             List<String> authors_id = bookOptional.get().getAuthors_ids();
-            if(addToList(authors_id, authorId)==true)
+            if (addToList(authors_id, authorId) == true)
                 bookRepo.save(bookOptional.get());
         }
 

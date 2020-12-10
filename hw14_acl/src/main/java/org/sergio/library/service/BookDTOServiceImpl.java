@@ -10,12 +10,10 @@ import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.repository.BookRepo;
 import org.sergio.library.repository.GenreRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +45,54 @@ public class BookDTOServiceImpl implements BookDTOService {
             bookDTO.setAuthors(authorDTO);
         }
         return Optional.ofNullable(bookDTO);
+    }
+
+    @Override
+    public void convertBooktoBookDTO(Book book, BookDTO bookDTO) {
+        if (book == null || bookDTO == null) return;
+        BeanUtils.copyProperties(book, bookDTO);
+        List<AuthorDTO> authors = new ArrayList<>();
+        book.getAuthors_ids().forEach(id -> {
+            Optional<Author> authorOptional = authorRepo.findById(id);
+            if (authorOptional.isPresent()) {
+                AuthorDTO authorDTO = new AuthorDTO();
+                BeanUtils.copyProperties(authorOptional.get(), authorDTO);
+                authors.add(authorDTO);
+            }
+        });
+
+        bookDTO.setAuthors(authors);
+
+        List<GenreDTO> genres = new ArrayList<>();
+        book.getGenres_ids().forEach(id -> {
+            Optional<Genre> genreOptional = genreRepo.findById(id);
+            if (genreOptional.isPresent()) {
+                GenreDTO genreDTO = new GenreDTO();
+                BeanUtils.copyProperties(genreOptional.get(), genreDTO);
+                genres.add(genreDTO);
+
+            }
+        });
+
+        bookDTO.setGenres(genres);
+
+    }
+
+    @Override
+    public void convertBookDTOtoBook(BookDTO bookDTO, Book book) {
+        if (book == null || bookDTO == null) return;
+        BeanUtils.copyProperties(bookDTO, book);
+        List<String> authors_ids = new ArrayList<>();
+        bookDTO.getAuthors().forEach(author -> {
+            if (!author.getId().isBlank())
+                authors_ids.add(author.getId());
+        });
+
+        List<String> genres_ids = new ArrayList<>();
+        bookDTO.getGenres().forEach(genre -> {
+            if (!genre.getId().isBlank())
+                genres_ids.add(genre.getId());
+        });
     }
 
     private List<GenreDTO> fillGenres(Book book) {

@@ -15,4 +15,5 @@ public class BookDTO {
     private List<AuthorDTO> authors = new ArrayList<>();
     private List<GenreDTO> genres = new ArrayList<>();
     private Cover cover;
+
 }

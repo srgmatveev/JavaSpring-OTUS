@@ -44,6 +44,11 @@
                         '#{book.add.alert_author_message}')|"
                 >Добавить автора
                 </button>
+                
+                <div data-th-each="author:${book.authors}" id="book_id_author"  data-th-attr="id=${author.id}">
+                    <label data-th-text="${author.name}">author</label>
+                </div>
+            
             </div>
 
         </div>

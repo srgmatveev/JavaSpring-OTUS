@@ -5,8 +5,11 @@ import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.dto.BookDTO;
 import org.sergio.library.repository.AuthorRepo;
+import org.sergio.library.repository.BookRepo;
+import org.sergio.library.service.BookDTOService;
 import org.sergio.library.service.BookService;
 import org.sergio.library.validators.BookDTOValidator;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -28,10 +31,16 @@ public class BookController {
     private AuthorRepo authorRepo;
 
     @Autowired
+    private BookRepo bookRepo;
+
+    @Autowired
     private BookService bookService;
 
     @Autowired
     private BookDTOValidator bookDTOValidator;
+
+    @Autowired
+    private BookDTOService bookDTOService;
 
     @GetMapping
     String getBooks(Model model) {
@@ -39,9 +48,20 @@ public class BookController {
     }
 
     @GetMapping(value = "add")
-    String addBook(Model model) {
+    String addBook(
+            @RequestParam(required = false, defaultValue = "", value = "id") String bookId,
+            Model model) {
         BookDTO bookDTO = new BookDTO();
+        if (bookId.isBlank() == false) {
+            Optional<Book> bookOptional = bookRepo.findById(bookId);
+            if (bookOptional.isPresent()) {
+                bookDTOService.convertBooktoBookDTO(bookOptional.get(), bookDTO);
+                //BeanUtils.copyProperties(bookOptional.get(), bookDTO);
+            }
+
+        }
         model.addAttribute("book", bookDTO);
+        log.debug(model.getAttribute("book").toString());
         return "book/add_book";
     }
 

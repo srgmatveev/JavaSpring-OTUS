@@ -19,7 +19,7 @@
                 <label data-th-text="#{books.authors.add.caption}">Авторы</label>
             </div>
             <div>
-                <p class="edit_author_button" onclick="click_delete_author_button();"
+                <p class="edit_author_button" onclick="return_to_book();"
                     data-th-text="#{books.authors.exit}">Exit</p>
             </div>
         </div>
@@ -41,6 +41,7 @@
                     <p class="edit_author_button" onclick="click_add_author_to_book_button(this);"
                         data-th-text="#{books.authors.add}">Add</p>
                 </div>
+           
             </div>
 
         </div>

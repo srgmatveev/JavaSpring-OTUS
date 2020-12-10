@@ -35,3 +35,11 @@ function click_add_author_to_book_button(curElement) {
     }
     request.send();
 }
+
+function return_to_book(){
+    const bookId = document.getElementById('book_id').innerText;
+    console.log(bookId);
+    const url = `add?id=${bookId}`;
+    console.log(url);
+    window.open(url,'_self');
+}
