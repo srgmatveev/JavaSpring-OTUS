@@ -17,18 +17,19 @@
                     <label data-th-text="#{book.add.caption}">Добавить книгу</label>
                 </div>
                 <div>
-                    <button type="submit" data-th-text="#{book.add.submit}">Submit</button>
-                    <button type="button" data-th-text="#{book.add.exit}" onclick="window.location.href='/books';">Выход
+                    <button type="submit" data-th-text="#{book.add.submit}" class="submit-button">Submit</button>
+                    <button type="button" data-th-text="#{book.add.exit}" class="exit-button"
+                        onclick="window.location.href='/books';">Выход
                     </button>
                 </div>
             </div>
             <div class="add_book_information_block">
-                <div>
+                <div class="add_book_base_row">
                     <label data-th-text="#{book.add.id}">id</label>
                     <input type="text" readonly="true" data-th-field="*{id}" />
                 </div>
 
-                <div>
+                <div class="add_book_base_row">
                     <label data-th-text="#{book.add.name}">Name</label>
                     <input type="text" data-th-field="*{name}" />
                 </div>
@@ -36,19 +37,38 @@
                 <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}"
                 data-th-class="text-red">Incorrect data</p>
                 </div>
-            <div class="add_book_authors">
-                <button type="button"
+            <div class="add_book_base_row">
+                <button class="add-author-button" type="button"
                         onclick="add_book_authors('Save book before add authors')"
                         data-th-onclick="|add_book_authors(
                         '@{/books/add_authors(book_id=*{id})}',
                         '#{book.add.alert_author_message}')|"
                 >Добавить автора
                 </button>
-                
+                <div class= "add_book_authors">
                 <div data-th-each="author:${book.authors}" id="book_id_author"  data-th-attr="id=${author.id}">
                     <label data-th-text="${author.name}">author</label>
+                    &nbsp;
+                    <label data-th-text="${author.surName}">author family</label>
+                </div>
+           
                 </div>
             
+                <div class="add_genre_base_row">
+                    <button class="add-genre-button" type="button"
+                    onclick="add_book_genres('Save book before add authors')"
+                    data-th-onclick="|add_book_genres(
+                    '@{/books/add_genres(book_id=*{id})}',
+                    '#{book.add.alert_genre_message}')|"
+                    >Добавить жанр
+                     </button>
+                     <div class= "add_book_genres">
+                        <div data-th-each="genre:${book.genres}" id="book_id_genre"  data-th-attr="id=${genre.id}">
+                            <label data-th-text="${genre.name}">genre</label>
+                        </div>
+                    </div>
+
+
             </div>
 
         </div>
