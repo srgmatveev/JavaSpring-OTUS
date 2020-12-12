@@ -9,7 +9,6 @@ import org.sergio.library.repository.BookRepo;
 import org.sergio.library.service.BookDTOService;
 import org.sergio.library.service.BookService;
 import org.sergio.library.validators.BookDTOValidator;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -70,7 +69,7 @@ public class BookController {
         log.debug("Save book " + bookDTO.getName());
         bookDTOValidator.validate(bookDTO, result);
         log.info(result.toString());
-
+        log.debug(model.toString());
         return "book/add_book";
     }
 
@@ -89,7 +88,7 @@ public class BookController {
         model.addAttribute("bookId", bookId);
         model.addAttribute("authors", list);
 
-        return "book/add_author";
+        return "book/add_author_to_book";
     }
 
     @PutMapping("{bookId}/{authorId}")

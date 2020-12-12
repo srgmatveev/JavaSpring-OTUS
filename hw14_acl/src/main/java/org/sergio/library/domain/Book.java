@@ -15,7 +15,7 @@ import java.util.List;
 @Document(collection = "books")
 public class Book {
     @Id
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     private String id;
 
     @NonNull

@@ -81,7 +81,60 @@ public class BookDTOServiceImpl implements BookDTOService {
     @Override
     public void convertBookDTOtoBook(BookDTO bookDTO, Book book) {
         if (book == null || bookDTO == null) return;
-        BeanUtils.copyProperties(bookDTO, book);
+
+        if (bookDTO.getId().isBlank()) {
+            book.setName(bookDTO.getName());
+            return;
+        } else {
+            Optional<Book> optionalBook = repo.findById(bookDTO.getId());
+            if (optionalBook.isPresent()) {
+                book.setId(optionalBook.get().getId());
+                book.setName(bookDTO.getName());
+                book.setAuthors_ids(optionalBook.get().getAuthors_ids());
+                book.setGenres_ids(optionalBook.get().getGenres_ids());
+                List<AuthorDTO> authors = new ArrayList<>();
+                book.getAuthors_ids().forEach(id -> {
+                    Optional<Author> authorOptional = authorRepo.findById(id);
+                    if (authorOptional.isPresent()) {
+                        AuthorDTO authorDTO = new AuthorDTO();
+                        BeanUtils.copyProperties(authorOptional.get(), authorDTO);
+                        authors.add(authorDTO);
+                    }
+                });
+
+                bookDTO.setAuthors(authors);
+
+                List<GenreDTO> genres = new ArrayList<>();
+                book.getGenres_ids().forEach(id -> {
+                    Optional<Genre> genreOptional = genreRepo.findById(id);
+                    if (genreOptional.isPresent()) {
+                        GenreDTO genreDTO = new GenreDTO();
+                        BeanUtils.copyProperties(genreOptional.get(), genreDTO);
+                        genres.add(genreDTO);
+
+                    }
+                });
+
+                bookDTO.setGenres(genres);
+                return;
+            }
+        }
+
+        /* Field id = null;
+        try {
+            id = book.getClass().getDeclaredField("id");
+        } catch (NoSuchFieldException e) {
+            log.error(e.toString());
+            return;
+        }
+        id.setAccessible(true);
+        try {
+            if (!bookDTO.getId().isBlank())
+                id.set(book, bookDTO.getId());
+        } catch (IllegalAccessException e) {
+            log.error(e.toString());
+            return;
+        }
         List<String> authors_ids = new ArrayList<>();
         bookDTO.getAuthors().forEach(author -> {
             if (!author.getId().isBlank())
@@ -93,7 +146,12 @@ public class BookDTOServiceImpl implements BookDTOService {
             if (!genre.getId().isBlank())
                 genres_ids.add(genre.getId());
         });
+
+        book.setAuthors_ids(authors_ids);
+        book.setGenres_ids(genres_ids);
+    */
     }
+
 
     private List<GenreDTO> fillGenres(Book book) {
         List<GenreDTO> list = new ArrayList<>();

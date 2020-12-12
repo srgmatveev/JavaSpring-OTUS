@@ -48,6 +48,7 @@ public class BookDTOValidator implements Validator {
 
         Book book = new Book(bookDTO.getName());
         bookDTOService.convertBookDTOtoBook(bookDTO, book);
+
         //BeanUtils.copyProperties(bookDTO, book);
         bookRepo.save(book);
         bookDTO.setId(book.getId());
