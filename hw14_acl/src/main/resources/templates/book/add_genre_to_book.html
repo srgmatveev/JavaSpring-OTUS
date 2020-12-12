@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-attr="lang=#{localized.lang}">
+
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title data-th-text="#{site.title}">Библиотека</title>
+    <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
+    <script src="../../static/js/add-genre-to-book.js" data-th-src="@{/js/add-genre-to-book.js}"></script>
 </head>
-<body>
-    
+
+<body class="body_book_add_genre">
+    <div>
+        <p hidden="true" id="book_id" data-th-text="${bookId}">12</p>
+    </div>
+
+    <div class="book_add_genre_wrapper">
+        <div class="book_genres_nav">
+            <div>
+                <label data-th-text="#{books.genres.add.caption}">Жанры</label>
+            </div>
+            <div>
+                <p class="edit_genre_button" onclick="return_to_book();" data-th-text="#{books.genres.exit}">Exit</p>
+            </div>
+        </div>
+
+        <div data-th-each="genre:${genres}" id="genre_id_genre" class="genre_row" data-th-attr="id=${genre.id}">
+            <div data-th-text="${genre.name}">
+                Фантастика
+            </div>
+
+            <div>
+                <p class="edit_book_genre_button" onclick="click_add_genre_to_book_button(this);"
+                    data-th-text="#{books.genres.add}">Add</p>
+            </div>
+
+        </div>
+    </div>
+
 </body>
+
 </html>

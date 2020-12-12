@@ -27,12 +27,14 @@
         <div data-th-each="author:${authors}" id="author_id_author" class="author_row" data-th-attr="id=${author.id}">
             <div class="author_sub_row">
                 <div class="author_row_text">
-                    <label>Фамилия</label>
+                    <label data-th-text="#{books.authors.family}">Фамилия
                     <input value="Тургенев" readonly="true" data-th-attr="value=${author.surName}" />
+                </label>
                 </div>
                 <div class="author_row_text">
-                    <label>Имя</label>
+                    <label data-th-text="#{books.authors.name}">Имя
                     <input value="Иван Сергеевич" readonly="true" data-th-attr="value=${author.name}" />
+                </label>
                 </div>
             </div>
 

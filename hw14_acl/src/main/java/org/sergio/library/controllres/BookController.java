@@ -3,9 +3,11 @@ package org.sergio.library.controllres;
 import lombok.extern.slf4j.Slf4j;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
+import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.BookDTO;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.repository.BookRepo;
+import org.sergio.library.repository.GenreRepo;
 import org.sergio.library.service.BookDTOService;
 import org.sergio.library.service.BookService;
 import org.sergio.library.validators.BookDTOValidator;
@@ -41,6 +43,10 @@ public class BookController {
     @Autowired
     private BookDTOService bookDTOService;
 
+
+    @Autowired
+    private GenreRepo genreRepo;
+
     @GetMapping
     String getBooks(Model model) {
         return "book/books";
@@ -73,6 +79,34 @@ public class BookController {
         return "book/add_book";
     }
 
+
+    @GetMapping(value = "add_genres")
+    String add_genre(
+            @RequestParam(required = false, defaultValue = "", value = "book_id") String bookId,
+            Model model) {
+        log.debug("add genre book id = " + bookId);
+        List<Sort.Order> orders = new ArrayList<>();
+        Sort.Order orderName = new Sort.Order(Sort.Direction.ASC, "name");
+        orders.add(orderName);
+        List<Genre> list = genreRepo.findAll(Sort.by(orders));
+        model.addAttribute("bookId", bookId);
+        model.addAttribute("genres", list);
+
+        return "book/add_genre_to_book";
+    }
+
+    @PutMapping("genre/{bookId}/{genreId}")
+    ResponseEntity<?> updateGenre(@PathVariable String bookId,
+                                  @PathVariable String genreId,
+                                  Model model) {
+        log.debug(String.format("Put method running for book id = %s and genre with id = %s", bookId, genreId));
+        Optional<Book> bookOptional = bookService.addGenre(bookId, genreId);
+        if (bookOptional.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body("ok");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
+
+    }
 
     @GetMapping(value = "add_authors")
     String add_author(
