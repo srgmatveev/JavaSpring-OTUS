@@ -29,4 +29,5 @@ public interface GridFSRepo {
     String uniqFileUpload(MultipartFile file) throws UniqueFileUploadException;
 
     List<Cover> findAll();
+    Cover findById(String id);
 }

@@ -148,4 +148,26 @@ public class GridFSRepoImpl implements GridFSRepo {
 
         return coverList;
     }
+
+    @Override
+    public Cover findById(String id) {
+        Cover cover = null;
+        GridFSFile gridFSFile = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
+        if (gridFSFile != null) {
+            try {
+                cover = new Cover();
+                cover.setId(gridFSFile.getId().asObjectId().getValue().toString());
+                cover.setTitle(gridFSFile.getFilename());
+                cover.setContentType(gridFSFile.getMetadata().getString("_contentType"));
+                byte[] bytes = new byte[0];
+                bytes = operations.getResource(gridFSFile).getInputStream().readAllBytes();
+                Binary binary = new Binary(BsonBinarySubType.BINARY, bytes);
+                cover.setImage(Base64.getEncoder().encodeToString(binary.getData()));
+            } catch (IOException e) {
+                log.error(e.toString());
+                cover = null;
+            }
+        }
+        return cover;
+    }
 }

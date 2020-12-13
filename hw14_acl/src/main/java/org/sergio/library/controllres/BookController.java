@@ -5,13 +5,16 @@ import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.BookDTO;
+import org.sergio.library.dto.Cover;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.repository.BookRepo;
 import org.sergio.library.repository.GenreRepo;
+import org.sergio.library.repository.GridFSRepo;
 import org.sergio.library.service.BookDTOService;
 import org.sergio.library.service.BookService;
 import org.sergio.library.validators.BookDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +50,10 @@ public class BookController {
     @Autowired
     private GenreRepo genreRepo;
 
+    @Autowired
+    @Qualifier("gridFSRepo")
+    private GridFSRepo gridFSRepo;
+
     @GetMapping
     String getBooks(Model model) {
         return "book/books";
@@ -79,6 +86,28 @@ public class BookController {
         return "book/add_book";
     }
 
+    @GetMapping(value = "add_cover")
+    String add_cover( @RequestParam(required = false, defaultValue = "", value = "book_id") String bookId,
+                      Model model){
+        log.debug("add cover to  book id = " + bookId);
+        model.addAttribute("bookId", bookId);
+        List<Cover> covers = gridFSRepo.findAll();
+        model.addAttribute("covers", covers);
+        return "book/book_add_cover";
+    }
+
+    @PutMapping("cover/{bookId}/{coverId}")
+    ResponseEntity<?> updateCover(@PathVariable String bookId,
+                                  @PathVariable String coverId,
+                                  Model model) {
+        log.debug(String.format("Put method running for book id = %s and cover with id = %s", bookId, coverId));
+        Optional<Book> bookOptional = bookService.addCover(bookId, coverId);
+        if (bookOptional.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body("ok");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
+
+    }
 
     @GetMapping(value = "add_genres")
     String add_genre(
@@ -112,7 +141,7 @@ public class BookController {
     String add_author(
             @RequestParam(required = false, defaultValue = "", value = "book_id") String bookId,
             Model model) {
-        log.debug("book id = " + bookId);
+        log.debug("add author book id = " + bookId);
         List<Sort.Order> orders = new ArrayList<>();
         Sort.Order orderName = new Sort.Order(Sort.Direction.ASC, "name");
         Sort.Order orderSurName = new Sort.Order(Sort.Direction.ASC, "surName");
@@ -121,6 +150,7 @@ public class BookController {
         List<Author> list = authorRepo.findAll(Sort.by(orders));
         model.addAttribute("bookId", bookId);
         model.addAttribute("authors", list);
+        log.debug(model.getAttribute("authors").toString());
 
         return "book/add_author_to_book";
     }

@@ -1,15 +1,18 @@
 package org.sergio.library.service;
 
+import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.extern.slf4j.Slf4j;
 import org.sergio.library.domain.Author;
 import org.sergio.library.domain.Book;
 import org.sergio.library.domain.Genre;
 import org.sergio.library.dto.AuthorDTO;
 import org.sergio.library.dto.BookDTO;
+import org.sergio.library.dto.Cover;
 import org.sergio.library.dto.GenreDTO;
 import org.sergio.library.repository.AuthorRepo;
 import org.sergio.library.repository.BookRepo;
 import org.sergio.library.repository.GenreRepo;
+import org.sergio.library.repository.GridFSRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ public class BookDTOServiceImpl implements BookDTOService {
     @Autowired
     private AuthorRepo authorRepo;
 
+    @Autowired
+    private GridFSRepo gridFSRepo;
+    
     @Override
     public Optional<BookDTO> createBookDTO(String name) {
         BookDTO bookDTO = null;
@@ -92,6 +98,7 @@ public class BookDTOServiceImpl implements BookDTOService {
                 book.setName(bookDTO.getName());
                 book.setAuthors_ids(optionalBook.get().getAuthors_ids());
                 book.setGenres_ids(optionalBook.get().getGenres_ids());
+                book.setCover_id(optionalBook.get().getCover_id());
                 List<AuthorDTO> authors = new ArrayList<>();
                 book.getAuthors_ids().forEach(id -> {
                     Optional<Author> authorOptional = authorRepo.findById(id);
@@ -116,6 +123,10 @@ public class BookDTOServiceImpl implements BookDTOService {
                 });
 
                 bookDTO.setGenres(genres);
+               if(!optionalBook.get().getCover_id().isBlank()) {
+                   Cover cover = gridFSRepo.findById(optionalBook.get().getId());
+                   bookDTO.setCover(cover);
+               }
                 return;
             }
         }
