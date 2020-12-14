@@ -70,6 +70,18 @@
                     '@{/books/add_cover(book_id=*{id})}',
                     '#{book.add.alert_cover_message}')|">Добавить обложку
                             </button>
+                        
+                            <div class="cover_row_info_block">
+                                <!--<div class="cover_row_info_text">
+                                    <label data-th-text="${book?.cover?.title}">Name</label>
+                                </div> -->
+                                <div class="cover_row_img">
+                                    <img alt="Изображение"
+                                        src="../../static/images/Георгиевские_Кавалеры_11_гренадерского_Фанагорийского_полка.jpg"
+                                        data-th-src="|data:${book?.cover?.contentType};base64,${book?.cover?.image}|">
+                                </div>
+                            </div>
+                        
                         </div>
 
                     </div>

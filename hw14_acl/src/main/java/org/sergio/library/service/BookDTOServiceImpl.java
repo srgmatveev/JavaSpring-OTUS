@@ -49,6 +49,10 @@ public class BookDTOServiceImpl implements BookDTOService {
             bookDTO.setGenres(genresDTO);
             List<AuthorDTO> authorDTO = fillAuthors(book);
             bookDTO.setAuthors(authorDTO);
+            if(book.getCover_id()!=null && !book.getCover_id().isBlank()) {
+                Cover cover = gridFSRepo.findById(book.getCover_id());
+                bookDTO.setCover(cover);
+            }
         }
         return Optional.ofNullable(bookDTO);
     }
@@ -80,7 +84,13 @@ public class BookDTOServiceImpl implements BookDTOService {
             }
         });
 
+
         bookDTO.setGenres(genres);
+
+        if(book.getCover_id()!=null && !book.getCover_id().isBlank()){
+            Cover cover = gridFSRepo.findById(book.getCover_id());
+            bookDTO.setCover(cover);
+        }
 
     }
 
@@ -88,7 +98,7 @@ public class BookDTOServiceImpl implements BookDTOService {
     public void convertBookDTOtoBook(BookDTO bookDTO, Book book) {
         if (book == null || bookDTO == null) return;
 
-        if (bookDTO.getId().isBlank()) {
+        if (bookDTO.getId()==null || bookDTO.getId().isBlank()) {
             book.setName(bookDTO.getName());
             return;
         } else {
@@ -123,8 +133,8 @@ public class BookDTOServiceImpl implements BookDTOService {
                 });
 
                 bookDTO.setGenres(genres);
-               if(!optionalBook.get().getCover_id().isBlank()) {
-                   Cover cover = gridFSRepo.findById(optionalBook.get().getId());
+               if(optionalBook.get().getCover_id()!=null && !optionalBook.get().getCover_id().isBlank()) {
+                   Cover cover = gridFSRepo.findById(optionalBook.get().getCover_id());
                    bookDTO.setCover(cover);
                }
                 return;
