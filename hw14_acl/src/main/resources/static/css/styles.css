@@ -299,6 +299,44 @@ delete-genre-delete +
   }
 }
 
+.album {
+  display: flex;
+  gap: 20px;
+  flex-flow: row wrap;
+}
+
+.album_figure > figure {
+  display: block;
+  /* Блочный элемент */
+  width: 250px;
+  /* Ширина */
+  height: 250px;
+  /* Высота */
+  background-color: #5f6a72;
+  float: left;
+  /* Блоки выстраиваются по горизонтали */
+  margin: auto;
+  /* Отступы */
+  text-align: center;
+  /* Выравнивание по центру */
+}
+
+.album_figure > figure img {
+  max-width: calc(100% - 20px);
+  height: auto;
+  margin-top: 10px;
+}
+
+.album_figure figcaption {
+  color: #fff;
+  /* Цвет текста */
+  font-size: 1.5em;
+  font-family: Arial;
+  font-weight: bold;
+  caption-side: bottom;
+  margin-top: 10px;
+}
+
 .genres_wrapper {
   display: grid;
   grid-template-areas: "genre_nav" "genre_content";
