@@ -1,0 +1,120 @@
+$blue-3: hsl(211, 57%, 25%);
+$blue-4: hsl(211, 39%, 44%);
+$blue-5: hsl(211, 51%, 65%);
+$blue-7: hsl(211, 90%, 93%);
+$blue-rich: hsl(211, 65%, 48%);
+
+#delete-book {
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  box-shadow: 0 0 1em black;
+}
+
+/* native backdrop */
+#delete-book::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+/* polyfill backdrop */
+#delete-book + .backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#delete-book[open] {
+  animation: slide-up 0.4s ease-out;
+}
+
+/* The following styles are for older browsers when using
+     the polyfill. These aren’t necessary for Chrome/Firefox. */
+#delete-book {
+  display: none;
+  position: absolute;
+  margin: 0 auto; /* should center it, but not working in Safari */
+  max-width: 80vw;
+  background-color: white;
+}
+#delete-book[open] {
+  display: block;
+}
+
+.delete-book-header,
+.delete-book-body,
+.delete-book-footer {
+  padding: 1em;
+}
+
+.delete-book-header {
+  margin: 0;
+  padding-bottom: 0.6em;
+  background-color: $blue-7;
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+  border-bottom: 1px solid $blue-5;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.delete-book-header-caption {
+  display: inline-block;
+  // margin-right: 1em;
+}
+
+.delete-book-body {
+  display: inline-grid;
+  grid-template-areas: "delete-book-labels delete-book-inputs";
+  grid-template-columns: 2fr 10fr;
+  width: calc(100% - 2em);
+  grid-gap: 1em;
+  align-items: center;
+}
+
+.delete-book-labels {
+  grid-area: delete-book-labels;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.delete-book-inputs {
+  grid-area: delete-book-inputs;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+
+.delete-book-footer {
+  display: flex;
+  border-top: 1px solid $blue-5;
+  justify-content: flex-end;
+}
+
+#delete-book-delete + #delete-book-cancel {
+  margin-left: 1em;
+}
+
+#delete-book {
+  button {
+    padding: 0.4em 1em 0.2em;
+    font-family: Glober, Helvetica, sans-serif;
+  }
+}
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translate(0, 15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

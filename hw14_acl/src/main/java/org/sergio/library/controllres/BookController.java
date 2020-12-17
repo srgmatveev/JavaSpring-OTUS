@@ -56,6 +56,7 @@ public class BookController {
 
     @GetMapping
     String getBooks(Model model) {
+        model.addAttribute("books", bookDTOService.findAllBooksDTO());
         return "book/books";
     }
 
@@ -87,8 +88,8 @@ public class BookController {
     }
 
     @GetMapping(value = "add_cover")
-    String add_cover( @RequestParam(required = false, defaultValue = "", value = "book_id") String bookId,
-                      Model model){
+    String add_cover(@RequestParam(required = false, defaultValue = "", value = "book_id") String bookId,
+                     Model model) {
         log.debug("add cover to  book id = " + bookId);
         model.addAttribute("bookId", bookId);
         List<Cover> covers = gridFSRepo.findAll();
@@ -167,5 +168,10 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
     }
 
+    @DeleteMapping(value = "del/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("id") String id) {
+        bookRepo.deleteById(id);
+    }
 
 }

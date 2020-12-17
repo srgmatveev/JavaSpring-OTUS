@@ -10,6 +10,7 @@
     <link href="../../static/css/styles.css" data-th-href="@{/css/styles.css}" rel="stylesheet">
     <link href="../../static/css/dialog-polyfill.css" data-th-href="@{/css/dialog-polyfill.css}" rel="stylesheet">
     <script src="../../static/js/dialog-polyfill.js" data-th-src="@{/js/dialog-polyfill.js}"></script>
+    <script src="../../static/js/books.js" data-th-src="@{/js/books.js}"></script>
 </head>
 
 <body>
@@ -36,14 +37,81 @@
                     </div>
                     <div class="book_row_authors">
                         <div>
-                            <label data-th-text="${book.authors.caption}">Авторы:</label>
+                            <label data-th-if="${book.authors!=null and !book.authors.empty
+                            and book.authors.size &gt; 1
+                            }" data-th-text="#{book.authors.captions}">Авторы:</label>
+
+                            <label data-th-if="${book.authors!=null and !book.authors.empty
+                            and book.authors.size == 1
+                            }" data-th-text="#{book.authors.caption}">Автор:</label>
+
+                            <div data-th-each="author:${book.authors}" id="author_id_book"
+                                data-th-attr="id=${author.id}">
+                                <div data-th-text="${author.name}"></div>
+                                <div data-th-text="${author.surName}"></div>
+                            </div>
                         </div>
-                        
+
+                    </div>
+                    <div class="book_row_genres">
+                        <div>
+                            <label data-th-if="${book.genres!=null and !book.genres.empty
+ and book.genres.size &gt; 1}
+" data-th-text="#{book.genres.captions}">Жанры:</label>
+
+                            <label data-th-if="${book.genres!=null and !book.genres.empty
+ and book.genres.size == 1
+}" data-th-text="#{book.genres.caption}">Жанры:</label>
+
+                            <div data-th-each="genre:${book.genres}" id="genre_id_book" data-th-attr="id=${genre.id}">
+                                <div data-th-text="${genre.name}"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="cover_book_row_info_block" data-th-if="${book.cover!=null}">
+                        <div class="cover_row_img">
+                            <img alt="Изображение"
+                                src="../../static/images/Георгиевские_Кавалеры_11_гренадерского_Фанагорийского_полка.jpg"
+                                data-th-src="|data:${book?.cover?.contentType};base64,${book?.cover?.image}|">
+                        </div>
+                    </div>
+                    <div class="books_delete_book">
+                        <button onclick="click_delete_book_button(this);" data-th-text="#{books.delete}">Удалить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <dialog id="delete-book">
+        <div class="delete-book-header">
+            <div class="delete-book-header-caption">
+                <h3 data-th-text="#{books.delete.caption}">A native modal dialog box</h3>
+            </div>
+            <div>
+                <button id="delete-book-close" class="upper-close" type="button">&times;</button>
+            </div>
+        </div>
+        <div class="delete-book-body">
+            <div class="delete-book-labels">
+                <label for="delete_book_id" data-th-text="#{books.delete.id}">id:</label>
+                <label for="delete_book_name" data-th-text="#{books.delete.name}">Name:</label>
+            </div>
+            <div class="delete-book-inputs">
+                <input type="text" id="delete_book_id" name="id" value="Norway" readonly>
+                <input type="text" id="delete_book_name" name="name" value="Norway" readonly>
+            </div>
+        </div>
+        <div class="delete-book-footer">
+            <div class="delete-book-footer-buttons">
+                <button id="delete-book-delete" type="button"
+                    data-th-text="#{books.delete.delete.button}">Удалить</button>
+                <button id="delete-book-cancel" type="button"
+                    data-th-text="#{books.delete.cancel.button}">Отмена</button>
+            </div>
+        </div>
+
+    </dialog>
 </body>
 
 </html>
