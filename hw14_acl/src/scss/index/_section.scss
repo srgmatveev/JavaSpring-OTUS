@@ -8,7 +8,7 @@ $gap-album: 20px;
 .album_figure > figure {
     display: block; /* Блочный элемент */
     width: 250px; /* Ширина */
-    height: 250px; /* Высота */
+    min-height: 250px; /* Высота */
     background-color: #5f6a72;
     float: left; /* Блоки выстраиваются по горизонтали */
     margin: auto; /* Отступы */
@@ -26,5 +26,6 @@ $gap-album: 20px;
     font-weight: bold;
     caption-side: bottom;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 

@@ -14,5 +14,6 @@ public interface BookDTOService {
     void convertBooktoBookDTO(Book book, BookDTO bookDTO);
     void convertBookDTOtoBook(BookDTO bookDTO, Book book);
     List<BookDTO> findAllBooksDTO();
+    List<BookDTO> findAllBooksDTObyGenre(String id);
 
 }

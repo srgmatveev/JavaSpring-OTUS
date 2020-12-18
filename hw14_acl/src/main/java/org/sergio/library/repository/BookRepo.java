@@ -13,4 +13,6 @@ public interface BookRepo extends MongoRepository<Book, String> {
     @Query("{ 'name' : {$regex: '^?0$', $options: 'i' }}")
     Book findByName(final String Name);
 
+    @Query("{ 'genres_ids' : {$regex: '^?0$', $options: 'i' }}")
+    List<Book> findByGenreId(final String genreID);
 }

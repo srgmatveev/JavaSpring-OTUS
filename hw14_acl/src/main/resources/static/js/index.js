@@ -45,9 +45,16 @@ function add_modal_listener() {
     // });
 }
 
-
+add_genre_style = () => {
+    const doc = document.getElementById("index_genre_select");
+    if (typeof doc !== "undefined") {
+        const willBlue =  document.getElementById(doc.value);
+        willBlue.classList.add('will_blue');
+    }
+}
 
 window.onload = function () {
+    add_genre_style();
     bottom_footer();
     add_modal_listener();
 }

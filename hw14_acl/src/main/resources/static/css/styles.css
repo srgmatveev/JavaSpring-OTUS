@@ -164,12 +164,32 @@ nav li {
   grid-area: content;
 }
 
-.aside-menu > li {
+.aside-menu > input {
   list-style-type: none;
   margin: 1em;
+  display: block;
+  min-width: calc( 100% - 40px);
+  text-align: left;
+  font: 1.5em sans-serif;
+  border: 0;
 }
 
-.aside-menu > li:hover {
+.aside-menu > input:active, .aside-menu > input:hover, .aside-menu > input:focus {
+  outline: 0;
+  outline-offset: 0;
+  border: 0;
+}
+
+.aside-menu > input:hover {
+  background-color: #06abe2;
+}
+
+.aside-menu > input:active {
+  position: relative;
+  top: 3px;
+}
+
+.will_blue {
   background-color: lightblue;
 }
 
@@ -310,7 +330,7 @@ delete-genre-delete +
   /* Блочный элемент */
   width: 250px;
   /* Ширина */
-  height: 250px;
+  min-height: 250px;
   /* Высота */
   background-color: #5f6a72;
   float: left;
@@ -335,6 +355,7 @@ delete-genre-delete +
   font-weight: bold;
   caption-side: bottom;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .genres_wrapper {

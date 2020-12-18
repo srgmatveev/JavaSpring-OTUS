@@ -106,6 +106,17 @@ public class BookDTOServiceImpl implements BookDTOService {
     }
 
     @Override
+    public List<BookDTO> findAllBooksDTObyGenre(String id) {
+        List<BookDTO> bookDTOList = new ArrayList<>();
+        repo.findByGenreId(id).forEach(book -> {
+            BookDTO bookDTO = new BookDTO();
+            convertBooktoBookDTO(book, bookDTO);
+            bookDTOList.add(bookDTO);
+        });
+        return bookDTOList;
+    }
+
+    @Override
     public void convertBookDTOtoBook(BookDTO bookDTO, Book book) {
         if (book == null || bookDTO == null) return;
 

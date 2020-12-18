@@ -15,8 +15,8 @@
             <figure class="album_figure_inner">
                 <img alt=""
                     src="../../static/images/Георгиевские_Кавалеры_11_гренадерского_Фанагорийского_полка.jpg"
-                    data-th-src="|data:${cover.contentType};base64,${cover.image}|">
-                <figcaption>Софийский собор</figcaption>
+                    data-th-src="|data:${album?.cover?.contentType};base64,${album?.cover?.image}|">
+                <figcaption data-th-text="${album.name}">Софийский собор</figcaption>
             </figure>
         </div>
     </div>
