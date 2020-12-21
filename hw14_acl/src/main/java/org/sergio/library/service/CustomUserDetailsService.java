@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(myUser.getPassword())
                 .roles(myUser.getRole())
                 .build();
-        //System.out.println("hello" + user.toString());
+       // System.out.println("hello" + user.toString());
         return user;
     }
 }

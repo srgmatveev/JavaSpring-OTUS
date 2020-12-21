@@ -1,7 +1,7 @@
 admin:
   username: admin
   password: password
-  role: admin
+  role: ADMIN
 mongo:
   username: sergio
   password: 123456
@@ -20,7 +20,7 @@ spring:
       auto-index-creation: true
 
   profiles:
-    active: prod, redis, security_init
+    active: prod, redis, security_init, mysql
   main:
     banner-mode: "off"
 
@@ -32,14 +32,14 @@ spring:
       on-profile: prod
 
 server:
-  port : 8081
+  port: 8081
 
 logging:
   level:
     root: INFO
     org.springframework.web: DEBUG
     org.sergio.library: DEBUG
-    org.hibernate: INFO
+    org.hibernate: DEBUG
   pattern:
     console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -73,3 +73,23 @@ spring:
   config:
     activate:
       on-profile: security_init
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+  datasource:
+    url: jdbc:mysql://localhost:6033/hw14_acl
+    username: sergio
+    password: 123456
+    schema: classpath:schema.sql
+    initialization-mode: always
+

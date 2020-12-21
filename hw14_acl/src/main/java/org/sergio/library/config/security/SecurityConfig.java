@@ -38,7 +38,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").hasRole(adminRole)
+                .antMatchers("/**").hasAnyRole(adminRole, "USER")
+                .and()
+                .formLogin()
+                .loginPage("/loginPage")
+                .permitAll()
+                .defaultSuccessUrl("/")
+                .failureUrl("/loginPageError")
+                .permitAll()
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .deleteCookies("SESSION")
+                .logoutSuccessUrl("/logoutPage")
+                .permitAll();
+
+       /* http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/loginPage")
@@ -54,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("SESSION")
                 .logoutSuccessUrl("/logoutPage")
                 .permitAll()
-        ;
+        ;*/
 
     }
 
