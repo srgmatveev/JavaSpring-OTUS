@@ -1,0 +1,1 @@
+docker exec -it mysql_db14_tst mysql -uroot -p

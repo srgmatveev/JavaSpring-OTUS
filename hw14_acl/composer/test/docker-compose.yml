@@ -60,6 +60,43 @@ services:
     restart: always
     networks:
       - hw141_bridge
+  mysql_db14_tst:
+    image: mysql:latest
+    container_name: mysql_db14_tst
+    hostname: mysqldb141
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    ports:
+      - "6133:3306"
+
+    volumes:
+    - ./data/mysqldb:/var/lib/mysql
+    
+    restart: always
+    networks:
+      - hw141_bridge
+  
+  phpmyadmin141:
+    image: phpmyadmin/phpmyadmin
+    container_name: dev_pma141
+    links:
+      - mysql_db14_tst
+    environment:
+      PMA_HOST: mysqldb141
+      PMA_PORT: 3306
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+    ports:
+      - 8283:80
+    networks:
+      - hw141_bridge
+
+
 networks:
   hw141_bridge:
     name: hw141_bridge
