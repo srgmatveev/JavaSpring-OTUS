@@ -4,17 +4,20 @@ import org.sergio.library.domain.security.SecUser;
 import org.sergio.library.repository.security.UserRepo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component(value = "dbInit")
 @Profile("security_init")
+@Configuration
+@ConfigurationProperties(prefix = "users")
 public class DBInit implements DBConfig {
     final private UserRepo repo;
 
@@ -22,13 +25,22 @@ public class DBInit implements DBConfig {
     private String adminUserName;
     @Value("${admin.password}")
     private String password;
-
     @Value("${admin.role}")
     private String role;
 
+    @Value("${users.role}")
+    private String usersRole;
 
-    private Map<String, String> simpleUsers = new HashMap<>();
 
+    private Map<String, String> userMap = new HashMap<>();
+
+    public Map<String, String> getUserMap() {
+        return userMap;
+    }
+
+    public void setUserMap(Map<String, String> userMap) {
+        this.userMap = userMap;
+    }
 
     public DBInit(@Qualifier("userRepo") UserRepo repo) {
         this.repo = repo;
@@ -37,12 +49,14 @@ public class DBInit implements DBConfig {
     @Override
     @Transactional
     public void setup() {
-        List<SecUser> users = repo.findByLogin(adminUserName);
-        repo.deleteAll(users);
+        //List<SecUser> users = repo.findByLogin(adminUserName);
+        //repo.deleteAll(users);
+        repo.deleteAll();
         addUser(adminUserName, password, role);
-        createSimpleUsers(simpleUsers);
-        simpleUsers.forEach((sUser,passwd)->{
-            addUser(sUser, passwd, "USER");
+
+
+        userMap.forEach((sUser, passwd) -> {
+            addUser(sUser, passwd, usersRole);
         });
 
     }
@@ -57,10 +71,6 @@ public class DBInit implements DBConfig {
         repo.save(user);
     }
 
-    private void createSimpleUsers(Map<String, String> users) {
-        users.put("user1", "123456");
-        users.put("user2", "password");
 
-    }
 
 }
