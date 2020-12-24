@@ -86,7 +86,7 @@ spring:
     url: jdbc:mysql://localhost:6033/hw14_acl
     username: sergio
     password: 123456
-    schema: classpath:schema.sql
+    schema: classpath:./acl/schema.sql
     initialization-mode: always
 
 ---
@@ -98,9 +98,12 @@ admin:
   username: admin
   password: password
   role: ADMIN
+  full_role: ROLE_ADMIN
 
 users:
     userMap:
       user1: 123456
       user2: password
     role: USER
+any:
+    role: ANY
