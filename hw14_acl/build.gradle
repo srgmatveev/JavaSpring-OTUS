@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.0'
+    id 'org.springframework.boot' version '2.4.1'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
@@ -23,7 +23,6 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -42,6 +41,11 @@ dependencies {
     // https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-core
    implementation group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
 
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+
 
     implementation group: 'org.springframework.session', name: 'spring-session-data-redis', version: "${project.redis_session}"
     // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
@@ -51,7 +55,7 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: "${project.guava}"
 
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+    //runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

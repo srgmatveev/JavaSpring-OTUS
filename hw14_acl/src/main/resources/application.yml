@@ -16,7 +16,7 @@ spring:
       auto-index-creation: true
 
   profiles:
-    active: prod, redis, security_init, mysql, users
+    active: prod, redis, security_init, mysql, users, acl-init
   main:
     banner-mode: "off"
 
@@ -27,6 +27,9 @@ spring:
     activate:
       on-profile: prod
 
+ehCache:
+  name: aclCache
+
 server:
   port: 8081
 
@@ -35,7 +38,7 @@ logging:
     root: INFO
     org.springframework.web: DEBUG
     org.sergio.library: DEBUG
-    org.hibernate: INFO
+    org.hibernate: TRACE
   pattern:
     console: " %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -81,7 +84,10 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
-
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: false
   datasource:
     url: jdbc:mysql://localhost:6033/hw14_acl
     username: sergio
@@ -107,3 +113,14 @@ users:
     role: USER
 any:
     role: ANY
+---
+spring:
+  config:
+    activate:
+      on-profile: acl
+
+---
+spring:
+  config:
+    activate:
+      on-profile: acl-init

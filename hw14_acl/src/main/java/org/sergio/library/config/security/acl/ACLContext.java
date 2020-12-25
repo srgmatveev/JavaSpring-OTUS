@@ -7,6 +7,7 @@ import org.springframework.cache.ehcache.EhCacheFactoryBean;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.acls.AclPermissionCacheOptimizer;
@@ -22,9 +23,13 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAutoConfiguration
+@Profile("acl")
 public class ACLContext {
     @Value("${admin.full_role}")
     private String adminRole;
+
+    @Value("${ehCache.name}")
+    private String ehCacheName;
 
     @Autowired
     DataSource dataSource;
@@ -38,7 +43,7 @@ public class ACLContext {
     public EhCacheFactoryBean aclEhCacheFactoryBean() {
         EhCacheFactoryBean ehCacheFactoryBean = new EhCacheFactoryBean();
         ehCacheFactoryBean.setCacheManager(aclCacheManager().getObject());
-        ehCacheFactoryBean.setCacheName("aclCache");
+        ehCacheFactoryBean.setCacheName(ehCacheName);
         return ehCacheFactoryBean;
     }
 

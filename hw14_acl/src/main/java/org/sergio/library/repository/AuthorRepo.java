@@ -1,8 +1,6 @@
 package org.sergio.library.repository;
 
 import org.sergio.library.domain.Author;
-import org.sergio.library.domain.Genre;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
